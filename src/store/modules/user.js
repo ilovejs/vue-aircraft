@@ -47,6 +47,7 @@ const user = {
     GetInfo: function({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
+          //todo: restful style need a protocol between fe and be, or code break when Backend change.
           const result = response.result
 
           if (result.role && result.role.permissions.length > 0) {

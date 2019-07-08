@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
         store.dispatch('GetInfo').then(res => {
           const roles = res.result && res.result.role
 
-          console.log(`User role is: ${roles}`)
+          console.log(`permission.js > route.beforeEach > User role is: ${roles}`)
 
           // Permission store action
           store.dispatch('GenerateRoutes', { roles }).then(() => {

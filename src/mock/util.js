@@ -5,6 +5,7 @@ const responseBody = {
   code: 0
 }
 
+//NOTE: fantastic
 export const builder = (data, message, code = 0, headers = {}) => {
   responseBody.result = data
   if (message !== undefined && message !== null) {

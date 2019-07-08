@@ -186,18 +186,19 @@ export default {
     }
   },
   created () {
+    // search mock/services/user.js
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-
+    //api.
     getRoleList().then(res => {
       console.log('workplace -> call getRoleList()', res)
     })
-
     getServiceList().then(res => {
       console.log('workplace -> call getServiceList()', res)
     })
   },
   mounted () {
+    //init values
     this.getProjects()
     this.getActivity()
     this.getTeams()
@@ -224,19 +225,18 @@ export default {
           this.teams = res.result
         })
     },
-    initRadar () {
+    initRadar () { //radar shows multi-dimension
       this.radarLoading = true
-
+      //mock > ... > manage.js
       this.$http.get('/workplace/radar')
         .then(res => {
           const dv = new DataSet.View().source(res.result)
           dv.transform({
             type: 'fold',
-            fields: ['个人', '团队', '部门'],
+            fields: ['个人', '团队', '部门'], //a,b,c in data
             key: 'user',
             value: 'score'
           })
-
           this.radarData = dv.rows
           this.radarLoading = false
         })

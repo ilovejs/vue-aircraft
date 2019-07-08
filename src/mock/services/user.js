@@ -3,6 +3,8 @@ import { builder } from '../util'
 
 const info = (options) => {
   console.log('options', options)
+
+  // base obj
   const userInfo = {
     'id': '4291d7da9005377ec9aec4a71ea837f',
     'name': '天野远子',
@@ -369,6 +371,8 @@ const info = (options) => {
   })
 
   userInfo.role = roleObj
+
+  // use data to build response obj
   return builder(userInfo)
 }
 
