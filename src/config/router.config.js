@@ -2,7 +2,7 @@
 import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView } from '@/layouts'
 import { bxAnaalyse } from '@/core/icons'
 
-export const asyncRouterMap = [
+export const ASYNC_ROUTERS = [
   {
     path: '/',
     name: 'index',
@@ -17,6 +17,7 @@ export const asyncRouterMap = [
         redirect: '/dashboard/workplace',
         component: RouteView,
         meta: { title: 'Dashboard', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        // child are route type as parent
         children: [
           {
             path: '/dashboard/analysis',
@@ -27,7 +28,7 @@ export const asyncRouterMap = [
           {
             path: '#',
             name: 'Monitor',
-            meta: { title: 'external', target: '_blank' }
+            meta: { title: 'External', target: '_blank' }
           },
           {
             path: '/dashboard/workplace',
@@ -66,7 +67,7 @@ export const asyncRouterMap = [
         ]
       },
 
-      // list
+      // table
       {
         path: '/list',
         name: 'list',
@@ -198,7 +199,7 @@ export const asyncRouterMap = [
         ]
       },
 
-      // account
+      // user
       {
         path: '/account',
         component: RouteView,
@@ -323,10 +324,9 @@ export const asyncRouterMap = [
 ]
 
 /**
- * 基础路由
- * @type { *[] }
+ * Base
  */
-export const constantRouterMap = [
+export const DEFAULT_ROUTERS = [
   {
     path: '/user',
     component: UserLayout,

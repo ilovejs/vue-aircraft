@@ -20,7 +20,8 @@ const info = (options) => {
     'roleId': 'admin',
     'role': {}
   }
-  // role
+
+  // basic admin role permission
   const roleObj = {
     'id': 'admin',
     'name': '管理员',
@@ -332,6 +333,7 @@ const info = (options) => {
     }]
   }
 
+  // add support module to admin
   roleObj.permissions.push({
     'roleId': 'admin',
     'permissionId': 'support',

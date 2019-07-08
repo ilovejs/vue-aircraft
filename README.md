@@ -142,9 +142,13 @@ Modern browsers and IE10.
 
 ## Issues
 
-The project is not following vue-cli project template. Type inference failed with webstorm *.js 
+* The project is not following vue-cli project template. Type inference failed with webstorm *.js 
 
 [Should update the project for IDE support:](https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000556284-vue-import-component-Module-is-not-installed-)
+
+* Timeout on websocket, check socketio.js in console... result is blank screen.
+
+  GET http://10.0.75.1:8000/sockjs-node/info?t=1562569252925 net::ERR_CONNECTION_REFUSED
 
 ## Vue UI
 
@@ -157,4 +161,8 @@ vue ui
 Mouse click import string redirect to true file path, rather than yellow warning line.
 
 [Pick the right webpack.config.js](https://cli.vuejs.org/guide/webpack.html#inspecting-the-project-s-webpack-config)
+
+## TS compiler options
+
+https://www.typescriptlang.org/docs/handbook/compiler-options.html
 

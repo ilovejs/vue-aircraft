@@ -1,23 +1,28 @@
-import { asyncRouterMap, constantRouterMap } from '@/config/router.config'
+import { ASYNC_ROUTERS, DEFAULT_ROUTERS } from '@/config/router.config'
 
 /**
- * 过滤账户是否拥有某一个权限，并将菜单从加载列表移除
- *
- * @param permission
- * @param route
+ * If route to visit is in role permitted list.
+ * Normally used as predicates for filter.
+ * @param allowedPermissions - granted permission list e.g. ['dashboard','exception']
+ * @param routeToVisit       - it could be child route of main route
  * @returns {boolean}
  */
-function hasPermission (permission, route) {
-  if (route.meta && route.meta.permission) {
+function _hasPermission (allowedPermissions, routeToVisit) {
+  // debugger;
+
+  if (routeToVisit.meta && routeToVisit.meta.permission) {
     let flag = false
-    for (let i = 0, len = permission.length; i < len; i++) {
-      flag = route.meta.permission.includes(permission[i])
+    for (let i = 0, len = allowedPermissions.length; i < len; i++) {
+      // route permission includes one of the permission
+      // e.g. route.permission = 'dashboard' includes 'dashboard', which is permission[0]
+      flag = routeToVisit.meta.permission.includes(allowedPermissions[i])
       if (flag) {
         return true
       }
     }
     return false
   }
+  // else no meta.permission in url
   return true
 }
 
@@ -37,35 +42,46 @@ function hasRole(roles, route) {
   }
 }
 
-function filterAsyncRouter (routerMap, roles) {
-  const accessedRouters = routerMap.filter(route => {
-    if (hasPermission(roles.permissionList, route)) {
+function _filterAsyncRouter (routes, roles) {
+  //filter routes
+  return routes.filter(route => {
+    //check
+    //e.g. List = ["dashboard","exception","result","profile"]
+    //     route = {path: "/", name: "index", component: {…},
+    //              meta: {…}, redirect: "/dashboard/workplace", …
+    if (_hasPermission(roles.permissionList, route)) {
+      //recursive lookup if route has children
+      //see route.config.js for setup e.g. / has children /dashboard /form /..
       if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
+        //assign back children field for route before return
+        route.children = _filterAsyncRouter(route.children, roles)
       }
+      //no children and `has permission`
       return true
     }
     return false
   })
-  return accessedRouters
 }
 
 const permission = {
   state: {
-    routers: constantRouterMap,
+    routers: DEFAULT_ROUTERS,
     addRouters: []
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
-      state.routers = constantRouterMap.concat(routers)
+      state.routers = DEFAULT_ROUTERS.concat(routers)
     }
   },
   actions: {
     GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
+        //data payload in caller side is { roles }
         const { roles } = data
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+        const accessedRouters = _filterAsyncRouter(ASYNC_ROUTERS, roles)
+
+        //commit mutation
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
