@@ -1,24 +1,22 @@
 <template>
   <div class="logo">
     <router-link :to="{name:'dashboard'}">
-      <LogoSvg alt="logo" />
+      <img alt="logo" src="@/assets/logo-wt.png"/>
       <h1 v-if="showTitle">{{ title }}</h1>
     </router-link>
   </div>
 </template>
 
 <script>
-import LogoSvg from '@/assets/logo.svg?inline'
-
 export default {
   name: 'Logo',
   components: {
-    LogoSvg
+
   },
   props: {
     title: {
       type: String,
-      default: 'Ant Design Pro',
+      default: 'APP',
       required: false
     },
     showTitle: {
