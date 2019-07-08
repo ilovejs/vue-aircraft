@@ -4,7 +4,9 @@ import config from '@/config/defaultSettings'
 
 // base library
 import Antd from 'ant-design-vue'
+// A toolkit fit for data vis engineer (vue version).
 import Viser from 'viser-vue'
+// profile image cropper
 import VueCropper from 'vue-cropper'
 import 'ant-design-vue/dist/antd.less'
 

@@ -146,4 +146,8 @@ The project is not following vue-cli project template. Type inference failed wit
 
 [Should update the project for IDE support:](https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000556284-vue-import-component-Module-is-not-installed-)
 
+## Vue UI
 
+```
+vue ui
+```

@@ -1,3 +1,5 @@
+// expose as package default
+
 const api = {
   Login: '/auth/login',
   Logout: '/auth/logout',

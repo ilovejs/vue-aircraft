@@ -42,6 +42,7 @@ const twofactor = () => {
   return builder({ stepCode: Mock.mock('@integer(0, 1)') })
 }
 
+//expose as api
 Mock.mock(/\/auth\/login/, 'post', login)
 Mock.mock(/\/auth\/logout/, 'post', logout)
 Mock.mock(/\/account\/sms/, 'post', smsCaptcha)

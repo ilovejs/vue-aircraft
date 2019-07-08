@@ -54,7 +54,7 @@ export function logout () {
  */
 export function get2step (parameter) {
   return axios({
-    url: api.twoStepCode,
+    url: api.twoStepCode, //default map from api package (itself)
     method: 'post',
     data: parameter
   })
