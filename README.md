@@ -151,3 +151,10 @@ The project is not following vue-cli project template. Type inference failed wit
 ```
 vue ui
 ```
+
+## IDE library path inference for Webpack 
+
+Mouse click import string redirect to true file path, rather than yellow warning line.
+
+[Pick the right webpack.config.js](https://cli.vuejs.org/guide/webpack.html#inspecting-the-project-s-webpack-config)
+
