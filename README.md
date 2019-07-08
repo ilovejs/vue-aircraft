@@ -140,3 +140,10 @@ Modern browsers and IE10.
 
 (codepen)[https://jsfiddle.net/2av8r31w/3/]
 
+## Issues
+
+The project is not following vue-cli project template. Type inference failed with webstorm *.js 
+
+[Should update the project for IDE support:](https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000556284-vue-import-component-Module-is-not-installed-)
+
+

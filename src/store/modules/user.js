@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo, logout } from '@/api/login'
+import { getInfo, login, logout } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -12,7 +12,6 @@ const user = {
     roles: [],
     info: {}
   },
-
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
@@ -31,11 +30,10 @@ const user = {
       state.info = info
     }
   },
-
   actions: {
-    // 登录
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
+        //api
         login(userInfo).then(response => {
           const result = response.result
           Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
@@ -46,23 +44,30 @@ const user = {
         })
       })
     },
-
-    // 获取用户信息
-    GetInfo ({ commit }) {
+    GetInfo: function({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
           const result = response.result
 
           if (result.role && result.role.permissions.length > 0) {
             const role = result.role
+            //pull the whole object
             role.permissions = result.role.permissions
-            role.permissions.map(per => {
-              if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
-                const action = per.actionEntitySet.map(action => { return action.action })
-                per.actionList = action
+            role.permissions.map(p => {
+              if (p.actionEntitySet != null && p.actionEntitySet.length > 0) {
+                // permission.action list
+                p.actionList = p.actionEntitySet.map(
+                  x => {
+                    return x.action
+                  })
               }
             })
-            role.permissionList = role.permissions.map(permission => { return permission.permissionId })
+            //aggregate permission into a list
+            role.permissionList = role.permissions.map(
+              permission => {
+                return permission.permissionId
+              })
+            //save role
             commit('SET_ROLES', result.role)
             commit('SET_INFO', result)
           } else {
@@ -78,8 +83,6 @@ const user = {
         })
       })
     },
-
-    // 登出
     Logout ({ commit, state }) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', '')
@@ -93,7 +96,6 @@ const user = {
         })
       })
     }
-
   }
 }
 

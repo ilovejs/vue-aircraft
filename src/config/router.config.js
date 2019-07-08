@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+/* eslint-disable */
 import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView } from '@/layouts'
 import { bxAnaalyse } from '@/core/icons'
 
@@ -7,7 +7,7 @@ export const asyncRouterMap = [
     path: '/',
     name: 'index',
     component: BasicLayout,
-    meta: { title: '首页' },
+    meta: { title: 'Home' },
     redirect: '/dashboard/workplace',
     children: [
       // dashboard
@@ -16,25 +16,24 @@ export const asyncRouterMap = [
         name: 'dashboard',
         redirect: '/dashboard/workplace',
         component: RouteView,
-        meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        meta: { title: 'Dashboard', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
         children: [
           {
             path: '/dashboard/analysis',
             name: 'Analysis',
             component: () => import('@/views/dashboard/Analysis'),
-            meta: { title: '分析页', keepAlive: false, permission: [ 'dashboard' ] }
+            meta: { title: 'Analytics', keepAlive: false, permission: [ 'dashboard' ] }
           },
-          // 外部链接
           {
-            path: 'https://www.baidu.com/',
+            path: '#',
             name: 'Monitor',
-            meta: { title: '监控页（外部）', target: '_blank' }
+            meta: { title: 'external', target: '_blank' }
           },
           {
             path: '/dashboard/workplace',
             name: 'Workplace',
             component: () => import('@/views/dashboard/Workplace'),
-            meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
+            meta: { title: 'Workplace', keepAlive: true, permission: [ 'dashboard' ] }
           }
         ]
       },
@@ -249,7 +248,7 @@ export const asyncRouterMap = [
                 path: '/account/settings/notification',
                 name: 'NotificationSettings',
                 component: () => import('@/views/account/settings/Notification'),
-                meta: { title: '新消息通知', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: 'Notification', hidden: true, keepAlive: true, permission: [ 'user' ] }
               }
             ]
           }
@@ -273,44 +272,44 @@ export const asyncRouterMap = [
           {
             path: '/other/list',
             component: RouteView,
-            meta: { title: '业务布局', icon: 'layout', permission: [ 'support' ] },
+            meta: { title: 'Layouts', icon: 'layout', permission: [ 'support' ] },
             redirect: '/other/list/tree-list',
             children: [
               {
                 path: '/other/list/tree-list',
                 name: 'TreeList',
                 component: () => import('@/views/other/TreeList'),
-                meta: { title: '树目录表格', keepAlive: true }
+                meta: { title: 'Tree Form', keepAlive: true }
               },
               {
                 path: '/other/list/edit-table',
                 name: 'EditList',
                 component: () => import('@/views/other/TableInnerEditList'),
-                meta: { title: '内联编辑表格', keepAlive: true }
+                meta: { title: 'Table Inner Edit', keepAlive: true }
               },
               {
                 path: '/other/list/user-list',
                 name: 'UserList',
                 component: () => import('@/views/other/UserList'),
-                meta: { title: '用户列表', keepAlive: true }
+                meta: { title: 'User List', keepAlive: true }
               },
               {
                 path: '/other/list/role-list',
                 name: 'RoleList',
                 component: () => import('@/views/other/RoleList'),
-                meta: { title: '角色列表', keepAlive: true }
+                meta: { title: 'role list', keepAlive: true }
               },
               {
                 path: '/other/list/system-role',
                 name: 'SystemRole',
                 component: () => import('@/views/role/RoleList'),
-                meta: { title: '角色列表2', keepAlive: true }
+                meta: { title: 'system role', keepAlive: true }
               },
               {
                 path: '/other/list/permission-list',
                 name: 'PermissionList',
                 component: () => import('@/views/other/PermissionList'),
-                meta: { title: '权限列表', keepAlive: true }
+                meta: { title: 'permission-list', keepAlive: true }
               }
             ]
           }
