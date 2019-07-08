@@ -43,32 +43,32 @@
           </a-form-item>
         </a-tab-pane>
 
-<!--        <a-tab-pane key="tab2" tab="Mobile Login">-->
-<!--          <a-form-item>-->
-<!--            <a-input size="large" type="text" placeholder="手机号" v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]">-->
-<!--              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
-<!--            </a-input>-->
-<!--          </a-form-item>-->
+        <!--        <a-tab-pane key="tab2" tab="Mobile Login">-->
+        <!--          <a-form-item>-->
+        <!--            <a-input size="large" type="text" placeholder="手机号" v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]">-->
+        <!--              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
+        <!--            </a-input>-->
+        <!--          </a-form-item>-->
 
-<!--          <a-row :gutter="16">-->
-<!--            <a-col class="gutter-row" :span="16">-->
-<!--              <a-form-item>-->
-<!--                <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">-->
-<!--                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
-<!--                </a-input>-->
-<!--              </a-form-item>-->
-<!--            </a-col>-->
-<!--            <a-col class="gutter-row" :span="8">-->
-<!--              <a-button-->
-<!--                class="getCaptcha"-->
-<!--                tabindex="-1"-->
-<!--                :disabled="state.smsSendBtn"-->
-<!--                @click.stop.prevent="getCaptcha"-->
-<!--                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"-->
-<!--              ></a-button>-->
-<!--            </a-col>-->
-<!--          </a-row>-->
-<!--        </a-tab-pane>-->
+        <!--          <a-row :gutter="16">-->
+        <!--            <a-col class="gutter-row" :span="16">-->
+        <!--              <a-form-item>-->
+        <!--                <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">-->
+        <!--                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
+        <!--                </a-input>-->
+        <!--              </a-form-item>-->
+        <!--            </a-col>-->
+        <!--            <a-col class="gutter-row" :span="8">-->
+        <!--              <a-button-->
+        <!--                class="getCaptcha"-->
+        <!--                tabindex="-1"-->
+        <!--                :disabled="state.smsSendBtn"-->
+        <!--                @click.stop.prevent="getCaptcha"-->
+        <!--                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"-->
+        <!--              ></a-button>-->
+        <!--            </a-col>-->
+        <!--          </a-row>-->
+        <!--        </a-tab-pane>-->
       </a-tabs>
 
       <a-form-item>
@@ -77,7 +77,8 @@
           :to="{ name: 'recover', params: { user: 'aaa'} }"
           class="forge-password"
           style="float: right;"
-        >Forget Password</router-link>
+        >Forget Password
+        </router-link>
       </a-form-item>
 
       <a-form-item style="margin-top:24px">
@@ -88,7 +89,8 @@
           class="login-button"
           :loading="state.loginBtn"
           :disabled="state.loginBtn"
-        >Confirm</a-button>
+        >Confirm
+        </a-button>
       </a-form-item>
 
       <div class="user-login-other">
@@ -126,7 +128,7 @@ export default {
   components: {
     TwoStepCaptcha
   },
-  data () {
+  data() {
     return {
       customActiveKey: 'tab1',
       loginBtn: false,
@@ -144,8 +146,8 @@ export default {
       }
     }
   },
-  created () {
-    get2step({ })
+  created() {
+    get2step({})
       .then(res => {
         this.requiredTwoStepCaptcha = res.result.stepCode
       })
@@ -157,7 +159,7 @@ export default {
   methods: {
     ...mapActions(['Login', 'Logout']),
     // handler
-    handleUsernameOrEmail (rule, value, callback) {
+    handleUsernameOrEmail(rule, value, callback) {
       const { state } = this
       const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
       if (regex.test(value)) {
@@ -167,11 +169,11 @@ export default {
       }
       callback()
     },
-    handleTabClick (key) {
+    handleTabClick(key) {
       this.customActiveKey = key
       // this.form.resetFields()
     },
-    handleSubmit (e) {
+    handleSubmit(e) {
       e.preventDefault()
       const {
         form: { validateFields },
@@ -204,8 +206,8 @@ export default {
         }
       })
     },
-    getCaptcha (e) {
-      e.preventDefault();
+    getCaptcha(e) {
+      e.preventDefault()
       // const { form: { validateFields }, state } = this
 
       // validateFields(['mobile'], { force: true }, (err, values) => {
@@ -238,16 +240,16 @@ export default {
       //   }
       // })
     },
-    stepCaptchaSuccess () {
+    stepCaptchaSuccess() {
       this.loginSuccess()
     },
-    stepCaptchaCancel () {
+    stepCaptchaCancel() {
       this.Logout().then(() => {
         this.loginBtn = false
         this.stepCaptchaVisible = false
       })
     },
-    loginSuccess (res) {
+    loginSuccess(res) {
       console.log(res)
       this.$router.push({ name: 'dashboard' })
       // 延迟 1 秒显示欢迎信息
@@ -258,7 +260,7 @@ export default {
         })
       }, 1000)
     },
-    requestFailed (err) {
+    requestFailed(err) {
       this.$notification['error']({
         message: '错误',
         description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
@@ -270,49 +272,49 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.user-layout-login {
-  label {
-    font-size: 14px;
-  }
+  .user-layout-login {
+    label {
+      font-size: 14px;
+    }
 
-  .getCaptcha {
-    display: block;
-    width: 100%;
-    height: 40px;
-  }
+    .getCaptcha {
+      display: block;
+      width: 100%;
+      height: 40px;
+    }
 
-  .forge-password {
-    font-size: 14px;
-  }
+    .forge-password {
+      font-size: 14px;
+    }
 
-  button.login-button {
-    padding: 0 15px;
-    font-size: 16px;
-    height: 40px;
-    width: 100%;
-  }
+    button.login-button {
+      padding: 0 15px;
+      font-size: 16px;
+      height: 40px;
+      width: 100%;
+    }
 
-  .user-login-other {
-    text-align: left;
-    margin-top: 24px;
-    line-height: 22px;
+    .user-login-other {
+      text-align: left;
+      margin-top: 24px;
+      line-height: 22px;
 
-    .item-icon {
-      font-size: 24px;
-      color: rgba(0, 0, 0, 0.2);
-      margin-left: 16px;
-      vertical-align: middle;
-      cursor: pointer;
-      transition: color 0.3s;
+      .item-icon {
+        font-size: 24px;
+        color: rgba(0, 0, 0, 0.2);
+        margin-left: 16px;
+        vertical-align: middle;
+        cursor: pointer;
+        transition: color 0.3s;
 
-      &:hover {
-        color: #1890ff;
+        &:hover {
+          color: #1890ff;
+        }
+      }
+
+      .register {
+        float: right;
       }
     }
-
-    .register {
-      float: right;
-    }
   }
-}
 </style>

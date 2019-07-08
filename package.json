@@ -73,6 +73,20 @@
       "parser": "babel-eslint"
     },
     "rules": {
+      "indent": ["error", 2],
+      "vue/script-indent": [
+        "error",
+        2,
+        { "baseIndent": 1 }
+      ],
+      "overrides": [
+        {
+          "files": ["*.vue"],
+          "rules": {
+            "indent": "off"
+          }
+        }
+      ],
       "generator-star-spacing": "off",
       "no-mixed-operators": 0,
       "vue/max-attributes-per-line": [
