@@ -2,6 +2,9 @@
   <dictionary name="mzhuang">
     <words>
       <w>axios</w>
+      <w>sidemenu</w>
+      <w>siderbar</w>
+      <w>topmenu</w>
     </words>
   </dictionary>
 </component>

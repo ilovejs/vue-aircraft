@@ -10,6 +10,7 @@ export const ASYNC_ROUTERS = [
     meta: { title: 'Home' },
     redirect: '/dashboard/workplace',
     children: [
+
       // dashboard
       {
         path: '/dashboard',
@@ -25,11 +26,11 @@ export const ASYNC_ROUTERS = [
             component: () => import('@/views/dashboard/Analysis'),
             meta: { title: 'Analytics', keepAlive: false, permission: [ 'dashboard' ] }
           },
-          {
-            path: '#',
-            name: 'Monitor',
-            meta: { title: 'External', target: '_blank' }
-          },
+          // {
+          //   path: '#',
+          //   name: 'Monitor',
+          //   meta: { title: 'External', target: '_blank' }
+          // },
           {
             path: '/dashboard/workplace',
             name: 'Workplace',
@@ -44,7 +45,7 @@ export const ASYNC_ROUTERS = [
         path: '/form',
         redirect: '/form/base-form',
         component: PageView,
-        meta: { title: '表单页', icon: 'form', permission: [ 'form' ] },
+        meta: { title: 'Form', icon: 'form', permission: [ 'form' ] },
         children: [
           {
             path: '/form/base-form',
@@ -73,7 +74,7 @@ export const ASYNC_ROUTERS = [
         name: 'list',
         component: PageView,
         redirect: '/list/table-list',
-        meta: { title: '列表页', icon: 'table', permission: [ 'table' ] },
+        meta: { title: 'List', icon: 'table', permission: [ 'table' ] },
         children: [
           {
             path: '/list/table-list/:pageNo([1-9]\\d*)?',
@@ -130,19 +131,19 @@ export const ASYNC_ROUTERS = [
         name: 'profile',
         component: RouteView,
         redirect: '/profile/basic',
-        meta: { title: '详情页', icon: 'profile', permission: [ 'profile' ] },
+        meta: { title: 'Details', icon: 'profile', permission: [ 'profile' ] },
         children: [
           {
             path: '/profile/basic',
             name: 'ProfileBasic',
             component: () => import('@/views/profile/basic/Index'),
-            meta: { title: '基础详情页', permission: [ 'profile' ] }
+            meta: { title: 'Basic', permission: [ 'profile' ] }
           },
           {
             path: '/profile/advanced',
             name: 'ProfileAdvanced',
             component: () => import('@/views/profile/advanced/Advanced'),
-            meta: { title: '高级详情页', permission: [ 'profile' ] }
+            meta: { title: 'Advanced', permission: [ 'profile' ] }
           }
         ]
       },
@@ -153,19 +154,19 @@ export const ASYNC_ROUTERS = [
         name: 'result',
         component: PageView,
         redirect: '/result/success',
-        meta: { title: '结果页', icon: 'check-circle-o', permission: [ 'result' ] },
+        meta: { title: 'Result', icon: 'check-circle-o', permission: [ 'result' ] },
         children: [
           {
             path: '/result/success',
             name: 'ResultSuccess',
             component: () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
-            meta: { title: '成功', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
+            meta: { title: 'success', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
           },
           {
             path: '/result/fail',
             name: 'ResultFail',
             component: () => import(/* webpackChunkName: "result" */ '@/views/result/Error'),
-            meta: { title: '失败', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
+            meta: { title: 'fail', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
           }
         ]
       },
@@ -176,7 +177,7 @@ export const ASYNC_ROUTERS = [
         name: 'exception',
         component: RouteView,
         redirect: '/exception/403',
-        meta: { title: '异常页', icon: 'warning', permission: [ 'exception' ] },
+        meta: { title: 'Exception', icon: 'warning', permission: [ 'exception' ] },
         children: [
           {
             path: '/exception/403',
@@ -205,19 +206,19 @@ export const ASYNC_ROUTERS = [
         component: RouteView,
         redirect: '/account/center',
         name: 'account',
-        meta: { title: '个人页', icon: 'user', keepAlive: true, permission: [ 'user' ] },
+        meta: { title: 'Personal', icon: 'user', keepAlive: true, permission: [ 'user' ] },
         children: [
           {
             path: '/account/center',
             name: 'center',
             component: () => import('@/views/account/center/Index'),
-            meta: { title: '个人中心', keepAlive: true, permission: [ 'user' ] }
+            meta: { title: 'Account Center', keepAlive: true, permission: [ 'user' ] }
           },
           {
             path: '/account/settings',
             name: 'settings',
             component: () => import('@/views/account/settings/Index'),
-            meta: { title: '个人设置', hideHeader: true, permission: [ 'user' ] },
+            meta: { title: 'Settings', hideHeader: true, permission: [ 'user' ] },
             redirect: '/account/settings/base',
             hideChildrenInMenu: true,
             children: [
@@ -225,25 +226,25 @@ export const ASYNC_ROUTERS = [
                 path: '/account/settings/base',
                 name: 'BaseSettings',
                 component: () => import('@/views/account/settings/BaseSetting'),
-                meta: { title: '基本设置', hidden: true, permission: [ 'user' ] }
+                meta: { title: 'Basic settings', hidden: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/security',
                 name: 'SecuritySettings',
                 component: () => import('@/views/account/settings/Security'),
-                meta: { title: '安全设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: 'Security', hidden: true, keepAlive: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/custom',
                 name: 'CustomSettings',
                 component: () => import('@/views/account/settings/Custom'),
-                meta: { title: '个性化设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: 'Customization', hidden: true, keepAlive: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/binding',
                 name: 'BindingSettings',
                 component: () => import('@/views/account/settings/Binding'),
-                meta: { title: '账户绑定', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: 'Account binding', hidden: true, keepAlive: true, permission: [ 'user' ] }
               },
               {
                 path: '/account/settings/notification',
@@ -261,7 +262,7 @@ export const ASYNC_ROUTERS = [
         path: '/other',
         name: 'otherPage',
         component: PageView,
-        meta: { title: '其他组件', icon: 'slack', permission: [ 'dashboard' ] },
+        meta: { title: 'Other Component', icon: 'slack', permission: [ 'dashboard' ] },
         redirect: '/other/icon-selector',
         children: [
           {
@@ -324,7 +325,7 @@ export const ASYNC_ROUTERS = [
 ]
 
 /**
- * Base
+ * Base router
  */
 export const DEFAULT_ROUTERS = [
   {
