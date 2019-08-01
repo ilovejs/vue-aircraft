@@ -172,5 +172,7 @@ util/request.js
   
     - base_url and axios service, timeout
   
+* mock setting is in mock/index.js, main.js import to use these services.
+
 
   

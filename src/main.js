@@ -7,16 +7,20 @@ import router from './router'
 import store from './store/'
 import { VueAxios } from './utils/request'
 
-// mock is exported under index.js
-// loading services according to node settings
-// Turn off will cause /api/2step not available in login
-// Check console for loading logs
+/*
+Mock is exported under mock/index.js loading services according to node settings
+Turn off will cause /api/2step not available in login
+Check console for loading logs
+
+// index.js expose many mock services
 import './mock'
+*/
 
 import bootstrap from './core/bootstrap'
 import './core/use'
 import './permission' // permission control
 import './utils/filter' // global filter
+
 // ??
 Vue.config.productionTip = true
 
