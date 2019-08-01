@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b442e719-dbf0-4f20-861c-36f9473e3317" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/mzhuang.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/mzhuang.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Charts/Radar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Charts/Radar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Menu/SideMenu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Menu/SideMenu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/defaultSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/defaultSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/router.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/router.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue.config.js" afterDir="false" />
-    </list>
+    <list default="true" id="b442e719-dbf0-4f20-861c-36f9473e3317" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -24,14 +13,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+            <state relative-caret-position="161">
+              <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#21#106#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/mock/services/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,8 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>actionEntitySet</find>
-      <find>2step</find>
       <find>/auth/2</find>
       <find>main</find>
       <find>main.js</find>
@@ -123,6 +122,8 @@
       <find>v-tooltip</find>
       <find>docu</find>
       <find>login</find>
+      <find>external</find>
+      <find>天</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -257,6 +258,19 @@
               <item name="ant-design-pro-vue" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="layouts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ant-design-pro-vue" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ant-design-pro-vue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="mock" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ant-design-pro-vue" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ant-design-pro-vue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="mock" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ant-design-pro-vue" type="b2602c69:ProjectViewProjectNode" />
@@ -411,12 +425,18 @@
       <option name="project" value="LOCAL" />
       <updated>1562575518843</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="before cutting out mock">
+      <created>1564638231037</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1564638231037</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11696523" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -424,13 +444,13 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32896176" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.13333334" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.13333334" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49947312" weight="0.32896176" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.49947312" visible="true" weight="0.32896176" />
       <window_info anchor="bottom" id="GraphQL" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052685" side_tool="true" weight="0.32896176" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.29726776" />
@@ -531,7 +551,8 @@
     <MESSAGE value="explanation" />
     <MESSAGE value="exam workplace component" />
     <MESSAGE value="logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="logo" />
+    <MESSAGE value="before cutting out mock" />
+    <option name="LAST_COMMIT_MESSAGE" value="before cutting out mock" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/package-lock.json">
@@ -692,16 +713,6 @@
     <entry file="file://$PROJECT_DIR$/src/assets/logo.png" />
     <entry file="file://$PROJECT_DIR$/src/assets/background.svg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mock/services/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tools/Logo.vue">
       <provider selected="true" editor-type-id="text-editor">
@@ -899,11 +910,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+        <state relative-caret-position="161">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#21#106#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mock/services/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
