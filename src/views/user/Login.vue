@@ -22,7 +22,7 @@
                 'username',
                 {
                   rules: [
-                  { required: true, message: 'User name or Email' },
+                  { required: true, message: 'Email' },
                   { validator: handleUsernameOrEmail }],
                   validateTrigger: 'change'
                 }
@@ -82,6 +82,7 @@
 
       <a-form-item>
         <a-checkbox v-decorator="['rememberMe']">Remember Me</a-checkbox>
+        <!--todo: no exists-->
         <router-link
           :to="{ name: 'recover', params: { user: 'aaa'} }"
           class="forge-password"
@@ -117,12 +118,12 @@
       </div>
     </a-form>
 
-    <two-step-captcha
-      v-if="requiredTwoStepCaptcha"
-      :visible="stepCaptchaVisible"
-      @success="stepCaptchaSuccess"
-      @cancel="stepCaptchaCancel"
-    ></two-step-captcha>
+<!--    <two-step-captcha-->
+<!--      v-if="requiredTwoStepCaptcha"-->
+<!--      :visible="stepCaptchaVisible"-->
+<!--      @success="stepCaptchaSuccess"-->
+<!--      @cancel="stepCaptchaCancel"-->
+<!--    ></two-step-captcha>-->
   </div>
 </template>
 
@@ -131,7 +132,7 @@ import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
-import { getSmsCaptcha, get2step } from '@/api/login'
+// import { getSmsCaptcha, get2step } from '@/api/login'
 
 export default {
   components: {
@@ -154,13 +155,13 @@ export default {
     }
   },
   created() {
-    get2step({})
-      .then(res => {
-        this.requiredTwoStepCaptcha = res.result.stepCode
-      })
-      .catch(() => {
-        this.requiredTwoStepCaptcha = false
-      })
+    // get2step({})
+    //   .then(res => {
+    //     this.requiredTwoStepCaptcha = res.result.stepCode
+    //   })
+    //   .catch(() => {
+    //     this.requiredTwoStepCaptcha = false
+    //   })
     // this.requiredTwoStepCaptcha = true
   },
   methods: {
@@ -181,6 +182,7 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault()
+
       const {
         form: { validateFields },
         state,
@@ -190,21 +192,27 @@ export default {
 
       state.loginBtn = true
 
-      const validateFieldsKey =
-        customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+      const validateFieldsKey = customActiveKey === 'tab1' ?
+        ['username', 'password'] : ['mobile', 'captcha']
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
-
           console.log('login form', values)
+
+          // params
           const loginParams = { ...values }
-
           delete loginParams.username
-
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
-          loginParams.password = md5(values.password)
 
-          Login(loginParams)
+          // todo: encryption
+          loginParams.password = values.password // md5(values.password)
+
+          const params = {}
+          params.user = { ...loginParams }
+          console.log(params)
+
+          // modules\user.js
+          Login(params)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
             .finally(() => {
@@ -262,7 +270,9 @@ export default {
       })
     },
     loginSuccess(res) {
+      console.log("login successful !!")
       console.log(res)
+
       this.$router.push({ name: 'dashboard' })
       // delay 1s for welcome message
       setTimeout(() => {

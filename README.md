@@ -52,7 +52,7 @@ Overview
 - [Viser-vue](https://viserjs.github.io/docs.html#/viser/guide/installation)  - Antv/G2 of Vue
 - [Vue.ls](https://github.com/RobinCK/vue-ls) - plugin for local storage
 > Note:  [Yarn](https://yarnpkg.com/) package management is recommended, the exact same version loaded with the demo site of this project (yarn.lock) . but you can also use npm
-
+- port [stackoverflow](https://stackoverflow.com/questions/47219819/how-to-change-port-number-in-vue-cli-project)
 
 ### Project setup
 
@@ -165,6 +165,16 @@ Mouse click import string redirect to true file path, rather than yellow warning
 ## TS compiler options
 
 https://www.typescriptlang.org/docs/handbook/compiler-options.html
+
+## Eslint
+
+    "rules": {
+      "indent": ["error", 2],
+      "vue/script-indent": [
+        "error",
+        2,
+        { "baseIndent": 1 }
+      ],
 
 ## custom settings
 

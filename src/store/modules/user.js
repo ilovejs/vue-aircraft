@@ -34,14 +34,17 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         //api
-        login(userInfo).then(response => {
-          const result = response.result
-          Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
-          commit('SET_TOKEN', result.token)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        login(userInfo).
+          then(response => {
+            // user is in return body
+            const u = response.user
+
+            Vue.ls.set(ACCESS_TOKEN, u.token, 7 * 24 * 60 * 60 * 1000)
+            commit('SET_TOKEN', u.token)
+            resolve()
+          }).catch(error => {
+            reject(error)
+          })
       })
     },
     GetInfo: function({ commit }) {

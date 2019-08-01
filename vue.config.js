@@ -90,7 +90,7 @@ module.exports = {
       }
     }
   },
-
+  //devServer: {
   devServer: {
     port: 8000
     // proxy: {

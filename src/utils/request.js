@@ -10,9 +10,12 @@ import {
 } from '@/store/mutation-types'
 
 // axios instance
+let port = 8585;
+
 const service = axios.create({
-  baseURL: '/api',     // !!!! api base_url !!!!!
-  timeout: 6000
+  // baseURL: '/api',     // !!!! api base_url !!!!!
+  baseURL: location.protocol + '//' + location.hostname + ':' + port + '/api',
+  timeout: 6000,
 })
 
 const err = (error) => {

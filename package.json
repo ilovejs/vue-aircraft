@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 8000",
     "build": "vue-cli-service build",
     "build:preview": "vue-cli-service build --mode preview",
     "lint": "vue-cli-service lint",
@@ -73,12 +73,8 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "indent": ["error", 2],
-      "vue/script-indent": [
-        "error",
-        2,
-        { "baseIndent": 1 }
-      ],
+      "indent": "off",
+      "space-before-function-paren": "off",
       "overrides": [
         {
           "files": ["*.vue"],
