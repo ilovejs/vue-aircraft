@@ -20,7 +20,12 @@
               placeholder="admin"
               v-decorator="[
                 'username',
-                {rules: [{ required: true, message: 'User name or Email' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
+                {
+                  rules: [
+                  { required: true, message: 'User name or Email' },
+                  { validator: handleUsernameOrEmail }],
+                  validateTrigger: 'change'
+                }
               ]"
             >
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -35,7 +40,11 @@
               placeholder="admin"
               v-decorator="[
                 'password',
-                {rules: [{ required: true, message: 'Please type password' }], validateTrigger: 'blur'}
+                {
+                  rules: [
+                  { required: true, message: 'Please type password' }],
+                  validateTrigger: 'blur'
+                }
               ]"
             >
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -132,16 +141,14 @@ export default {
     return {
       customActiveKey: 'tab1',
       loginBtn: false,
-      // login type: 0 email, 1 username, 2 telephone
-      loginType: 0,
+      loginType: 0, // 0 email, 1 username, 2 telephone
       requiredTwoStepCaptcha: false,
       stepCaptchaVisible: false,
       form: this.$form.createForm(this),
       state: {
         time: 60,
         loginBtn: false,
-        // login type: 0 email, 1 username, 2 telephone
-        loginType: 0,
+        loginType: 0, // 0 email, 1 username, 2 telephone
         smsSendBtn: false
       }
     }
@@ -158,7 +165,6 @@ export default {
   },
   methods: {
     ...mapActions(['Login', 'Logout']),
-    // handler
     handleUsernameOrEmail(rule, value, callback) {
       const { state } = this
       const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
@@ -184,21 +190,27 @@ export default {
 
       state.loginBtn = true
 
-      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+      const validateFieldsKey =
+        customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
+
           console.log('login form', values)
           const loginParams = { ...values }
+
           delete loginParams.username
+
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
           loginParams.password = md5(values.password)
+
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
             .finally(() => {
               state.loginBtn = false
             })
+
         } else {
           setTimeout(() => {
             state.loginBtn = false
@@ -252,18 +264,18 @@ export default {
     loginSuccess(res) {
       console.log(res)
       this.$router.push({ name: 'dashboard' })
-      // 延迟 1 秒显示欢迎信息
+      // delay 1s for welcome message
       setTimeout(() => {
         this.$notification.success({
-          message: '欢迎',
-          description: `${timeFix()}，欢迎回来`
+          message: 'Welcome',
+          description: `${timeFix()}，welcome back !`
         })
       }, 1000)
     },
     requestFailed(err) {
       this.$notification['error']({
-        message: '错误',
-        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
+        message: 'error',
+        description: ((err.response || {}).data || {}).message || 'request error, retry again',
         duration: 4
       })
     }

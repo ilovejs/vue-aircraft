@@ -166,3 +166,11 @@ Mouse click import string redirect to true file path, rather than yellow warning
 
 https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
+## custom settings
+
+util/request.js
+  
+    - base_url and axios service, timeout
+  
+
+  

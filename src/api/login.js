@@ -1,8 +1,9 @@
 import api from './index'
 import { axios } from '@/utils/request'
 
+/* settings that maps to backend endpoint */
+
 /**
- * login func
  * parameter: {
  *     username: '',
  *     password: '',
