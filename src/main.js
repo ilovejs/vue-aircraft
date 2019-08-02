@@ -11,7 +11,7 @@ import { VueAxios } from './utils/request'
 // loading services according to node settings
 // Turn off will cause /api/2step not available in login
 // Check console for loading logs
-import './mock'
+// import './mock'
 
 import bootstrap from './core/bootstrap'
 import './core/use'

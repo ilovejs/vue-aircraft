@@ -83,21 +83,14 @@
       <a-form-item>
         <a-checkbox v-decorator="['rememberMe']">Remember Me</a-checkbox>
         <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
-          class="forge-password"
-          style="float: right;"
+          :to="{ name: 'recover', params: { user: 'aaa'} }" class="forge-password" style="float: right;"
         >Forget Password
         </router-link>
       </a-form-item>
 
       <a-form-item style="margin-top:24px">
-        <a-button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          class="login-button"
-          :loading="state.loginBtn"
-          :disabled="state.loginBtn"
+        <a-button size="large" type="primary" htmlType="submit" class="login-button"
+                  :loading="state.loginBtn" :disabled="state.loginBtn"
         >Confirm
         </a-button>
       </a-form-item>
@@ -181,36 +174,32 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault()
+      // todo: why destruct this
       const {
         form: { validateFields },
         state,
         customActiveKey,
         Login
       } = this
-
       state.loginBtn = true
 
-      const validateFieldsKey =
-        customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
-
+      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+      // validate
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
-
           console.log('login form', values)
+
           const loginParams = { ...values }
-
           delete loginParams.username
-
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
           loginParams.password = md5(values.password)
-
+          // login
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
             .finally(() => {
               state.loginBtn = false
             })
-
         } else {
           setTimeout(() => {
             state.loginBtn = false
