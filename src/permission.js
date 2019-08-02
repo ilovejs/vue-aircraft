@@ -22,22 +22,26 @@ router.beforeEach((to, from, next) => {
     && setDocumentTitle(`${to.meta.title} - ${domTitle}`))
 
   if (Vue.ls.get(ACCESS_TOKEN)) {
-    // has token
-    if (to.path === '/user/login') {              //hard coding
+    console.log('Vue.ls get token ok.')
+
+    // redirection to dashboard
+    if (to.path === '/user/login') {
+      console.log('goto /dashboard/workplace')
       next({ path: '/dashboard/workplace' })
       NProgress.done()
     } else {
+      // todo: roles no null-array
       if (store.getters.roles.length === 0) {
-
-        // User store action:GetInfo
+        debugger;
+        console.log('roles nil, getInfo first.')
+        // todo: this api should also be health. Or error
         store.dispatch('GetInfo').then(res => {
+          console.log('Permission.js res: ', res)
           const roles = res.result && res.result.role
+          console.log('permission.js roles: ', roles)
 
-          console.log('permission.js > route.beforeEach > User role is: ', roles)
-
-          // Permission store action
+          // Dynamic routes
           store.dispatch('GenerateRoutes', { roles }).then(() => {
-
             // Generate routes from roles !!
             // add route table dynamically
             router.addRoutes(store.getters.addRouters)
@@ -52,7 +56,8 @@ router.beforeEach((to, from, next) => {
               next({ path: redirect })
             }
           })
-        }).catch(() => {
+        }).catch((e) => {
+          console.log('permission module exception: ', e)
           notification.error({
             message: 'Error',
             description: 'Request user info failed, please retry.'
@@ -62,10 +67,13 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
+        debugger;
+        console.log('role has length !')
         next()
       }
     }
   } else {
+    console.log("Vue.ls token not found")
     if (whiteList.includes(to.name)) {
       // if name is in whitelist
       next()

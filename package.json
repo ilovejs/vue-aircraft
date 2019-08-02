@@ -75,19 +75,12 @@
     "rules": {
       "indent": "off",
       "space-before-function-paren": "off",
+      "vue/spaced-comment": "off",
+      "spaced-comment": "off",
       "generator-star-spacing": "off",
       "no-mixed-operators": 0,
-      "vue/max-attributes-per-line": [
-        2,
-        {
-          "singleline": 5,
-          "multiline": {
-            "max": 1,
-            "allowFirstLine": false
-          }
-        }
-      ],
-      "vue/attribute-hyphenation": 0,
+      "vue/max-attributes-per-line": "off",
+      "vue/attribute-hyphenation": "off",
       "vue/html-self-closing": 0,
       "vue/component-name-in-template-casing": 0,
       "vue/html-closing-bracket-spacing": 0,

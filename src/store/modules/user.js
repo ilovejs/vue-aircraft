@@ -35,9 +35,10 @@ const user = {
       return new Promise((resolve, reject) => {
         //api
         login(userInfo).then(response => {
-          const result = response.result
-          Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
-          commit('SET_TOKEN', result.token)
+          const token = response.result.token
+          Vue.ls.set(ACCESS_TOKEN, token, 7 * 24 * 60 * 60 * 1000)
+          commit('SET_TOKEN', token)
+          console.log('SET_TOKEN: ', token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -46,32 +47,31 @@ const user = {
     },
     GetInfo: function({ commit }) {
       return new Promise((resolve, reject) => {
-        getInfo().then(response => {
+        const token = Vue.ls.get(ACCESS_TOKEN)
+        getInfo(token).then(response => {
           //todo: restful style need a protocol between fe and be, or code break when Backend change.
           const result = response.result
 
-          if (result.role && result.role.permissions.length > 0) {
+          if (result.role && result.role.permissions.length > 0)
+          {
             const role = result.role
-            //pull the whole object
+
             role.permissions = result.role.permissions
             role.permissions.map(p => {
               if (p.actionEntitySet != null && p.actionEntitySet.length > 0) {
-                // permission.action list
-                p.actionList = p.actionEntitySet.map(
-                  x => {
-                    return x.action
-                  })
+                // build new actionList from `actionEntitySet`
+                p.actionList = p.actionEntitySet.map(x => { return x.action })
               }
             })
-            //aggregate permission into a list
-            role.permissionList = role.permissions.map(
-              permission => {
-                return permission.permissionId
-              })
+            // build permissionList from `permissionId`
+            role.permissionList = role.permissions.map(p => { return p.permissionId })
+
             //save role
             commit('SET_ROLES', result.role)
             commit('SET_INFO', result)
-          } else {
+          }
+          else
+          {
             reject(new Error('getInfo: roles must be a non-null array !'))
           }
 
@@ -80,6 +80,7 @@ const user = {
 
           resolve(response)
         }).catch(error => {
+          console.log('getInfo: ', error)
           reject(error)
         })
       })

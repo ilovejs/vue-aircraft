@@ -7,8 +7,9 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
-  timeout: 6000 // 请求超时时间
+  // baseURL: location.protocol + '//' + location.hostname + ':' + process.env.BE_PORT + process.env.BASE_URL,
+  baseURL: location.protocol + '//' + location.hostname + ':' + '8585/api',
+  timeout: 6000
 })
 
 const err = (error) => {
@@ -26,10 +27,9 @@ const err = (error) => {
 
     // 401
     if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
-
       notification.error({
         message: 'Unauthorized',
-        description: 'Authorization verification failed'
+        description: 'Authorization verification failed: ' + JSON.stringify(error)
       })
 
       if (token) {
@@ -46,13 +46,18 @@ const err = (error) => {
 
 // request interceptor
 service.interceptors.request.use(config => {
+  console.log('config', config)
+
   const token = Vue.ls.get(ACCESS_TOKEN)
   if (token) {
     // each request has access-token
-    config.headers['Access-Token'] = token
+    // config.headers['Access-Token'] = token
+    console.log('Interceptor token: ', token)
+  } else {
+    console.log('no token via Interceptor')
   }
   return config
-}, err) // use err function
+}, err)
 
 // response interceptor
 service.interceptors.response.use((response) => {
