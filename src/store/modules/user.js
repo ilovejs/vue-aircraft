@@ -37,7 +37,8 @@ const user = {
         login(userInfo).
           then(response => {
             // user is in return body
-            const u = response.user
+            // const u = response.user
+            const u = response
 
             Vue.ls.set(ACCESS_TOKEN, u.token, 7 * 24 * 60 * 60 * 1000)
             commit('SET_TOKEN', u.token)
@@ -88,6 +89,7 @@ const user = {
       })
     },
     Logout ({ commit, state }) {
+      console.log('user store: logout')
       return new Promise((resolve) => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])

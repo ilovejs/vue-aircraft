@@ -10,7 +10,8 @@ import {
 } from '@/store/mutation-types'
 
 // axios instance
-let port = 8585;
+// let port = 8585; // real backend
+let port = 8000; // mock port
 
 const service = axios.create({
   // baseURL: '/api',     // !!!! api base_url !!!!!

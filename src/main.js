@@ -13,8 +13,10 @@ Turn off will cause /api/2step not available in login
 Check console for loading logs
 
 // index.js expose many mock services
-import './mock'
+
 */
+
+import './mock'
 
 import bootstrap from './core/bootstrap'
 import './core/use'

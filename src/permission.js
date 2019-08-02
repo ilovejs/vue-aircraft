@@ -26,13 +26,15 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/user/login') {              //hard coding
       next({ path: '/dashboard/workplace' })
       NProgress.done()
+      console.log('jump to /dashboard/workplace')
     } else {
+      console.log('permission.js: to.path not /user/login')
       if (store.getters.roles.length === 0) {
-
         // User store action:GetInfo
         store.dispatch('GetInfo').then(res => {
+          console.log('res:', res)
+          // todo: JSON schema
           const roles = res.result && res.result.role
-
           console.log('permission.js > route.beforeEach > User role is: ', roles)
 
           // Permission store action
@@ -52,11 +54,13 @@ router.beforeEach((to, from, next) => {
               next({ path: redirect })
             }
           })
-        }).catch(() => {
+        }).catch((e) => {
+          console.log(e)
           notification.error({
             message: 'Error',
-            description: 'Request user info failed, please retry.'
+            description: 'Request user info failed, please retry.' + JSON.stringify(e)
           })
+
           store.dispatch('Logout').then(() => {
             next({ path: '/user/login', query: { redirect: to.fullPath } })
           })

@@ -330,6 +330,7 @@ export const ASYNC_ROUTERS = [
 export const DEFAULT_ROUTERS = [
   {
     path: '/user',
+    name: 'user',
     component: UserLayout,
     redirect: '/user/login',
     hidden: true,

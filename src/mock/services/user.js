@@ -372,6 +372,8 @@ const info = (options) => {
 
   userInfo.role = roleObj
 
+  console.log(userInfo)
+
   // use data to build response obj
   return builder(userInfo)
 }

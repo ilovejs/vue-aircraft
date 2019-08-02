@@ -1,0 +1,38 @@
+GET http://localhost:8000/api/user/info
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-01T051956.200.html
+
+###
+
+GET http://localhost:8000/user/info
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-01T051945.200.html
+
+###
+
+GET http://localhost:8000/usre/info
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-01T051919.200.html
+
+###
+
+GET http://localhost:8000/api/usre/info
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-01T042730.200.html
+
+###
+
+GET http://localhost:8080/api/usre/info
+Accept: */*
+Cache-Control: no-cache
+
+###
+

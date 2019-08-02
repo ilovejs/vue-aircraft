@@ -1,15 +1,31 @@
 import Mock from 'mockjs2'
 import { builder, getBody } from '../util'
 
+const email = ['dummy@gmail.com']
 const username = ['admin', 'user', 'super']
-const password = ['21232f297a57a5a743894a0e4a801fc3', '8914de686ab28dc22f30d3d8e107ff6c'] // admin, ant.design
+const password = [
+  'admin',
+  '21232f297a57a5a743894a0e4a801fc3',
+  '8914de686ab28dc22f30d3d8e107ff6c'
+] // admin, ant.design
 
 const login = (options) => {
   const body = getBody(options)
-  console.log('mock: body', body)
-  if (!username.includes(body.username) || !password.includes(body.password)) {
-    return builder({ isLogin: true }, '账户或密码错误', 401)
+
+  const actualUsername = body.username
+  const actualPassword = body.password
+
+  if (!username.includes(actualUsername) ||
+     !password.includes(actualPassword)) {
+  // if (actualEmail !== "dummy@gmail.com" ||
+  //     actualPassword !== "admin") {
+    return builder(
+      { isLogin: true },
+      'Account or password wrong',
+      401)
   }
+
+  console.log('auth else:')
 
   return builder({
     'id': Mock.mock('@guid'),
@@ -27,7 +43,8 @@ const login = (options) => {
     'roleId': 'admin',
     'lang': 'zh-CN',
     'token': '4291d7da9005377ec9aec4a71ea837f'
-  }, '', 200, { 'Custom-Header': Mock.mock('@guid') })
+  }, '', 200,
+  { 'Custom-Header': Mock.mock('@guid') })
 }
 
 const logout = () => {

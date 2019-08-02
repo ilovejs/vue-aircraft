@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="/logo-wt.png">
+  <title>WT APP</title>
+  <style>#loading-mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    user-select: none;
+    z-index: 9999;
+    overflow: hidden
+  }
+
+  .loading-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%)
+  }
+
+  .loading-dot {
+    animation: antRotate 1.2s infinite linear;
+    transform: rotate(45deg);
+    position: relative;
+    display: inline-block;
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    box-sizing: border-box
+  }
+
+  .loading-dot i {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    display: block;
+    background-color: #1890ff;
+    border-radius: 100%;
+    transform: scale(.75);
+    transform-origin: 50% 50%;
+    opacity: .3;
+    animation: antSpinMove 1s infinite linear alternate
+  }
+
+  .loading-dot i:nth-child(1) {
+    top: 0;
+    left: 0
+  }
+
+  .loading-dot i:nth-child(2) {
+    top: 0;
+    right: 0;
+    -webkit-animation-delay: .4s;
+    animation-delay: .4s
+  }
+
+  .loading-dot i:nth-child(3) {
+    right: 0;
+    bottom: 0;
+    -webkit-animation-delay: .8s;
+    animation-delay: .8s
+  }
+
+  .loading-dot i:nth-child(4) {
+    bottom: 0;
+    left: 0;
+    -webkit-animation-delay: 1.2s;
+    animation-delay: 1.2s
+  }
+
+  @keyframes antRotate {
+    to {
+      -webkit-transform: rotate(405deg);
+      transform: rotate(405deg)
+    }
+  }
+
+  @-webkit-keyframes antRotate {
+    to {
+      -webkit-transform: rotate(405deg);
+      transform: rotate(405deg)
+    }
+  }
+
+  @keyframes antSpinMove {
+    to {
+      opacity: 1
+    }
+  }
+
+  @-webkit-keyframes antSpinMove {
+    to {
+      opacity: 1
+    }
+  }</style>
+  <link href="/0.js" rel="prefetch">
+  <link href="/1.js" rel="prefetch">
+  <link href="/10.js" rel="prefetch">
+  <link href="/11.js" rel="prefetch">
+  <link href="/12.js" rel="prefetch">
+  <link href="/13.js" rel="prefetch">
+  <link href="/14.js" rel="prefetch">
+  <link href="/15.js" rel="prefetch">
+  <link href="/16.js" rel="prefetch">
+  <link href="/17.js" rel="prefetch">
+  <link href="/18.js" rel="prefetch">
+  <link href="/19.js" rel="prefetch">
+  <link href="/2.js" rel="prefetch">
+  <link href="/20.js" rel="prefetch">
+  <link href="/21.js" rel="prefetch">
+  <link href="/22.js" rel="prefetch">
+  <link href="/23.js" rel="prefetch">
+  <link href="/24.js" rel="prefetch">
+  <link href="/25.js" rel="prefetch">
+  <link href="/26.js" rel="prefetch">
+  <link href="/27.js" rel="prefetch">
+  <link href="/28.js" rel="prefetch">
+  <link href="/29.js" rel="prefetch">
+  <link href="/3.js" rel="prefetch">
+  <link href="/4.js" rel="prefetch">
+  <link href="/5.js" rel="prefetch">
+  <link href="/6.js" rel="prefetch">
+  <link href="/7.js" rel="prefetch">
+  <link href="/8.js" rel="prefetch">
+  <link href="/9.js" rel="prefetch">
+  <link href="/fail.js" rel="prefetch">
+  <link href="/result.js" rel="prefetch">
+  <link href="/user.js" rel="prefetch">
+  <link href="/vendors~user.js" rel="prefetch">
+  <link href="/app.js" rel="preload" as="script">
+</head>
+<body>
+<noscript>
+  <strong>We're sorry but app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app">
+  <div id="loading-mask">
+    <div class="loading-wrapper">
+      <span class="loading-dot loading-dot-spin"><i></i><i></i><i></i><i></i></span>
+    </div>
+  </div>
+</div>
+<!-- built files will be auto injected -->
+<script type="text/javascript" src="/app.js"></script>
+</body>
+</html>
