@@ -21,6 +21,7 @@ function plugin (Vue) {
         const _this = this
         return (permissions) => {
           const [permission, action] = permissions.split('.')
+          console.log('helper/permission.js plugin, permissionList copied')
           const permissionList = _this.$store.getters.roles.permissions
           return permissionList.find((val) => {
             return val.permissionId === permission

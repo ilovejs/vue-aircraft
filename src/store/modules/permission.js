@@ -49,7 +49,7 @@ function _filterAsyncRouter (routes, roles) {
     //Format: permissionList = ["dashboard","exception","result","profile"]
     //        route = {path: "/", name: "index", component: {…},
     //                 meta: {…}, redirect: "/dashboard/workplace", …
-    console.log('r ', roles)
+    console.log('_filterAsyncRouter roles: ', roles)
     if (_hasPermission(roles.permissionList, route)) {
       //recursive lookup if route has children
       //see route.config.js for setup e.g. / has children /dashboard /form /..
@@ -79,6 +79,7 @@ const permission = {
     GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
         const { roles } = data
+        console.log('GenerateRoutes roles:', roles)
         const accessedRouters = _filterAsyncRouter(ASYNC_ROUTERS, roles)
         commit('SET_ROUTERS', accessedRouters)
         resolve()

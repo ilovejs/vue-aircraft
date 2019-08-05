@@ -34,9 +34,8 @@ router.beforeEach((to, from, next) => {
 
         console.log('len(getters.roles)==0, dispatching GetInfo')
 
-        store.dispatch('GetInfo').then(res => {
-          console.log('Permission.js res: ', res)
-          const roles = res.result && res.result.role
+        store.dispatch('GetInfo').then(response => {
+          const roles = response.result && response.result.role
           console.log('permission.js roles: ', roles)
 
           // Dynamic routes

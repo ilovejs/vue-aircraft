@@ -53,12 +53,15 @@ const user = {
     GetInfo: function({ commit }) {
       return new Promise((resolve, reject) => {
         const token = Vue.ls.get(ACCESS_TOKEN)
+        // api action
         getInfo(token).then(response => {
           // Mock Backend json field
           const result = mockUserInfo()
+          console.log('mockUserInfo', result)
             // response.result
           if (result.role && result.role.permissions.length > 0) {
             const role = result.role
+
             role.permissions = result.role.permissions
             role.permissions.map(p => {
               if (p.actionEntitySet != null && p.actionEntitySet.length > 0) {
@@ -66,7 +69,6 @@ const user = {
                 p.actionList = p.actionEntitySet.map(x => { return x.action })
               }
             })
-
             // build permissionList from `permissionId`
             role.permissionList = role.permissions.map(p => { return p.permissionId })
 
@@ -84,7 +86,11 @@ const user = {
           })
           commit('SET_AVATAR', result.avatar)
 
+          response.role = role
+
+          // this is literally a return
           resolve(response)
+
         }).catch(error => {
           console.log('getInfo: ', error)
           reject(error)
