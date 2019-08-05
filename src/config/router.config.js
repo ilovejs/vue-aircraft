@@ -212,7 +212,7 @@ export const ASYNC_ROUTERS = [
             path: '/account/center',
             name: 'center',
             component: () => import('@/views/account/center/Index'),
-            meta: { title: 'Account Center', keepAlive: true, permission: [ 'user' ] }
+            meta: { title: 'Profile', keepAlive: true, permission: [ 'user' ] }
           },
           {
             path: '/account/settings',

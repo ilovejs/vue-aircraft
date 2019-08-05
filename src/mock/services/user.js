@@ -4,7 +4,7 @@ import { builder } from '../util'
 // base obj
 const userInfo = {
   'id': '4291d7da9005377ec9aec4a71ea837f',
-  'name': '天野远子',
+  'name': 'Demo Admin',
   'username': 'admin',
   'password': '',
   'avatar': '/avatar2.jpg',
