@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b442e719-dbf0-4f20-861c-36f9473e3317" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/use.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/use.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/modules/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/modules/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/modules/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/helper/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/helper/permission.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -35,11 +31,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/permission.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="260">
-                  <caret line="37" selection-start-line="37" selection-end-line="37" />
+                <state relative-caret-position="27">
+                  <caret line="37" column="19" lean-forward="true" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -47,11 +43,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/store/modules/user.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="635">
-                  <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
+                <state relative-caret-position="475">
+                  <caret line="75" column="36" selection-start-line="75" selection-start-column="36" selection-end-line="75" selection-end-column="36" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -66,8 +62,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/utils/helper/permission.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="480">
-                  <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+                <state relative-caret-position="420">
+                  <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
                 </state>
               </provider>
             </entry>
@@ -116,9 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>GenerateRoutes</find>
-      <find>dashboard</find>
-      <find>exception</find>
       <find>nick</find>
       <find>info</find>
       <find>/workplace/</find>
@@ -146,6 +139,9 @@
       <find>set_roles</find>
       <find>permissionList</find>
       <find>SET_ROLES</find>
+      <find>$auth</find>
+      <find>$enum</find>
+      <find>enum</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,10 +202,10 @@
         <option value="$PROJECT_DIR$/src/mock/index.js" />
         <option value="$PROJECT_DIR$/src/mock/services/user.js" />
         <option value="$PROJECT_DIR$/src/core/use.js" />
-        <option value="$PROJECT_DIR$/src/utils/helper/permission.js" />
         <option value="$PROJECT_DIR$/src/store/modules/permission.js" />
-        <option value="$PROJECT_DIR$/src/permission.js" />
         <option value="$PROJECT_DIR$/src/store/modules/user.js" />
+        <option value="$PROJECT_DIR$/src/permission.js" />
+        <option value="$PROJECT_DIR$/src/utils/helper/permission.js" />
       </list>
     </option>
   </component>
@@ -491,7 +487,21 @@
       <option name="project" value="LOCAL" />
       <updated>1564968829249</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="looks like solved something">
+      <created>1564971292156</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1564971292156</updated>
+    </task>
+    <task id="LOCAL-00015" summary="hohoho, solved permission !!!!">
+      <created>1564971969551</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1564971969551</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -616,7 +626,9 @@
     <MESSAGE value="eslint&#10;login style&#10;switch off mock" />
     <MESSAGE value="very good permission implementation" />
     <MESSAGE value="inside debugging permissionList" />
-    <option name="LAST_COMMIT_MESSAGE" value="inside debugging permissionList" />
+    <MESSAGE value="looks like solved something" />
+    <MESSAGE value="hohoho, solved permission !!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="hohoho, solved permission !!!!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -658,15 +670,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/store/modules/user.js</url>
-          <line>74</line>
+          <line>78</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/store/modules/user.js</url>
+          <line>95</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/permission.js</url>
+          <line>39</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/assets/logo.png" />
     <entry file="file://$PROJECT_DIR$/src/assets/background.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -1018,30 +1041,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/helper/permission.js">
+    <entry file="file://$PROJECT_DIR$/.editorconfig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/store/modules/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+        <state relative-caret-position="475">
+          <caret line="75" column="36" selection-start-line="75" selection-start-column="36" selection-end-line="75" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/permission.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="27">
+          <caret line="37" column="19" lean-forward="true" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/modules/user.js">
+    <entry file="file://$PROJECT_DIR$/src/utils/helper/permission.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="420">
+          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
         </state>
       </provider>
     </entry>
