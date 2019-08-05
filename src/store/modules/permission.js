@@ -3,18 +3,20 @@ import { ASYNC_ROUTERS, DEFAULT_ROUTERS } from '@/config/router.config'
 /**
  * If route to visit is in role permitted list.
  * Normally used as predicates for filter.
- * @param allowedPermissions - granted permission list e.g. ['dashboard','exception']
+ * @param allowedPermissions - granted permission list
+ *                             e.g. ['dashboard','exception']
  * @param routeToVisit       - it could be child route of main route
  * @returns {boolean}
  */
 function _hasPermission (allowedPermissions, routeToVisit) {
   // debugger;
-
+  console.log('allowedPermissions', allowedPermissions)
   if (routeToVisit.meta && routeToVisit.meta.permission) {
     let flag = false
     for (let i = 0, len = allowedPermissions.length; i < len; i++) {
       // route permission includes one of the permission
-      // e.g. route.permission = 'dashboard' includes 'dashboard', which is permission[0]
+      // e.g. route.permission = 'dashboard' includes 'dashboard',
+      // which is permission[0]
       flag = routeToVisit.meta.permission.includes(allowedPermissions[i])
       if (flag) {
         return true
@@ -43,12 +45,11 @@ function hasRole(roles, route) {
 }
 
 function _filterAsyncRouter (routes, roles) {
-  //filter routes
   return routes.filter(route => {
-    //check
-    //e.g. List = ["dashboard","exception","result","profile"]
-    //     route = {path: "/", name: "index", component: {…},
-    //              meta: {…}, redirect: "/dashboard/workplace", …
+    //Format: permissionList = ["dashboard","exception","result","profile"]
+    //        route = {path: "/", name: "index", component: {…},
+    //                 meta: {…}, redirect: "/dashboard/workplace", …
+    console.log('r ', roles)
     if (_hasPermission(roles.permissionList, route)) {
       //recursive lookup if route has children
       //see route.config.js for setup e.g. / has children /dashboard /form /..
@@ -77,11 +78,8 @@ const permission = {
   actions: {
     GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
-        //data payload in caller side is { roles }
         const { roles } = data
         const accessedRouters = _filterAsyncRouter(ASYNC_ROUTERS, roles)
-
-        //commit mutation
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
