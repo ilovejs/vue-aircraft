@@ -72,6 +72,10 @@ const user = {
             // build permissionList from `permissionId`
             role.permissionList = role.permissions.map(p => { return p.permissionId })
 
+            // resolve() and return to caller permission beforeEach
+            // dynamic routing parts
+            response.result.role = role
+
             commit('SET_ROLES', result.role)
             commit('SET_INFO', result)
             // commit('SET_ROLES', info.role)
@@ -86,7 +90,7 @@ const user = {
           })
           commit('SET_AVATAR', result.avatar)
 
-          response.role = role
+          console.log('response', response)
 
           // this is literally a return
           resolve(response)

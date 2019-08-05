@@ -35,6 +35,7 @@ router.beforeEach((to, from, next) => {
         console.log('len(getters.roles)==0, dispatching GetInfo')
 
         store.dispatch('GetInfo').then(response => {
+          // protocol:
           const roles = response.result && response.result.role
           console.log('permission.js roles: ', roles)
 
