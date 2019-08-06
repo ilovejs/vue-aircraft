@@ -3,7 +3,7 @@
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
       <div class="title">{{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome() }}</span></div>
-      <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+      <div>Quantity Surveyor | WT - 某某某事业群 - VUE平台</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
@@ -191,10 +191,10 @@ export default {
     this.avatar = this.userInfo.avatar
     //api.
     getRoleList().then(res => {
-      // console.log('workplace -> call getRoleList()', res)
+      console.log('workplace -> call getRoleList()', res)
     })
     getServiceList().then(res => {
-      // console.log('workplace -> call getServiceList()', res)
+      console.log('workplace -> call getServiceList()', res)
     })
   },
   mounted () {
