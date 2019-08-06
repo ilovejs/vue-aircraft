@@ -403,5 +403,7 @@ const info = (options) => {
   return builder(u)
 }
 
-Mock.mock(/\/api\/user\/info/, 'get', info)
+
+// Only turn off this api, but not other mocks
+// Mock.mock(/\/api\/user\/info/, 'get', info)
 

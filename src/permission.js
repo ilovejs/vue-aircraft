@@ -59,6 +59,7 @@ router.beforeEach((to, from, next) => {
           })
         }).catch((e) => {
           console.log('permission, GetInfo raise', e)
+
           notification.error({
             message: 'Error',
             description: 'Request user info failed, please retry.'

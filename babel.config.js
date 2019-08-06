@@ -1,3 +1,9 @@
+/*
+* There are lots of dev optimization can be done.
+*
+* Webpack
+*
+* */
 module.exports = {
   presets: [
     '@vue/app',
