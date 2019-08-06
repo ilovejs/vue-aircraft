@@ -10,8 +10,7 @@ export const ASYNC_ROUTERS = [
     meta: { title: 'Home' },
     redirect: '/dashboard/workplace',
     children: [
-
-      // dashboard
+      // Dashboard
       {
         path: '/dashboard',
         name: 'dashboard',
@@ -39,8 +38,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-
-      // forms
+      // Forms
       {
         path: '/form',
         redirect: '/form/base-form',
@@ -67,7 +65,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-      // table
+      // Table
       {
         path: '/list',
         name: 'list',
@@ -88,7 +86,7 @@ export const ASYNC_ROUTERS = [
             path: '/list/table-list/:pageNo([1-9]\\d*)?',
             name: 'TableListWrapper',
             component: () => import('@/views/list/TableList'),
-            meta: { title: 'Manage', keepAlive: true, permission: [ 'table' ] }
+            meta: { title: 'Manage Trades', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/card',
@@ -125,7 +123,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-      // profile
+      // Profile
       {
         path: '/profile',
         name: 'profile',
@@ -169,7 +167,6 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-
       // Exception
       {
         path: '/exception',
@@ -198,8 +195,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-
-      // user
+      // User
       {
         path: '/account',
         component: RouteView,
@@ -255,8 +251,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-
-      // other
+      // Other
       {
         path: '/other',
         name: 'otherPage',
@@ -350,7 +345,6 @@ export const DEFAULT_ROUTERS = [
       }
     ]
   },
-
   {
     path: '/test',
     component: BlankLayout,
@@ -363,10 +357,8 @@ export const DEFAULT_ROUTERS = [
       }
     ]
   },
-
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404')
   }
-
 ]

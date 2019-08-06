@@ -235,14 +235,14 @@ export default {
         <a style="margin-left: 24px" onClick={() => {
           callback()
           this.clearSelected()
-        }}>清空</a>
+        }}>Clear</a>
       )
     },
     renderAlert () {
       // 绘制统计列数据
       const needTotalItems = this.needTotalList.map((item) => {
         return (<span style="margin-right: 12px">
-          {item.title}总计 <a style="font-weight: 600">{!item.customRender ? item.total : item.customRender(item.total)}</a>
+          {item.title} Total <a style="font-weight: 600">{!item.customRender ? item.total : item.customRender(item.total)}</a>
         </span>)
       })
 
@@ -257,7 +257,7 @@ export default {
       return (
         <a-alert showIcon={true} style="margin-bottom: 16px">
           <template slot="message">
-            <span style="margin-right: 12px">已选择: <a style="font-weight: 600">{this.selectedRows.length}</a></span>
+            <span style="margin-right: 12px">Selected: <a style="font-weight: 600">{this.selectedRows.length}</a></span>
             {needTotalItems}
             {clearItem}
           </template>
@@ -269,7 +269,11 @@ export default {
   render () {
     const props = {}
     const localKeys = Object.keys(this.$data)
-    const showAlert = (typeof this.alert === 'object' && this.alert !== null && this.alert.show) && typeof this.rowSelection.selectedRowKeys !== 'undefined' || this.alert
+    const showAlert = (
+      typeof this.alert === 'object'
+      && this.alert !== null && this.alert.show)
+      && typeof this.rowSelection.selectedRowKeys !== 'undefined'
+      || this.alert
 
     Object.keys(T.props).forEach(k => {
       const localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(1)}`

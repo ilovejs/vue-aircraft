@@ -19,7 +19,7 @@ const serverList = (options) => {
       key: tmpKey,
       id: tmpKey,
       no: 'No ' + tmpKey,
-      description: '这是一段描述',
+      description: 'Trade description....',
       callNo: Mock.mock('@integer(1, 999)'),
       status: Mock.mock('@integer(0, 3)'),
       updatedAt: Mock.mock('@datetime'),
