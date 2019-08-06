@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b442e719-dbf0-4f20-861c-36f9473e3317" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/avatar/44.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/project/airport.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/router.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/router.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/PageView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/PageView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/list/CardList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/list/CardList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/list/CardList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/list/ProjectCardList.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="820">
-              <caret line="95" column="41" selection-start-line="95" selection-start-column="41" selection-end-line="95" selection-end-column="41" />
+            <state relative-caret-position="209">
+              <caret line="72" column="20" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#21#106#0" expanded="true" />
@@ -35,19 +31,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/list/CardList.vue">
+        <entry file="file://$PROJECT_DIR$/src/views/list/ProjectCardList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+            <state relative-caret-position="223">
+              <caret line="45" column="16" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/layouts/PageView.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="15" column="12" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+            <state relative-caret-position="420">
+              <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
               <folding>
                 <element signature="e#686#692#0" expanded="true" />
                 <element signature="n#style#0;n#a-input-search#0;n#div#0;n#div#1;n#page-header#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -76,8 +72,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>external</find>
-      <find>天</find>
       <find>baseurl</find>
       <find>2step</find>
       <find>get</find>
@@ -106,6 +100,8 @@
       <find>item</find>
       <find>img</find>
       <find>linkList</find>
+      <find>height</find>
+      <find>cardlist</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -177,9 +173,9 @@
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/mock/services/user.js" />
         <option value="$PROJECT_DIR$/src/mock/services/auth.js" />
-        <option value="$PROJECT_DIR$/src/config/router.config.js" />
-        <option value="$PROJECT_DIR$/src/views/list/CardList.vue" />
         <option value="$PROJECT_DIR$/src/layouts/PageView.vue" />
+        <option value="$PROJECT_DIR$/src/views/list/CardList.vue" />
+        <option value="$PROJECT_DIR$/src/config/router.config.js" />
       </list>
     </option>
   </component>
@@ -312,6 +308,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="exception" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ant-design-pro-vue" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ant-design-pro-vue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ant-design-pro-vue" type="b2602c69:ProjectViewProjectNode" />
@@ -531,7 +534,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565070405864</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="column number can't be odd&#10;tweak PageVew&#10;styling cardList">
+      <created>1565074926172</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1565074926172</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -662,7 +672,8 @@
     <MESSAGE value="translation" />
     <MESSAGE value="footer" />
     <MESSAGE value="I partially turn off some mock api. Work like a charm" />
-    <option name="LAST_COMMIT_MESSAGE" value="I partially turn off some mock api. Work like a charm" />
+    <MESSAGE value="column number can't be odd&#10;tweak PageVew&#10;styling cardList" />
+    <option name="LAST_COMMIT_MESSAGE" value="column number can't be odd&#10;tweak PageVew&#10;styling cardList" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1025,17 +1036,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
-          <caret line="95" column="41" selection-start-line="95" selection-start-column="41" selection-end-line="95" selection-end-column="41" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#21#106#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/avatar2.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -1073,20 +1073,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/list/CardList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/layouts/PageView.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" column="12" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        <state relative-caret-position="420">
+          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
           <folding>
             <element signature="e#686#692#0" expanded="true" />
             <element signature="n#style#0;n#a-input-search#0;n#div#0;n#div#1;n#page-header#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/list/ProjectCardList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="45" column="16" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="72" column="20" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#21#106#0" expanded="true" />
           </folding>
         </state>
       </provider>

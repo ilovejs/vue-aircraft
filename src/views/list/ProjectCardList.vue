@@ -38,13 +38,13 @@ for (let i = 0; i < 11; i++) {
     title: 'Sydney Airport',
     value: randomValue,
     avatar: '/avatar/44.jpg',
-    content: 'Huber Super center',
+    content: 'Wuber Super Center',
     coverImage: '/project/airport.png'
   })
 }
 
 export default {
-  name: 'CardList',
+  name: 'ProjectCardList',
   data () {
     return {
       description: 'A recent view of ongoing projects',
@@ -99,7 +99,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    height: 64px;
+    /*height: 64px;*/
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }

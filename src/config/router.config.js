@@ -67,64 +67,64 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-
       // table
       {
         path: '/list',
         name: 'list',
         component: PageView,
         redirect: '/list/table-list',
-        meta: { title: 'List', icon: 'table', permission: [ 'table' ] },
+        meta: {
+          title: 'Project', icon: 'table', permission: [ 'table' ]
+        },
         children: [
-          {
-            path: '/list/table-list/:pageNo([1-9]\\d*)?',
-            name: 'TableListWrapper',
-            hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-            component: () => import('@/views/list/TableList'),
-            meta: { title: '查询表格', keepAlive: true, permission: [ 'table' ] }
-          },
           {
             path: '/list/basic-list',
             name: 'BasicList',
+            hideChildrenInMenu: true, // Force to show MenuItem rather than SubMenu
             component: () => import('@/views/list/StandardList'),
-            meta: { title: '标准列表', keepAlive: true, permission: [ 'table' ] }
+            meta: { title: 'Summary', keepAlive: true, permission: [ 'table' ] }
+          },
+          {
+            path: '/list/table-list/:pageNo([1-9]\\d*)?',
+            name: 'TableListWrapper',
+            component: () => import('@/views/list/TableList'),
+            meta: { title: 'Manage', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/card',
-            name: 'CardList',
-            component: () => import('@/views/list/CardList'),
-            meta: { title: 'Project Cards', keepAlive: true, permission: [ 'table' ] }
+            name: 'ProjectCardList',
+            component: () => import('@/views/list/ProjectCardList'),
+            meta: { title: 'List', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/search',
             name: 'SearchList',
             component: () => import('@/views/list/search/SearchLayout'),
             redirect: '/list/search/article',
-            meta: { title: '搜索列表', keepAlive: true, permission: [ 'table' ] },
+            meta: { title: 'Search', keepAlive: true, permission: [ 'table' ] },
             children: [
               {
                 path: '/list/search/article',
                 name: 'SearchArticles',
                 component: () => import('../views/list/search/Article'),
-                meta: { title: '搜索列表（文章）', permission: [ 'table' ] }
+                meta: { title: 'Article', permission: [ 'table' ] }
               },
               {
                 path: '/list/search/project',
                 name: 'SearchProjects',
                 component: () => import('../views/list/search/Projects'),
-                meta: { title: '搜索列表（项目）', permission: [ 'table' ] }
+                meta: { title: 'Project', permission: [ 'table' ] }
               },
               {
                 path: '/list/search/application',
                 name: 'SearchApplications',
                 component: () => import('../views/list/search/Applications'),
-                meta: { title: '搜索列表（应用）', permission: [ 'table' ] }
+                meta: { title: 'Application', permission: [ 'table' ] }
               }
             ]
           }
         ]
       },
-
       // profile
       {
         path: '/profile',
@@ -147,7 +147,6 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-
       // result
       {
         path: '/result',
