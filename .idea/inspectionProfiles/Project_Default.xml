@@ -1,10 +1,21 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="CssUnknownProperty" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myCustomPropertiesEnabled" value="true" />
+      <option name="myIgnoreVendorSpecificProperties" value="false" />
+      <option name="myCustomPropertiesList">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="line-clamp" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="17">
+          <list size="18">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -22,6 +33,7 @@
             <item index="14" class="java.lang.String" itemvalue="a-dropdown" />
             <item index="15" class="java.lang.String" itemvalue="a-menu-item" />
             <item index="16" class="java.lang.String" itemvalue="a-menu-divider" />
+            <item index="17" class="java.lang.String" itemvalue="a-input-search" />
           </list>
         </value>
       </option>

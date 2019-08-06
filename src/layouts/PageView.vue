@@ -9,8 +9,7 @@
         <div class="link">
           <template v-for="(link, index) in linkList">
             <a :key="index" :href="link.href">
-              <a-icon :type="link.icon" />
-              <span>{{ link.title }}</span>
+              <a-icon :type="link.icon" />&nbsp;<span>{{ link.title }}</span>
             </a>
           </template>
         </div>
@@ -26,8 +25,7 @@
             style="width: 80%; max-width: 522px;"
             placeholder="请输入..."
             size="large"
-            enterButton="搜索"
-          />
+            enterButton="搜索"></a-input-search>
         </div>
         <div class="page-menu-tabs" v-if="tabs && tabs.items">
           <!-- @change="callback" :activeKey="activeKey" -->

@@ -93,7 +93,7 @@ export const ASYNC_ROUTERS = [
             path: '/list/card',
             name: 'CardList',
             component: () => import('@/views/list/CardList'),
-            meta: { title: '卡片列表', keepAlive: true, permission: [ 'table' ] }
+            meta: { title: 'Project Cards', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/search',
