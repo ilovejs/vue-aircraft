@@ -1,7 +1,11 @@
 export function timeFix () {
   const time = new Date()
   const hour = time.getHours()
-  return hour < 9 ? 'Good Morning' : hour <= 11 ? 'Have nice day' : hour <= 13 ? 'Good afternoon' : hour < 20 ? 'Near the end of day' : 'Good night'
+  return hour < 9 ? 'Good Morning' :
+    hour <= 12 ? 'Have nice day' :
+        hour <= 16 ? 'Good afternoon' :
+          hour < 20 ? 'Near the end of day' :
+            'Good night'
 }
 
 export function welcome () {
