@@ -4,7 +4,7 @@
       <div class="top">
         <div class="header">
           <a href="/">
-            <img src="~@/assets/logo-wt.png" class="logo" alt="logo">
+            <img src="../../public/logo.png" class="logo" alt="logo">
             <span class="title">Partnership</span>
           </a>
         </div>

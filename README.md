@@ -114,9 +114,18 @@ Modern browsers and IE10.
 
 [Should update the project for IDE support:](https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000556284-vue-import-component-Module-is-not-installed-)
 
-* Timeout on websocket, check socketio.js in console... result is blank screen.
+* Websocket
+  
+  [sockjs](https://github.com/sockjs) is used by [webpack-dev-server](https://github.com/webpack/webpack-dev-server/issues/1628)
+  
+  Symptom:
+  
+    Timeout on websocket, check socketio.js in console... result is blank screen.
 
-  GET http://10.0.75.1:8000/sockjs-node/info?t=1562569252925 net::ERR_CONNECTION_REFUSED
+    GET http://10.0.75.1:8000/sockjs-node/info?t=1562569252925 net::ERR_CONNECTION_REFUSED
+
+    Other use in same domain local interact can't visit dev server via 192.xx or SYD.LTD.PC1 
+    since this server hard-code localhost, no route back.
 
 ## Vue UI
 
