@@ -27,6 +27,7 @@
           <div class="account-center-tags">
             <div class="tagsTitle">Tag</div>
             <div>
+              <!--tags-->
               <template v-for="(tag, index) in tags">
                 <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
                   <a-tag
@@ -42,6 +43,7 @@
                   :afterClose="() => handleTagClose(tag)"
                 >{{ tag }}</a-tag>
               </template>
+
               <a-input
                 v-if="tagInputVisible"
                 ref="tagInput"
@@ -121,10 +123,10 @@ export default {
       teamSpinning: true,
 
       tabListNoTitle: [
-        {
-          key: 'article',
-          tab: 'Page(8)'
-        },
+        // {
+        //   key: 'article',
+        //   tab: 'Page(8)'
+        // },
         {
           key: 'app',
           tab: 'Module(8)'
