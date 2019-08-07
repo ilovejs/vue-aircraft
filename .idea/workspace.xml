@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b442e719-dbf0-4f20-861c-36f9473e3317" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/router.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/router.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/other/PermissionList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/other/PermissionList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/other/TreeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/other/TreeList.vue" afterDir="false" />
-    </list>
+    <list default="true" id="b442e719-dbf0-4f20-861c-36f9473e3317" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -19,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2220">
-              <caret line="147" column="10" selection-start-line="147" selection-start-column="10" selection-end-line="147" selection-end-column="10" />
+            <state relative-caret-position="380">
+              <caret line="277" column="60" selection-start-line="277" selection-start-column="60" selection-end-line="277" selection-end-column="60" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#21#106#0" expanded="true" />
@@ -90,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/other/TableInnerEditList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2776">
-              <caret line="27" column="64" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
+            <state relative-caret-position="260">
+              <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
               <folding>
                 <element signature="n#style#0;n#a-date-picker#0;n#a-form-item#0;n#a-col#1;n#template#0;n#a-row#0;n#a-form#0;n#div#0;n#a-card#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -172,7 +166,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/layouts/RouteView.vue" />
         <option value="$PROJECT_DIR$/src/lang/index.js" />
         <option value="$PROJECT_DIR$/src/lang/locale/zh-CN.js" />
         <option value="$PROJECT_DIR$/src/lang/locale/en-US.js" />
@@ -223,6 +216,7 @@
         <option value="$PROJECT_DIR$/src/views/other/TreeList.vue" />
         <option value="$PROJECT_DIR$/src/views/other/PermissionList.vue" />
         <option value="$PROJECT_DIR$/src/config/router.config.js" />
+        <option value="$PROJECT_DIR$/src/views/other/TableInnerEditList.vue" />
       </list>
     </option>
   </component>
@@ -646,11 +640,19 @@
       <option name="project" value="LOCAL" />
       <updated>1565079805374</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="finish off after meeting, open a new branch">
+      <created>1565145064726</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1565145064726</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12527233" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -664,7 +666,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.49947312" visible="true" weight="0.32804233" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49947312" weight="0.32804233" />
       <window_info anchor="bottom" id="GraphQL" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50108933" side_tool="true" weight="0.34497353" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.29726776" />
@@ -779,7 +781,8 @@
     <MESSAGE value="column number can't be odd&#10;tweak PageVew&#10;styling cardList" />
     <MESSAGE value="naming" />
     <MESSAGE value="setting drawer translation" />
-    <option name="LAST_COMMIT_MESSAGE" value="setting drawer translation" />
+    <MESSAGE value="finish off after meeting, open a new branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish off after meeting, open a new branch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1161,10 +1164,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mock/services/manage.js">
+    <entry file="file://$PROJECT_DIR$/src/views/other/PermissionList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4024">
-          <caret line="237" column="4" lean-forward="true" selection-start-line="237" selection-start-column="4" selection-end-line="237" selection-end-column="4" />
+        <state relative-caret-position="360">
+          <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#a-select#0;n#a-form-item#4;n#a-form#0;n#a-modal#0;n#a-card#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="277" column="60" selection-start-line="277" selection-start-column="60" selection-end-line="277" selection-end-column="60" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#21#106#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mock/services/other.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1189,43 +1216,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/mock/services/manage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4024">
+          <caret line="237" column="4" lean-forward="true" selection-start-line="237" selection-start-column="4" selection-end-line="237" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/other/TableInnerEditList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2776">
-          <caret line="27" column="64" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
+        <state relative-caret-position="260">
+          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
           <folding>
             <element signature="n#style#0;n#a-date-picker#0;n#a-form-item#0;n#a-col#1;n#template#0;n#a-row#0;n#a-form#0;n#div#0;n#a-card#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/other/PermissionList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding>
-            <element signature="n#style#0;n#a-select#0;n#a-form-item#4;n#a-form#0;n#a-modal#0;n#a-card#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mock/services/other.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/router.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2220">
-          <caret line="147" column="10" selection-start-line="147" selection-start-column="10" selection-end-line="147" selection-end-column="10" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#21#106#0" expanded="true" />
           </folding>
         </state>
       </provider>
