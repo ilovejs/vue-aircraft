@@ -43,24 +43,28 @@ export default {
     }
   },
   render () {
+    // this is the original Ant Design react style
     return (
       <AList itemLayout="horizontal">
         <AListItem>
           <Meta>
-            <a slot="title">风格配色</a>
+            <a slot="title">Theme color</a>
             <span slot="description">
-                整体风格配色设置
+                color
             </span>
           </Meta>
           <div slot="actions">
-            <ASwitch checkedChildren="暗色" unCheckedChildren="白色" defaultChecked={this.navTheme === 'dark' && true || false} onChange={this.onChange} />
+            <ASwitch checkedChildren="dark"
+                     unCheckedChildren="light"
+                     defaultChecked={this.navTheme === 'dark' && true || false} onChange={this.onChange} />
           </div>
         </AListItem>
+
         <AListItem>
           <Meta>
-            <a slot="title">主题色</a>
+            <a slot="title">Page color</a>
             <span slot="description">
-                页面风格配色： <a domPropsInnerHTML={ this.colorFilter(this.primaryColor) }/>
+                Page style color： <a domPropsInnerHTML={ this.colorFilter(this.primaryColor) }/>
             </span>
           </Meta>
         </AListItem>

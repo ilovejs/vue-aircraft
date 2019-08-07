@@ -179,27 +179,27 @@ const activity = () => {
 const teams = () => {
   return builder([{
     id: 1,
-    name: '科学搬砖组',
+    name: 'Science Team',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
   },
   {
     id: 2,
-    name: '程序员日常',
+    name: 'Programmer Team',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/cnrhVkzwxjPwAaCfPbdc.png'
   },
   {
     id: 1,
-    name: '设计天团',
+    name: 'Designer Team',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/gaOngJwsRYRaVAuXXcmB.png'
   },
   {
     id: 1,
-    name: '中二少女团',
+    name: 'Game of throne follower',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png'
   },
   {
     id: 1,
-    name: '骗你学计算机',
+    name: 'Geek Team',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WhxKECPNujWoWEFNdnJE.png'
   }
   ])
@@ -207,40 +207,40 @@ const teams = () => {
 
 const radar = () => {
   return builder([{
-    item: '引用',
-    '个人': 70,
-    '团队': 30,
-    '部门': 40
+    item: 'Reference',
+    'Personal': 70,
+    'Team': 30,
+    'Department': 40
   },
   {
-    item: '口碑',
-    '个人': 60,
-    '团队': 70,
-    '部门': 40
+    item: 'Reputation',
+    'Personal': 60,
+    'Team': 70,
+    'Department': 40
   },
   {
-    item: '产量',
-    '个人': 50,
-    '团队': 60,
-    '部门': 40
+    item: 'Output',
+    'Personal': 50,
+    'Team': 60,
+    'Department': 40
   },
   {
-    item: '贡献',
-    '个人': 40,
-    '团队': 50,
-    '部门': 40
+    item: 'Contribution',
+    'Personal': 40,
+    'Team': 50,
+    'Department': 40
   },
   {
-    item: '热度',
-    '个人': 60,
-    '团队': 70,
-    '部门': 40
+    item: 'Hot',
+    'Personal': 60,
+    'Team': 70,
+    'Department': 40
   },
   {
-    item: '引用',
-    '个人': 70,
-    '团队': 50,
-    '部门': 40
+    item: 'External',
+    'Personal': 70,
+    'Team': 50,
+    'Department': 40
   }
   ])
 }
