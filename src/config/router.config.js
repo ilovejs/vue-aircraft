@@ -145,7 +145,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-      // result
+      // Result
       {
         path: '/result',
         name: 'result',
@@ -305,7 +305,7 @@ export const ASYNC_ROUTERS = [
                 path: '/other/list/permission-list',
                 name: 'PermissionList',
                 component: () => import('@/views/other/PermissionList'),
-                meta: { title: 'permission-list', keepAlive: true }
+                meta: { title: 'Permission and Role', keepAlive: true }
               }
             ]
           }
