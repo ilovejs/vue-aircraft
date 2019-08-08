@@ -126,7 +126,7 @@ export default {
   data () {
     return {
       teams: [],
-      projects:[],
+      projects: [],
       timeFix: timeFix(),
       avatar: '',
       user: {},

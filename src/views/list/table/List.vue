@@ -127,11 +127,8 @@ export default {
   data () {
     return {
       mdl: {},
-      // 高级搜索 展开/关闭
       advanced: false,
-      // 查询参数
       queryParam: {},
-      // 表头
       columns: [
         {
           title: '#',
@@ -169,7 +166,7 @@ export default {
           scopedSlots: { customRender: 'action' }
         }
       ],
-      // 加载数据方法 必须为 Promise 对象
+      // used by s-table component
       loadData: parameter => {
         console.log('loadData.parameter', parameter)
         return getServiceList(Object.assign(parameter, this.queryParam))

@@ -62,9 +62,12 @@
         </router-link>
       </a-form-item>
 
+      <!--submit-->
       <a-form-item style="margin-top:24px">
-        <a-button size="large" type="primary" htmlType="submit" class="login-button"
-                  :loading="state.loginBtn" :disabled="state.loginBtn"
+        <a-button size="large" type="primary" htmlType="submit"
+                  class="login-button"
+                  :loading="state.loginBtn"
+                  :disabled="state.loginBtn"
         >Confirm
         </a-button>
       </a-form-item>
@@ -88,7 +91,7 @@
 </template>
 
 <script>
-import md5 from 'md5'
+// import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
@@ -131,11 +134,11 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault()
-      // todo: why destruct this
+
       const {
         form: { validateFields },
         state,
-        customActiveKey,
+        // customActiveKey,
         Login
       } = this
       state.loginBtn = true
@@ -177,6 +180,7 @@ export default {
       }, 1000)
     },
     requestFailed(err) {
+      console.log('requestFailed: ', err)
       this.$notification['error']({
         message: 'error',
         description: ((err.response || {}).data || {}).message || 'request error, retry again',

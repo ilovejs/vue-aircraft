@@ -26,7 +26,6 @@ export function getInfo (token) {
     method: 'get',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      // 'X-Requested-With': 'XMLHttpRequest',
       'Authorization': 'Token ' + token
     }
   })
