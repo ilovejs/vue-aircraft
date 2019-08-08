@@ -68,13 +68,8 @@
             </a-list>
           </a-card>
         </a-col>
-        <a-col
-          style="padding: 0 12px"
-          :xl="8"
-          :lg="24"
-          :md="24"
-          :sm="24"
-          :xs="24">
+
+        <a-col style="padding: 0 12px" :xl="8" :lg="24" :md="24" :sm="24" :xs="24">
           <a-card title="Shortcut" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
             <div class="item-group">
               <a>Ops1</a>
@@ -86,8 +81,7 @@
             </div>
           </a-card>
           <a-card title="XX Index" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
-            <div style="min-height: 400px;">
-              <!-- :scale="scale" :axis1Opts="axis1Opts" :axis2Opts="axis2Opts"  -->
+            <div style="min-height: 400px;" :scale="scale" :axis1Opts="axis1Opts" :axis2Opts="axis2Opts">
               <radar :data="radarData" />
             </div>
           </a-card>
@@ -104,6 +98,7 @@
             </div>
           </a-card>
         </a-col>
+
       </a-row>
     </div>
   </page-view>
@@ -130,13 +125,14 @@ export default {
   },
   data () {
     return {
+      teams: [],
+      projects:[],
       timeFix: timeFix(),
       avatar: '',
       user: {},
       loading: true,
       radarLoading: true,
       activities: [],
-      // data
       axis1Opts: {
         dataKey: 'item',
         line: null,
@@ -184,7 +180,6 @@ export default {
     // search mock/services/user.js
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-    //api.
     getRoleList().then(res => {
       console.log('workplace -> call getRoleList()', res)
     })
@@ -193,7 +188,6 @@ export default {
     })
   },
   mounted () {
-    //init values
     this.getProjects()
     this.getActivity()
     this.getTeams()
@@ -242,7 +236,6 @@ export default {
 
 <style lang="less" scoped>
   .project-list {
-
     .card-title {
       font-size: 0;
 
@@ -333,20 +326,16 @@ export default {
   }
 
   .mobile {
-
     .project-list {
-
       .project-card-grid {
         width: 100%;
       }
     }
-
     .more-info {
       border: 0;
       padding-top: 16px;
       margin: 16px 0 16px;
     }
-
     .headerContent .title .welcome-text {
       display: none;
     }

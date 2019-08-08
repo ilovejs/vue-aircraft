@@ -22,8 +22,8 @@ export default {
   filters: {
     themeFilter (theme) {
       const themeMap = {
-        'dark': '暗色',
-        'light': '白色'
+        'dark': 'Dark',
+        'light': 'Light'
       }
       return themeMap[theme]
     }

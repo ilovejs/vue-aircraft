@@ -6,7 +6,7 @@
           <head-info title="TODO" content="8 tasks" :bordered="true"/>
         </a-col>
         <a-col :sm="8" :xs="24">
-          <head-info title="Avg Process Time this week" content="32mins" :bordered="true"/>
+          <head-info title="Avg Process Time this week" content="32 mins" :bordered="true"/>
         </a-col>
         <a-col :sm="8" :xs="24">
           <head-info title="Task done this week" content="24 items"/>
@@ -24,7 +24,7 @@
           <a-radio-button>Ongoing</a-radio-button>
           <a-radio-button>Pending</a-radio-button>
         </a-radio-group>
-        <a-input-search style="margin-left: 16px; width: 272px;" />
+        <a-input-search style="margin-left: 16px; width: 272px;"></a-input-search>
       </div>
 
       <div class="operate">
@@ -33,10 +33,12 @@
 
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 5, total: 50}">
         <a-list-item :key="index" v-for="(item, index) in data">
+
           <a-list-item-meta :description="item.description">
             <a-avatar slot="avatar" size="large" shape="square" :src="item.avatar"/>
             <a slot="title">{{ item.title }}</a>
           </a-list-item-meta>
+
           <div slot="actions">
             <a>Edit</a>
           </div>
@@ -49,6 +51,7 @@
               <a>More<a-icon type="down"/></a>
             </a-dropdown>
           </div>
+
           <div class="list-content">
             <div class="list-content-item">
               <span>Owner</span>
@@ -59,7 +62,8 @@
               <p>{{ item.startAt }}</p>
             </div>
             <div class="list-content-item">
-              <a-progress :percent="item.progress.value" :status="!item.progress.status ? null : item.progress.status" style="width: 180px" />
+              <a-progress :percent="item.progress.value"
+                          :status="!item.progress.status ? null : item.progress.status" style="width: 180px" />
             </div>
           </div>
         </a-list-item>
