@@ -53,11 +53,13 @@
         </a-tab-pane>
 
       </a-tabs>
+<!--          :to='{ name: "RecoverAccount", params: { user: this.form.username } }'-->
 
       <a-form-item>
         <a-checkbox v-decorator="['rememberMe']">Remember Me</a-checkbox>
         <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }" class="forge-password" style="float: right;"
+          :to="{ name:'recover' }"
+          class="forge-password" style="float: right;"
         >Forget Password
         </router-link>
       </a-form-item>

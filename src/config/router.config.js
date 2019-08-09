@@ -224,6 +224,7 @@ export const ASYNC_ROUTERS = [
                 meta: { title: 'Basic settings', hidden: true, permission: [ 'user' ] }
               },
               {
+                // change password inside dashboard
                 path: '/account/settings/security',
                 name: 'SecuritySettings',
                 component: () => import('@/views/account/settings/Security'),
@@ -319,7 +320,7 @@ export const ASYNC_ROUTERS = [
 ]
 
 /**
- * Base router
+ * Base router on Login Screen not Dashboard
  */
 export const DEFAULT_ROUTERS = [
   {
@@ -342,7 +343,14 @@ export const DEFAULT_ROUTERS = [
         path: 'register-result',
         name: 'registerResult',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/RegisterResult')
-      }
+      },
+      {
+        // recover password from login page
+        // todo: leave it til sso
+        path: 'recover',
+        name: 'recover',
+        component: () => import(/* webpackChunkName: "user" */  '@/views/account/settings/Security'),
+      },
     ]
   },
   {

@@ -129,7 +129,7 @@ export default {
         if (!errors) {
           console.log('TaskForm.Vue, errors:', errors)
         }
-        console.log('taskfrom: submit values:', values)
+        console.log('TaskFrom: submit values:', values)
 
         this.confirmLoading = true;
 
