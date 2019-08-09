@@ -7,7 +7,6 @@
     <a-form
       :form="form"
       @submit="handleSubmit">
-
       <a-form-item label="Name" :labelCol="labelCol" :wrapperCol="wrapperCol">
         <a-input v-decorator="['name', {rules:[{required: true, message: 'Please type in project name'}]}]" />
       </a-form-item>
@@ -18,9 +17,10 @@
 <!--        </a-date-picker>-->
 <!--      </a-form-item>-->
 
-      <!--could be multiple-->
-      <a-form-item label="Manager" :labelCol="labelCol" :wrapperCol="wrapperCol">
-        <a-select mode="multiple" labelInValue :value="value"
+
+      <!--todo: multiple chose, don't misuse v-model-->
+      <a-form-item label="Manager" :labelCol="labelCol" :wrapperCol="wrapperCol" v-model="managers">
+        <a-select mode="multiple" labelInValue
                   placeholder="Select users" style="width: 100%" :filterOption="false"
                   @search="fetchUser"
                   @change="handleChange"
@@ -51,9 +51,11 @@ import { getUserList } from '@/api/manage'  // default import used, not named im
 
 export default {
   name: 'TaskForm',
-  data () {
-    this.lastFetchId = 0
+  mounted () {
     this.fetchUser = debounce(this.fetchUser, 800)
+    this.lastFetchId = 0
+  },
+  data () {
     return {
       labelCol: {
         xs: { span: 24 },
@@ -67,7 +69,7 @@ export default {
       confirmLoading: false,
       form: this.$form.createForm(this),
       data: [],
-      value: [],
+      managers: [],
       fetching: false,
     }
   },
@@ -77,6 +79,7 @@ export default {
       this.visible = true
     },
     edit (record) {
+      // destruct form.setFieldValue to local, I bet u can't do const { setFieldsValue } = this
       const { form: { setFieldsValue } } = this
       this.visible = true
       this.$nextTick(() => {
@@ -104,13 +107,15 @@ export default {
             text: u.result.email,
             value: ''+ u.result.id
           }))
+
           console.log('this.data:', this.data)
           this.fetching = false
         })
     },
-    handleChange (value) {
+    handleChange (managers) {
+      console.log('handleChange: ', managers)
       Object.assign(this, {
-        value,
+        value: managers,
         data: [],
         fetching: false, //mouse over, don't show spinning
       })
