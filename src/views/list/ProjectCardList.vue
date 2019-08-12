@@ -16,9 +16,17 @@
                 Notes: {{ item.notes }}
               </div>
             </a-card-meta>
+
             <template class="ant-card-actions" slot="actions">
-              <a-icon type="setting" />
-              <a-icon type="edit" />
+              <router-link
+                :to="{ name: 'profile' }">
+                <a-icon type="setting" />
+              </router-link>
+
+              <router-link
+                :to="{ name: 'profile' }">
+                <a-icon type="edit" />
+              </router-link>
             </template>
           </a-card>
       </a-list-item>
@@ -62,7 +70,9 @@ export default {
         const result = res.projects
 
         projects = result.map(p => {
+            // todo: fix the back
             p.project.coverImage = '/project/airport.png'
+            p.project.avatar = '/avatar/44.jpg'
             return p.project
         })
 
