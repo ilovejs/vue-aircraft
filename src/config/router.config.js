@@ -50,19 +50,19 @@ export const ASYNC_ROUTERS = [
             path: '/form/base-form',
             name: 'BaseForm',
             component: () => import('@/views/form/BasicForm'),
-            meta: { title: '基础表单', keepAlive: true, permission: [ 'form' ] }
+            meta: { title: 'Base form', keepAlive: true, permission: [ 'form' ] }
           },
           {
             path: '/form/step-form',
             name: 'StepForm',
             component: () => import('@/views/form/stepForm/StepForm'),
-            meta: { title: '分步表单', keepAlive: true, permission: [ 'form' ] }
+            meta: { title: 'Step form', keepAlive: true, permission: [ 'form' ] }
           },
           {
             path: '/form/advanced-form',
             name: 'AdvanceForm',
             component: () => import('@/views/form/advancedForm/AdvancedForm'),
-            meta: { title: '高级表单', keepAlive: true, permission: [ 'form' ] }
+            meta: { title: 'Advanced form', keepAlive: true, permission: [ 'form' ] }
           }
         ]
       },
@@ -96,6 +96,12 @@ export const ASYNC_ROUTERS = [
             meta: { title: 'List', keepAlive: true, permission: [ 'table' ] }
           },
           {
+            path: '/project/detail/:projectId([1-9]\\d*)?',
+            name: 'ProjectDetail',
+            component: () => import('@/views/project/detail/Index'),
+            meta: { title: 'Detail', permission: [ 'table' ] } //todo: change permission
+          },
+          {
             path: '/list/search',
             name: 'SearchList',
             component: () => import('@/views/list/search/SearchLayout'),
@@ -124,7 +130,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-      // Profile
+      // Profile Detail pages
       {
         path: '/profile',
         name: 'profile',

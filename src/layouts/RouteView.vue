@@ -12,11 +12,13 @@ export default {
   },
   render () {
     const { $route: { meta }, $store: { getters } } = this
+    // patch cached view https://github.com/zhaozhenghao1993/zh-web-vue/blob/master/src/layouts/RouteView.vue
     const inKeep = (
-      <keep-alive>
+      <keep-alive {...{ include: this.cachedViews }}>
         <router-view />
       </keep-alive>
     )
+    /*
     const notKeep = (
       <router-view />
     )
@@ -27,6 +29,8 @@ export default {
       return notKeep
     }
     return this.keepAlive || getters.multiTab || meta.keepAlive ? inKeep : notKeep
+    */
+    return inKeep
   }
 }
 </script>

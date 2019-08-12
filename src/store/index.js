@@ -5,6 +5,7 @@ import app from './modules/app'
 import permission from './modules/permission'
 import user from './modules/user'
 import project from './modules/project'
+import tagsView from './modules/tagsView'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   modules: {
     app,
     permission,
+    tagsView,    //don't forget
     user,
     project
   },
@@ -37,6 +39,7 @@ export default new Vuex.Store({
     addRouters: state => state.permission.addRouters,
 
     // must leave this to last
-    multiTab: state => state.app.multiTab
+    multiTab: state => state.app.multiTab,
+    cachedViews: state => state.tagsView.cachedViews
   }
 })

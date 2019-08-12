@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
 import debounce from 'lodash/debounce'
 import Vue from 'vue'
-import { createProject } from '@/api/project'
+import { mapActions } from 'vuex'
+import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
+import { apiCreateProject } from '@/api/project'
 import { getUserList } from '@/api/manage'  // default import used, not named import
 
 export default {
@@ -148,7 +148,7 @@ export default {
             manager_id : parseInt(values.manager_id[0].key)
           }
         } // only pick the first one as manager, cuz db
-        createProject(token, params).then(res => {
+        apiCreateProject(token, params).then(res => {
           console.log('project created !', res)
           // close dialog
           this.visible = false;

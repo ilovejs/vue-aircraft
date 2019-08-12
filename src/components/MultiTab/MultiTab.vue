@@ -45,7 +45,12 @@ export default {
     onEdit (targetKey, action) {
       this[action](targetKey)
     },
-    remove (targetKey) {
+    remove (targetKey) { // might map to close event
+      /* cache patch */
+      const pages = this.pages.filter(page => page.fullPath === targetKey)
+      // remove activeKey from cache
+      this.$store.dispatch('delCachedView', pages[0])
+      /* end */
       this.pages = this.pages.filter(page => page.fullPath !== targetKey)
       this.fullPathList = this.fullPathList.filter(path => path !== targetKey)
       // if current tab is close, jump to last active tab
@@ -141,6 +146,17 @@ export default {
       }
     },
     activeKey: function (newPathKey) {
+      /* cache patch start */
+      const pages = this.pages.filter(page => page.fullPath === newPathKey)
+      if (pages.length > 0) {
+        const { name } = pages[0]
+        console.log('activeKey:', name)
+        if (name) {
+          // multiTab use TagsView module
+          this.$store.dispatch('addCachedView', pages[0])
+        }
+      }
+      /* end */
       this.$router.push({ path: newPathKey })
     }
   },

@@ -24,7 +24,7 @@
               </router-link>
 
               <router-link
-                :to="{ name: 'profile' }">
+                :to="{ name: 'ProjectDetail', params: { projectId: item.id } }">
                 <a-icon type="edit" />
               </router-link>
             </template>
@@ -33,6 +33,7 @@
 
     </a-list>
   </div>
+
 </template>
 
 <script>

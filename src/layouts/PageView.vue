@@ -38,11 +38,15 @@
     <div class="content">
       <div class="page-header-index-wide">
         <slot>
-          <!-- keep-alive  -->
-          <keep-alive v-if="multiTab">
-            <router-view ref="content" />
+          <!-- keep-alive originally use v-if="multiTab" -->
+<!--          <keep-alive v-if="$route.meta.keepAlive" exclude="ProjectDetailView">-->
+<!--            <router-view ref="content" class="keepAlive"/>-->
+<!--          </keep-alive>-->
+<!--          <router-view v-if="!$route.meta.keepAlive" exclude="ProjectDetailView"-->
+<!--                       ref="content" class="noKeepALive" />-->
+          <keep-alive :include="cachedViews">
+            <router-view :key="key" ref="content"/>
           </keep-alive>
-          <router-view v-else ref="content" />
         </slot>
       </div>
     </div>
@@ -89,7 +93,14 @@ export default {
   computed: {
     ...mapState({
       multiTab: state => state.app.multiTab
-    })
+    }),
+    /* patch */
+    cachedViews () {
+      return this.$store.state.tagsView.cachedViews
+    },
+    key () {
+      return this.$route.fullPath
+    }
   },
   mounted () {
     this.tabs = this.directTabs

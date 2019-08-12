@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { apiReadProjects } from '@/api/project'
+import { apiLoadProjects } from '@/api/project'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // exported at the bottom
@@ -18,7 +18,7 @@ const project = {
       return new Promise((resolve, reject) => {
         const token = Vue.ls.get(ACCESS_TOKEN)
 
-        apiReadProjects(token).then(resp => {
+        apiLoadProjects(token).then(resp => {
           console.log(resp)
 
           commit('ADD_PROJECT', resp.projects)
