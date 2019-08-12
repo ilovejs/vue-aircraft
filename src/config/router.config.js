@@ -8,7 +8,8 @@ export const ASYNC_ROUTERS = [
     name: 'index',
     component: BasicLayout,
     meta: { title: 'Home' },
-    redirect: '/dashboard/workplace',
+    // redirect: '/dashboard/workplace',
+    redirect: '/list/card',
     children: [
       // Dashboard
       {
@@ -65,7 +66,7 @@ export const ASYNC_ROUTERS = [
           }
         ]
       },
-      // Table
+      // Project
       {
         path: '/list',
         name: 'list',
@@ -146,27 +147,27 @@ export const ASYNC_ROUTERS = [
         ]
       },
       // Result
-      {
-        path: '/result',
-        name: 'result',
-        component: PageView,
-        redirect: '/result/success',
-        meta: { title: 'Result', icon: 'check-circle-o', permission: [ 'result' ] },
-        children: [
-          {
-            path: '/result/success',
-            name: 'ResultSuccess',
-            component: () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
-            meta: { title: 'success', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
-          },
-          {
-            path: '/result/fail',
-            name: 'ResultFail',
-            component: () => import(/* webpackChunkName: "result" */ '@/views/result/Error'),
-            meta: { title: 'fail', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
-          }
-        ]
-      },
+      // {
+      //   path: '/result',
+      //   name: 'result',
+      //   component: PageView,
+      //   redirect: '/result/success',
+      //   meta: { title: 'Result', icon: 'check-circle-o', permission: [ 'result' ] },
+      //   children: [
+      //     {
+      //       path: '/result/success',
+      //       name: 'ResultSuccess',
+      //       component: () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
+      //       meta: { title: 'success', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
+      //     },
+      //     {
+      //       path: '/result/fail',
+      //       name: 'ResultFail',
+      //       component: () => import(/* webpackChunkName: "result" */ '@/views/result/Error'),
+      //       meta: { title: 'fail', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
+      //     }
+      //   ]
+      // },
       // Exception
       {
         path: '/exception',

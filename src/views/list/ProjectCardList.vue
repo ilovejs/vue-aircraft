@@ -4,15 +4,16 @@
     <a-list
       :grid="{gutter: 24, xxl:6, xl:4, lg: 4, md: 2, sm: 1, xs: 1}"
       :dataSource="dataSource">
-
       <a-list-item slot="renderItem" slot-scope="item">
           <a-card :hoverable="true" style="">
             <img alt="project image" :src="item.coverImage" slot="cover"/>
             <a-card-meta>
-              <div slot="title">{{ item.title }}</div>
+              <div slot="title">{{ item.name }} {{ item.address }}</div>
               <a-avatar class="card-avatar" slot="avatar" :src="item.avatar" size="small"/>
               <div class="meta-content" slot="description">
-                ${{ item.value }} - {{ item.content }}
+                ${{ item.total_contract_value }}<br>
+                Qs: {{ item.quantity_surveyor }}<br>
+                Notes: {{ item.notes }}
               </div>
             </a-card-meta>
             <template class="ant-card-actions" slot="actions">
@@ -27,28 +28,17 @@
 </template>
 
 <script>
-// can't insert null otherwise render nothing
-const dataSource = []
-for (let i = 0; i < 11; i++) {
-  let min = 1000000;
-  let max = 500000000;
-  let randomValue = Math.floor(Math.random() * (max - min)) + min;
 
-  dataSource.push({
-    title: 'Sydney Airport',
-    value: randomValue,
-    avatar: '/avatar/44.jpg',
-    content: 'Wuber Super Center',
-    coverImage: '/project/airport.png'
-  })
-}
+import { mapActions } from 'vuex'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import Vue from 'vue'
+import store from '../../store'
 
 export default {
   name: 'ProjectCardList',
   data () {
     return {
       description: 'A recent view of ongoing projects',
-      // todo: docs
       linkList: [
         { icon: 'plus', href: '#', title: 'Add project' },
         { icon: 'rocket', href: '#', title: 'Quick start' },
@@ -56,8 +46,29 @@ export default {
         { icon: 'file-text', href: '#', title: 'Documents' }
       ],
       extraImage: 'https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png',
-      dataSource
+      dataSource: []
     }
+  },
+  methods: {
+    ...mapActions(['ListProjects'])
+  },
+  beforeMount(){
+    let token = Vue.ls.get(ACCESS_TOKEN)
+    let projects = []
+    let that = this
+
+    store.dispatch('ListProjects', {token:token}).
+      then(res => {
+        const result = res.projects
+
+        projects = result.map(p => {
+            p.project.coverImage = '/project/airport.png'
+            return p.project
+        })
+
+        console.log('dispatch list project:', projects)
+        that.dataSource = projects
+      })
   }
 }
 </script>

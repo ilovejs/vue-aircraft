@@ -17,7 +17,6 @@
 <!--        </a-date-picker>-->
 <!--      </a-form-item>-->
 
-
       <!--todo: multiple chose, don't misuse v-model-->
       <a-form-item label="Manager" :labelCol="labelCol" :wrapperCol="wrapperCol" v-model="managers">
         <a-select mode="multiple" labelInValue

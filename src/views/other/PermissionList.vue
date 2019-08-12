@@ -179,19 +179,20 @@ export default {
       ],
       // Pull actionList from Backend
       permissionList: null,
+      // for the control
       loadData: parameter => {
         return this.$http.get('/permission', {
           params: Object.assign(parameter, this.queryParam)
         }).then(res => {
           const result = res.result
           result.data.map(permission => {
+            // todo: ??
             permission.actionList = JSON.parse(permission.actionData)
             return permission
           })
           return result
         })
       },
-
       selectedRowKeys: [],
       selectedRows: []
     }
@@ -209,6 +210,7 @@ export default {
     this.loadPermissionList()
   },
   methods: {
+    // todo: is this like initial values ?
     loadPermissionList () {
       // permissionList
       new Promise(resolve => {
@@ -232,7 +234,6 @@ export default {
       this.visible = true
     },
     handleOk () {
-
     },
     onChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
@@ -254,7 +255,7 @@ export default {
           }
         })
       }
-      */
+    */
   }
 }
 </script>

@@ -74,19 +74,19 @@
         </a-button>
       </a-form-item>
 
-      <div class="user-login-other">
-        <span>Other Method to login</span>
-        <a>
-          <a-icon class="item-icon" type="alipay-circle"></a-icon>
-        </a>
-        <a>
-          <a-icon class="item-icon" type="taobao-circle"></a-icon>
-        </a>
-        <a>
-          <a-icon class="item-icon" type="weibo-circle"></a-icon>
-        </a>
-        <router-link class="register" :to="{ name: 'register' }">Register User</router-link>
-      </div>
+<!--      <div class="user-login-other">-->
+<!--        <span>Other Method to login</span>-->
+<!--        <a>-->
+<!--          <a-icon class="item-icon" type="alipay-circle"></a-icon>-->
+<!--        </a>-->
+<!--        <a>-->
+<!--          <a-icon class="item-icon" type="taobao-circle"></a-icon>-->
+<!--        </a>-->
+<!--        <a>-->
+<!--          <a-icon class="item-icon" type="weibo-circle"></a-icon>-->
+<!--        </a>-->
+<!--        <router-link class="register" :to="{ name: 'register' }">Register User</router-link>-->
+<!--      </div>-->
     </a-form>
 
   </div>
@@ -119,6 +119,8 @@ export default {
     }
   },
   methods: {
+    // action are from stores, they must be registered
+    // under store/index.js
     ...mapActions(['Login', 'Logout']),
     handleUsernameOrEmail(rule, value, callback) {
       const { state } = this

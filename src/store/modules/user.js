@@ -3,7 +3,7 @@ import { getInfo, login, logout } from '@/api/login'
 import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
-// just for demo purpose
+// todo: just for demo purpose
 import { mockUserInfo } from '@/mock/services/user'
 
 const user = {

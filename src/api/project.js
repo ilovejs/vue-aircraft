@@ -13,9 +13,10 @@ export function createProject (token, param) {
   })
 }
 
-export function readProject (token) {
+export function apiReadProjects(token) {
+  console.log('api: list projects')
   return axios({
-    url: '/projects/' + token,
+    url: '/projects',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       'Authorization': 'Token ' + token
