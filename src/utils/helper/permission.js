@@ -1,13 +1,13 @@
 const PERMISSION_ENUM = {
-  'add': { key: 'add', label: '新增' },
-  'delete': { key: 'delete', label: '删除' },
-  'edit': { key: 'edit', label: '修改' },
-  'query': { key: 'query', label: '查询' },
-  'get': { key: 'get', label: '详情' },
-  'enable': { key: 'enable', label: '启用' },
-  'disable': { key: 'disable', label: '禁用' },
-  'import': { key: 'import', label: '导入' },
-  'export': { key: 'export', label: '导出' }
+  'add': { key: 'add', label: 'Add' },
+  'delete': { key: 'delete', label: 'Delete' },
+  'edit': { key: 'edit', label: 'Edit' },
+  'query': { key: 'query', label: 'Query' },
+  'get': { key: 'get', label: 'Get' },
+  'enable': { key: 'enable', label: 'Enable' },
+  'disable': { key: 'disable', label: 'Disable' },
+  'import': { key: 'import', label: 'Import' },
+  'export': { key: 'export', label: 'Export' }
 }
 
 function plugin (Vue) {
@@ -15,13 +15,18 @@ function plugin (Vue) {
     return
   }
 
+  // $auth becomes global variable used in Vue file
   !Vue.prototype.$auth && Object.defineProperties(Vue.prototype, {
     $auth: {
       get () {
         const _this = this
+        // take permissions as input
         return (permissions) => {
           const [permission, action] = permissions.split('.')
+          console.log('helper/permission.js plugin, permissionList copied')
           const permissionList = _this.$store.getters.roles.permissions
+          // check permission and action
+          // return boolean
           return permissionList.find((val) => {
             return val.permissionId === permission
           }).actionList.findIndex((val) => {
@@ -32,6 +37,7 @@ function plugin (Vue) {
     }
   })
 
+  // todo: not used $enum global
   !Vue.prototype.$enum && Object.defineProperties(Vue.prototype, {
     $enum: {
       get () {

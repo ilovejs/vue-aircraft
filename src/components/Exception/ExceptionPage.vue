@@ -8,7 +8,7 @@
       <h1>{{ config[type].title }}</h1>
       <div class="desc">{{ config[type].desc }}</div>
       <div class="actions">
-        <a-button type="primary" @click="handleToHome">返回首页</a-button>
+        <a-button type="primary" @click="handleToHome">Back Home</a-button>
       </div>
     </div>
   </div>

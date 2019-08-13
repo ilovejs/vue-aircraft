@@ -2,11 +2,12 @@ import Mock from 'mockjs2'
 import { builder, getBody } from '../util'
 
 const username = ['admin', 'user', 'super']
-const password = ['21232f297a57a5a743894a0e4a801fc3', '8914de686ab28dc22f30d3d8e107ff6c'] // admin, ant.design
+const password = ['21232f297a57a5a743894a0e4a801fc3',
+  '8914de686ab28dc22f30d3d8e107ff6c', 'admin'] // admin, ant.design
 
 const login = (options) => {
   const body = getBody(options)
-  console.log('mock: body', body)
+  console.log('mock: body has fields that need to be met:', body)
   if (!username.includes(body.username) || !password.includes(body.password)) {
     return builder({ isLogin: true }, 'Account or password issue', 401)
   }
@@ -37,6 +38,7 @@ const smsCaptcha = () => builder({ captcha: Mock.mock('@integer(10000, 99999)') 
 const twofactor = () => builder({ stepCode: Mock.mock('@integer(0, 1)') })
 
 // expose as api
+// TODO: comment out if no need for specific api
 Mock.mock(/\/auth\/login/, 'post', login)
 Mock.mock(/\/auth\/logout/, 'post', logout)
 Mock.mock(/\/account\/sms/, 'post', smsCaptcha)

@@ -2,6 +2,14 @@
   <dictionary name="mzhuang">
     <words>
       <w>axios</w>
+      <w>codepen</w>
+      <w>minifies</w>
+      <w>rbac</w>
+      <w>sidemenu</w>
+      <w>siderbar</w>
+      <w>sockjs</w>
+      <w>taskform</w>
+      <w>topmenu</w>
     </words>
   </dictionary>
 </component>

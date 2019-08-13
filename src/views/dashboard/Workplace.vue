@@ -3,18 +3,18 @@
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
       <div class="title">{{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome() }}</span></div>
-      <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+      <div>Quantity Surveyor | WT - Tech - Platform</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="8">
-          <head-info title="项目数" content="56" :center="false" :bordered="false"/>
+          <head-info title="Project number" content="56" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="团队排名" content="8/24" :center="false" :bordered="false"/>
+          <head-info title="Team rank" content="8/24" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="项目访问" content="2,223" :center="false" />
+          <head-info title="Project popularity" content="2,223" :center="false" />
         </a-col>
       </a-row>
     </div>
@@ -27,9 +27,9 @@
             :loading="loading"
             style="margin-bottom: 24px;"
             :bordered="false"
-            title="进行中的项目"
+            title="Ongoing Project"
             :body-style="{ padding: 0 }">
-            <a slot="extra">全部项目</a>
+            <a slot="extra">All projects</a>
             <div>
               <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
@@ -43,22 +43,22 @@
                     </div>
                   </a-card-meta>
                   <div class="project-item">
-                    <a href="/#/">科学搬砖组</a>
-                    <span class="datetime">9小时前</span>
+                    <a href="/#">Science Team</a>
+                    <span class="datetime">9 hour ago</span>
                   </div>
                 </a-card>
               </a-card-grid>
             </div>
           </a-card>
 
-          <a-card :loading="loading" title="动态" :bordered="false">
+          <a-card :loading="loading" title="Activities" :bordered="false">
             <a-list>
               <a-list-item :key="index" v-for="(item, index) in activities">
                 <a-list-item-meta>
                   <a-avatar slot="avatar" :src="item.user.avatar" />
                   <div slot="title">
                     <span>{{ item.user.nickname }}</span>&nbsp;
-                    在&nbsp;<a href="#">{{ item.project.name }}</a>&nbsp;
+                    In&nbsp;<a href="#">{{ item.project.name }}</a>&nbsp;
                     <span>{{ item.project.action }}</span>&nbsp;
                     <a href="#">{{ item.project.event }}</a>
                   </div>
@@ -68,31 +68,24 @@
             </a-list>
           </a-card>
         </a-col>
-        <a-col
-          style="padding: 0 12px"
-          :xl="8"
-          :lg="24"
-          :md="24"
-          :sm="24"
-          :xs="24">
-          <a-card title="快速开始 / 便捷导航" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
+
+        <a-col style="padding: 0 12px" :xl="8" :lg="24" :md="24" :sm="24" :xs="24">
+          <a-card title="Shortcut" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
             <div class="item-group">
-              <a>操作一</a>
-              <a>操作二</a>
-              <a>操作三</a>
-              <a>操作四</a>
-              <a>操作五</a>
-              <a>操作六</a>
-              <a-button size="small" type="primary" ghost icon="plus">添加</a-button>
+              <a>Ops1</a>
+              <a>Ops2</a>
+              <a>Ops3</a>
+              <a>Ops4</a>
+              <a>Ops5</a>
+              <a-button size="small" type="primary" ghost icon="plus">Add</a-button>
             </div>
           </a-card>
-          <a-card title="XX 指数" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
-            <div style="min-height: 400px;">
-              <!-- :scale="scale" :axis1Opts="axis1Opts" :axis2Opts="axis2Opts"  -->
+          <a-card title="XX Index" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
+            <div style="min-height: 400px;" :scale="scale" :axis1Opts="axis1Opts" :axis2Opts="axis2Opts">
               <radar :data="radarData" />
             </div>
           </a-card>
-          <a-card :loading="loading" title="团队" :bordered="false">
+          <a-card :loading="loading" title="Team" :bordered="false">
             <div class="members">
               <a-row>
                 <a-col :span="12" v-for="(item, index) in teams" :key="index">
@@ -105,6 +98,7 @@
             </div>
           </a-card>
         </a-col>
+
       </a-row>
     </div>
   </page-view>
@@ -131,17 +125,14 @@ export default {
   },
   data () {
     return {
+      teams: [],
+      projects: [],
       timeFix: timeFix(),
       avatar: '',
       user: {},
-
-      projects: [],
       loading: true,
       radarLoading: true,
       activities: [],
-      teams: [],
-
-      // data
       axis1Opts: {
         dataKey: 'item',
         line: null,
@@ -170,12 +161,12 @@ export default {
         max: 80
       }],
       axisData: [
-        { item: '引用', a: 70, b: 30, c: 40 },
-        { item: '口碑', a: 60, b: 70, c: 40 },
-        { item: '产量', a: 50, b: 60, c: 40 },
-        { item: '贡献', a: 40, b: 50, c: 40 },
-        { item: '热度', a: 60, b: 70, c: 40 },
-        { item: '引用', a: 70, b: 50, c: 40 }
+        { item: 'A', a: 70, b: 30, c: 40 },
+        { item: 'B', a: 60, b: 70, c: 40 },
+        { item: 'C', a: 50, b: 60, c: 40 },
+        { item: 'D', a: 40, b: 50, c: 40 },
+        { item: 'E', a: 60, b: 70, c: 40 },
+        { item: 'F', a: 70, b: 50, c: 40 }
       ],
       radarData: []
     }
@@ -189,7 +180,6 @@ export default {
     // search mock/services/user.js
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-    //api.
     getRoleList().then(res => {
       console.log('workplace -> call getRoleList()', res)
     })
@@ -198,7 +188,6 @@ export default {
     })
   },
   mounted () {
-    //init values
     this.getProjects()
     this.getActivity()
     this.getTeams()
@@ -233,7 +222,7 @@ export default {
           const dv = new DataSet.View().source(res.result)
           dv.transform({
             type: 'fold',
-            fields: ['个人', '团队', '部门'], //a,b,c in data
+            fields: ['Personal', 'Team', 'Department'], //a,b,c in data
             key: 'user',
             value: 'score'
           })
@@ -247,7 +236,6 @@ export default {
 
 <style lang="less" scoped>
   .project-list {
-
     .card-title {
       font-size: 0;
 
@@ -338,20 +326,16 @@ export default {
   }
 
   .mobile {
-
     .project-list {
-
       .project-card-grid {
         width: 100%;
       }
     }
-
     .more-info {
       border: 0;
       padding-top: 16px;
       margin: 16px 0 16px;
     }
-
     .headerContent .title .welcome-text {
       display: none;
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <router-link :to="{name:'dashboard'}">
-      <img alt="logo" src="@/assets/logo-wt.png"/>
+      <img alt="logo" src="../../../public/logo.png"/>
       <h1 v-if="showTitle">{{ title }}</h1>
     </router-link>
   </div>

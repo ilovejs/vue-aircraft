@@ -25,7 +25,7 @@
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="更新日期">
-                <a-date-picker style="width: 100%" placeholder="请输入更新日期"/>
+                <a-date-picker style="width: 100%" placeholder="请输入更新日期"></a-date-picker>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
@@ -179,13 +179,11 @@ export default {
           return res.result
         })
       },
-
       selectedRowKeys: [],
       selectedRows: []
     }
   },
   methods: {
-
     handleChange (value, key, column, record) {
       console.log(value, key, column)
       record[column.dataIndex] = value
@@ -220,7 +218,6 @@ export default {
     cancel (row) {
       row.editable = false
     },
-
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows

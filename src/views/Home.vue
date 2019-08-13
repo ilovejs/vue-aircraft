@@ -1,18 +1,15 @@
 <template>
   <div class="home">
     <div class="banner">
-      <img alt="Vue logo" style="width: 64px; height: 64px" src="../assets/logo-wt.png">
-      <h3 style="margin-top: 1rem">Welcome to Your Vue.js App</h3>
+      <img alt="Vue logo" style="width: 64px; height: 64px" src="../../public/logo.png">
+      <h3 style="margin-top: 1rem">Welcome to Your App</h3>
     </div>
 
     <br/>
 
     <h2># Trend 组件 </h2>
-
     <a-divider> 正常 </a-divider>
-
     <a-card>
-
       <trend flag="up" style="margin-right: 16px;">
         <span slot="term">工资</span>
         5%
@@ -25,7 +22,6 @@
         <span slot="term">身体状态</span>
         50%
       </trend>
-
     </a-card>
 
     <a-divider> 颜色反转 </a-divider>

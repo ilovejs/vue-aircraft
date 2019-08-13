@@ -45,10 +45,15 @@ export default {
     onEdit (targetKey, action) {
       this[action](targetKey)
     },
-    remove (targetKey) {
+    remove (targetKey) { // might map to close event
+      /* cache patch */
+      const pages = this.pages.filter(page => page.fullPath === targetKey)
+      // remove activeKey from cache
+      this.$store.dispatch('delCachedView', pages[0])
+      /* end */
       this.pages = this.pages.filter(page => page.fullPath !== targetKey)
       this.fullPathList = this.fullPathList.filter(path => path !== targetKey)
-      // 判断当前标签是否关闭，若关闭则跳转到最后一个还存在的标签页
+      // if current tab is close, jump to last active tab
       if (!this.fullPathList.includes(this.activeKey)) {
         this.selectedLastPath()
       }
@@ -70,7 +75,7 @@ export default {
           }
         })
       } else {
-        this.$message.info('左侧没有标签')
+        this.$message.info('no tab on left')
       }
     },
     closeRight (e) {
@@ -82,7 +87,7 @@ export default {
           }
         })
       } else {
-        this.$message.info('右侧没有标签')
+        this.$message.info('no tab on right')
       }
     },
     closeAll (e) {
@@ -114,10 +119,10 @@ export default {
     renderTabPaneMenu (e) {
       return (
         <a-menu {...{ on: { click: this.closeMenuClick } }}>
-          <a-menu-item key="close-that" data-vkey={e}>关闭当前标签</a-menu-item>
-          <a-menu-item key="close-right" data-vkey={e}>关闭右侧</a-menu-item>
-          <a-menu-item key="close-left" data-vkey={e}>关闭左侧</a-menu-item>
-          <a-menu-item key="close-all" data-vkey={e}>关闭全部</a-menu-item>
+          <a-menu-item key="close-that" data-vkey={e}>Close</a-menu-item>
+          <a-menu-item key="close-right" data-vkey={e}>Close right</a-menu-item>
+          <a-menu-item key="close-left" data-vkey={e}>Close left</a-menu-item>
+          <a-menu-item key="close-all" data-vkey={e}>Close All</a-menu-item>
         </a-menu>
       )
     },
@@ -141,6 +146,17 @@ export default {
       }
     },
     activeKey: function (newPathKey) {
+      /* cache patch start */
+      const pages = this.pages.filter(page => page.fullPath === newPathKey)
+      if (pages.length > 0) {
+        const { name } = pages[0]
+        console.log('activeKey:', name)
+        if (name) {
+          // multiTab use TagsView module
+          this.$store.dispatch('addCachedView', pages[0])
+        }
+      }
+      /* end */
       this.$router.push({ path: newPathKey })
     }
   },
@@ -163,7 +179,9 @@ export default {
             hideAdd
             type={'editable-card'}
             v-model={this.activeKey}
-            tabBarStyle={{ background: '#FFF', margin: 0, paddingLeft: '16px', paddingTop: '1px' }}
+            tabBarStyle={{
+              background: '#FFF', margin: 0,
+              paddingLeft: '16px', paddingTop: '1px' }}
             {...{ on: { edit: onEdit } }}>
             {panes}
           </a-tabs>

@@ -1,11 +1,14 @@
 {
-  "name": "vue-antd-pro",
-  "version": "2.0.0",
+  "name": "vue-antd-pro-vue-wt",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve:dev": "vue-cli-service serve --port 8000",
+    "serve:prod": "serve --single dist",
     "build": "vue-cli-service build",
     "build:preview": "vue-cli-service build --mode preview",
+    "build:development": "vue-cli-service build --mode development",
+    "build:test": "vue-cli-service build --mode test",
     "lint": "vue-cli-service lint",
     "lint:nofix": "vue-cli-service lint --no-fix",
     "test:unit": "vue-cli-service test:unit"
@@ -33,7 +36,8 @@
     "vue-router": "^3.0.1",
     "vue-svg-component-runtime": "^1.0.1",
     "vuex": "^3.1.0",
-    "wangeditor": "^3.1.1"
+    "wangeditor": "^3.1.1",
+    "lodash": "latest"
   },
   "devDependencies": {
     "@ant-design/colors": "^3.1.0",

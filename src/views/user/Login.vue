@@ -20,7 +20,12 @@
               placeholder="admin"
               v-decorator="[
                 'username',
-                {rules: [{ required: true, message: 'User name or Email' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
+                {
+                  rules: [
+                  { required: true, message: 'User name or Email' },
+                  { validator: handleUsernameOrEmail }],
+                  validateTrigger: 'change'
+                }
               ]"
             >
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -35,7 +40,11 @@
               placeholder="admin"
               v-decorator="[
                 'password',
-                {rules: [{ required: true, message: 'Please type password' }], validateTrigger: 'blur'}
+                {
+                  rules: [
+                  { required: true, message: 'Please type password' }],
+                  validateTrigger: 'blur'
+                }
               ]"
             >
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -43,86 +52,51 @@
           </a-form-item>
         </a-tab-pane>
 
-        <!--        <a-tab-pane key="tab2" tab="Mobile Login">-->
-        <!--          <a-form-item>-->
-        <!--            <a-input size="large" type="text" placeholder="手机号" v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]">-->
-        <!--              <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
-        <!--            </a-input>-->
-        <!--          </a-form-item>-->
-
-        <!--          <a-row :gutter="16">-->
-        <!--            <a-col class="gutter-row" :span="16">-->
-        <!--              <a-form-item>-->
-        <!--                <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">-->
-        <!--                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
-        <!--                </a-input>-->
-        <!--              </a-form-item>-->
-        <!--            </a-col>-->
-        <!--            <a-col class="gutter-row" :span="8">-->
-        <!--              <a-button-->
-        <!--                class="getCaptcha"-->
-        <!--                tabindex="-1"-->
-        <!--                :disabled="state.smsSendBtn"-->
-        <!--                @click.stop.prevent="getCaptcha"-->
-        <!--                v-text="!state.smsSendBtn && '获取验证码' || (state.time+' s')"-->
-        <!--              ></a-button>-->
-        <!--            </a-col>-->
-        <!--          </a-row>-->
-        <!--        </a-tab-pane>-->
       </a-tabs>
+<!--          :to='{ name: "RecoverAccount", params: { user: this.form.username } }'-->
 
       <a-form-item>
         <a-checkbox v-decorator="['rememberMe']">Remember Me</a-checkbox>
         <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
-          class="forge-password"
-          style="float: right;"
+          :to="{ name:'recover' }"
+          class="forge-password" style="float: right;"
         >Forget Password
         </router-link>
       </a-form-item>
 
+      <!--submit-->
       <a-form-item style="margin-top:24px">
-        <a-button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          class="login-button"
-          :loading="state.loginBtn"
-          :disabled="state.loginBtn"
+        <a-button size="large" type="primary" htmlType="submit"
+                  class="login-button"
+                  :loading="state.loginBtn"
+                  :disabled="state.loginBtn"
         >Confirm
         </a-button>
       </a-form-item>
 
-      <div class="user-login-other">
-        <span>Other Method to login</span>
-        <a>
-          <a-icon class="item-icon" type="alipay-circle"></a-icon>
-        </a>
-        <a>
-          <a-icon class="item-icon" type="taobao-circle"></a-icon>
-        </a>
-        <a>
-          <a-icon class="item-icon" type="weibo-circle"></a-icon>
-        </a>
-        <router-link class="register" :to="{ name: 'register' }">Register User</router-link>
-      </div>
+<!--      <div class="user-login-other">-->
+<!--        <span>Other Method to login</span>-->
+<!--        <a>-->
+<!--          <a-icon class="item-icon" type="alipay-circle"></a-icon>-->
+<!--        </a>-->
+<!--        <a>-->
+<!--          <a-icon class="item-icon" type="taobao-circle"></a-icon>-->
+<!--        </a>-->
+<!--        <a>-->
+<!--          <a-icon class="item-icon" type="weibo-circle"></a-icon>-->
+<!--        </a>-->
+<!--        <router-link class="register" :to="{ name: 'register' }">Register User</router-link>-->
+<!--      </div>-->
     </a-form>
 
-    <two-step-captcha
-      v-if="requiredTwoStepCaptcha"
-      :visible="stepCaptchaVisible"
-      @success="stepCaptchaSuccess"
-      @cancel="stepCaptchaCancel"
-    ></two-step-captcha>
   </div>
 </template>
 
 <script>
-import md5 from 'md5'
+// import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
-import { getSmsCaptcha, get2step } from '@/api/login'
 
 export default {
   components: {
@@ -132,33 +106,22 @@ export default {
     return {
       customActiveKey: 'tab1',
       loginBtn: false,
-      // login type: 0 email, 1 username, 2 telephone
-      loginType: 0,
+      loginType: 0, // 0 email, 1 username, 2 telephone
       requiredTwoStepCaptcha: false,
       stepCaptchaVisible: false,
       form: this.$form.createForm(this),
       state: {
         time: 60,
         loginBtn: false,
-        // login type: 0 email, 1 username, 2 telephone
-        loginType: 0,
+        loginType: 0, // 0 email, 1 username, 2 telephone
         smsSendBtn: false
       }
     }
   },
-  created() {
-    get2step({})
-      .then(res => {
-        this.requiredTwoStepCaptcha = res.result.stepCode
-      })
-      .catch(() => {
-        this.requiredTwoStepCaptcha = false
-      })
-    // this.requiredTwoStepCaptcha = true
-  },
   methods: {
+    // action are from stores, they must be registered
+    // under store/index.js
     ...mapActions(['Login', 'Logout']),
-    // handler
     handleUsernameOrEmail(rule, value, callback) {
       const { state } = this
       const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
@@ -175,24 +138,27 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault()
+
       const {
         form: { validateFields },
         state,
-        customActiveKey,
+        // customActiveKey,
         Login
       } = this
-
       state.loginBtn = true
 
-      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
-
+      const validateFieldsKey = ['username', 'password']
+      // validate
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
-          console.log('login form', values)
+          console.log('Login.vue values: ', values)
+
           const loginParams = { ...values }
           delete loginParams.username
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
-          loginParams.password = md5(values.password)
+          // todo: md5()
+          loginParams.password = values.password
+          // login
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
@@ -206,64 +172,22 @@ export default {
         }
       })
     },
-    getCaptcha(e) {
-      e.preventDefault()
-      // const { form: { validateFields }, state } = this
-
-      // validateFields(['mobile'], { force: true }, (err, values) => {
-      //   if (!err) {
-      //     state.smsSendBtn = true
-      //
-      //     const interval = window.setInterval(() => {
-      //       if (state.time-- <= 0) {
-      //         state.time = 60
-      //         state.smsSendBtn = false
-      //         window.clearInterval(interval)
-      //       }
-      //     }, 1000)
-      //
-      //     const hide = this.$message.loading('验证码发送中..', 0)
-      //     getSmsCaptcha({ mobile: values.mobile }).then(res => {
-      //       setTimeout(hide, 2500)
-      //       this.$notification['success']({
-      //         message: '提示',
-      //         description: '验证码获取成功，您的验证码为：' + res.result.captcha,
-      //         duration: 8
-      //       })
-      //     }).catch(err => {
-      //       setTimeout(hide, 1)
-      //       clearInterval(interval)
-      //       state.time = 60
-      //       state.smsSendBtn = false
-      //       this.requestFailed(err)
-      //     })
-      //   }
-      // })
-    },
-    stepCaptchaSuccess() {
-      this.loginSuccess()
-    },
-    stepCaptchaCancel() {
-      this.Logout().then(() => {
-        this.loginBtn = false
-        this.stepCaptchaVisible = false
-      })
-    },
     loginSuccess(res) {
       console.log(res)
       this.$router.push({ name: 'dashboard' })
-      // 延迟 1 秒显示欢迎信息
+      // delay 1s for welcome message
       setTimeout(() => {
         this.$notification.success({
-          message: '欢迎',
-          description: `${timeFix()}，欢迎回来`
+          message: 'Welcome',
+          description: `${timeFix()}，welcome back !`
         })
       }, 1000)
     },
     requestFailed(err) {
+      console.log('requestFailed: ', err)
       this.$notification['error']({
-        message: '错误',
-        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
+        message: 'error',
+        description: ((err.response || {}).data || {}).message || 'request error, retry again',
         duration: 4
       })
     }

@@ -11,11 +11,14 @@ const api = {
 
 export default api
 
-export function getUserList(parameter) {
+export function getUserList(token) {
   return axios({
     url: api.user,
     method: 'get',
-    params: parameter,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Token ${token}`,
+    },
   })
 }
 

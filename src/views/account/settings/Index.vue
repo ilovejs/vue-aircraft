@@ -4,35 +4,34 @@
       <div class="account-settings-info-main" :class="device">
         <div class="account-settings-info-left">
           <a-menu
-            :mode="device == 'mobile' ? 'horizontal' : 'inline'"
-            :style="{ border: '0', width: device == 'mobile' ? '560px' : 'auto'}"
+            :mode="device === 'mobile' ? 'horizontal' : 'inline'"
+            :style="{ border: '0', width: device === 'mobile' ? '560px' : 'auto'}"
             :selectedKeys="selectedKeys"
             type="inner"
-            @openChange="onOpenChange"
-          >
+            @openChange="onOpenChange">
             <a-menu-item key="/account/settings/base">
               <router-link :to="{ name: 'BaseSettings' }">
-                基本设置
+                Base Setting
               </router-link>
             </a-menu-item>
             <a-menu-item key="/account/settings/security">
               <router-link :to="{ name: 'SecuritySettings' }">
-                安全设置
+                Security
               </router-link>
             </a-menu-item>
             <a-menu-item key="/account/settings/custom">
               <router-link :to="{ name: 'CustomSettings' }">
-                个性化
+                Personalisation
               </router-link>
             </a-menu-item>
             <a-menu-item key="/account/settings/binding">
               <router-link :to="{ name: 'BindingSettings' }">
-                账户绑定
+                User Binding
               </router-link>
             </a-menu-item>
             <a-menu-item key="/account/settings/notification">
               <router-link :to="{ name: 'NotificationSettings' }">
-                新消息通知
+                Notification
               </router-link>
             </a-menu-item>
           </a-menu>
@@ -62,10 +61,8 @@ export default {
     return {
       // horizontal  inline
       mode: 'inline',
-
       openKeys: [],
       selectedKeys: [],
-
       // cropper
       preview: {},
       option: {
@@ -75,15 +72,14 @@ export default {
         outputType: 'jpeg',
         canScale: false,
         autoCrop: true,
-        // 只有自动截图开启 宽度高度才生效
+        // width and height are only active when autoCrop true
         autoCropWidth: 180,
         autoCropHeight: 180,
         fixedBox: true,
-        // 开启宽度和高度比例
+        // width/height ratio
         fixed: true,
         fixedNumber: [1, 1]
       },
-
       pageTitle: ''
     }
   },

@@ -1,8 +1,9 @@
-import api from './index'
 import { axios } from '@/utils/request'
+import api from '@/api'
+
+/* settings that maps to backend endpoint */
 
 /**
- * login func
  * parameter: {
  *     username: '',
  *     password: '',
@@ -20,21 +21,22 @@ export function login(parameter) {
   })
 }
 
-export function getSmsCaptcha(parameter) {
-  return axios({
-    url: api.SendSms,
-    method: 'post',
-    data: parameter,
-  })
-}
-
-export function getInfo() {
+export function getInfo(token) {
   return axios({
     url: '/user/info',
     method: 'get',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Token ${token}`,
     },
+  })
+}
+
+export function getSmsCaptcha(parameter) {
+  return axios({
+    url: api.SendSms,
+    method: 'post',
+    data: parameter,
   })
 }
 
@@ -54,7 +56,7 @@ export function logout() {
  */
 export function get2step(parameter) {
   return axios({
-    url: api.twoStepCode, // default map from api package (itself)
+    url: api.twoStepCode,
     method: 'post',
     data: parameter,
   })

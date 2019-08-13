@@ -21,22 +21,22 @@
         >
           <span slot="action" slot-scope="text, record">
             <template v-if="$auth('table.update')">
-              <a @click="handleEdit(record)">编辑</a>
+              <a @click="handleEdit(record)">Edit</a>
               <a-divider type="vertical" />
             </template>
             <a-dropdown>
               <a class="ant-dropdown-link">
-                更多 <a-icon type="down" />
+                More <a-icon type="down"/>
               </a>
               <a-menu slot="overlay">
                 <a-menu-item>
-                  <a href="javascript:;">详情</a>
+                  <a href="javascript:;">Detail</a>
                 </a-menu-item>
                 <a-menu-item v-if="$auth('table.disable')">
-                  <a href="javascript:;">禁用</a>
+                  <a href="javascript:;">Disable</a>
                 </a-menu-item>
                 <a-menu-item v-if="$auth('table.delete')">
-                  <a href="javascript:;">删除</a>
+                  <a href="javascript:;">Delete</a>
                 </a-menu-item>
               </a-menu>
             </a-dropdown>
@@ -65,44 +65,40 @@ export default {
   data () {
     return {
       openKeys: ['key-01'],
-
-      // 查询参数
       queryParam: {},
-      // 表头
       columns: [
         {
           title: '#',
           dataIndex: 'no'
         },
         {
-          title: '成员名称',
+          title: 'Member name',
           dataIndex: 'description'
         },
         {
-          title: '登录次数',
+          title: 'Call # times',
           dataIndex: 'callNo',
           sorter: true,
           needTotal: true,
-          customRender: (text) => text + ' 次'
+          customRender: (text) => text + ' time'
         },
         {
-          title: '状态',
+          title: 'Status',
           dataIndex: 'status',
           needTotal: true
         },
         {
-          title: '更新时间',
+          title: 'Updated',
           dataIndex: 'updatedAt',
           sorter: true
         },
         {
-          table: '操作',
+          table: 'Action',
           dataIndex: 'action',
           width: '150px',
           scopedSlots: { customRender: 'action' }
         }
       ],
-      // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         return getServiceList(Object.assign(parameter, this.queryParam))
           .then(res => {
@@ -129,7 +125,7 @@ export default {
     },
     handleAdd (item) {
       console.log('add button, item', item)
-      this.$message.info(`提示：你点了 ${item.key} - ${item.title} `)
+      this.$message.info(`Hint：You have clicked ${item.key} - ${item.title} `)
       this.$refs.modal.add(item.key)
     },
     handleTitleClick (item) {
@@ -144,7 +140,6 @@ export default {
     handleSaveClose () {
 
     },
-
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
@@ -155,7 +150,6 @@ export default {
 
 <style lang="less">
   .custom-tree {
-
     /deep/ .ant-menu-item-group-title {
       position: relative;
       &:hover {

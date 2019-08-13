@@ -9,8 +9,7 @@
         <div class="link">
           <template v-for="(link, index) in linkList">
             <a :key="index" :href="link.href">
-              <a-icon :type="link.icon" />
-              <span>{{ link.title }}</span>
+              <a-icon :type="link.icon" />&nbsp;<span>{{ link.title }}</span>
             </a>
           </template>
         </div>
@@ -24,10 +23,9 @@
         <div class="page-menu-search" v-if="search">
           <a-input-search
             style="width: 80%; max-width: 522px;"
-            placeholder="请输入..."
+            placeholder="Please type..."
             size="large"
-            enterButton="搜索"
-          />
+            enterButton="Search"></a-input-search>
         </div>
         <div class="page-menu-tabs" v-if="tabs && tabs.items">
           <!-- @change="callback" :activeKey="activeKey" -->
@@ -40,11 +38,15 @@
     <div class="content">
       <div class="page-header-index-wide">
         <slot>
-          <!-- keep-alive  -->
-          <keep-alive v-if="multiTab">
-            <router-view ref="content" />
+          <!-- keep-alive originally use v-if="multiTab" -->
+<!--          <keep-alive v-if="$route.meta.keepAlive" exclude="ProjectDetailView">-->
+<!--            <router-view ref="content" class="keepAlive"/>-->
+<!--          </keep-alive>-->
+<!--          <router-view v-if="!$route.meta.keepAlive" exclude="ProjectDetailView"-->
+<!--                       ref="content" class="noKeepALive" />-->
+          <keep-alive :include="cachedViews">
+            <router-view :key="key" ref="content"/>
           </keep-alive>
-          <router-view v-else ref="content" />
         </slot>
       </div>
     </div>
@@ -91,7 +93,14 @@ export default {
   computed: {
     ...mapState({
       multiTab: state => state.app.multiTab
-    })
+    }),
+    /* patch */
+    cachedViews () {
+      return this.$store.state.tagsView.cachedViews
+    },
+    key () {
+      return this.$route.fullPath
+    }
   },
   mounted () {
     this.tabs = this.directTabs

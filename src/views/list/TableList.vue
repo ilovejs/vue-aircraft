@@ -3,75 +3,74 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
-          <a-col :md="8" :sm="24">
-            <a-form-item label="规则编号">
-              <a-input v-model="queryParam.id" placeholder=""/>
+          <!--Serial Number-->
+          <a-col :md="6" :sm="24">
+            <a-form-item label="Serial">
+              <a-input v-model="queryParam.id" placeholder="Serial Number"/>
             </a-form-item>
           </a-col>
-          <a-col :md="8" :sm="24">
-            <a-form-item label="使用状态">
-              <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
+          <!--name-->
+          <a-col :md="6" :sm="24">
+            <a-form-item label="Number of use">
+              <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
+            </a-form-item>
+          </a-col>
+          <!--status-->
+          <a-col :md="6" :sm="24">
+            <a-form-item label="Status">
+              <a-select v-model="queryParam.status" placeholder="Pick one" default-value="0">
+                <a-select-option value="0">All</a-select-option>
+                <a-select-option value="1">Closed</a-select-option>
+                <a-select-option value="2">Opened</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
+          <!--advance tools-->
           <template v-if="advanced">
+
             <a-col :md="8" :sm="24">
-              <a-form-item label="调用次数">
-                <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
+              <a-form-item label="Updated">
+                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="Chose Update Time"></a-date-picker>
               </a-form-item>
             </a-col>
+
             <a-col :md="8" :sm="24">
-              <a-form-item label="更新日期">
-                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
+              <a-form-item label="Use Status">
+                <a-select v-model="queryParam.useStatus" placeholder="Pick one" default-value="0">
+                  <a-select-option value="0">All</a-select-option>
+                  <a-select-option value="1">Closed</a-select-option>
+                  <a-select-option value="2">Running</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
           </template>
-          <a-col :md="!advanced && 8 || 24" :sm="24">
+          <!--Search and Reset-->
+          <a-col :md="!advanced && 6 || 24" :sm="24">
             <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
-              <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-              <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
+              <a-button type="primary" @click="$refs.table.refresh(true)">Search</a-button>
+              <a-button style="margin-left: 8px" @click="() => queryParam = {}">Reset</a-button>
               <a @click="toggleAdvanced" style="margin-left: 8px">
-                {{ advanced ? '收起' : '展开' }}
+                {{ advanced ? 'Fold' : 'Expand' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
           </a-col>
+
         </a-row>
       </a-form>
     </div>
 
     <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
-      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
+      <a-button type="primary" icon="plus" @click="$refs.createModal.add()">Add</a-button>
+      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && 'Close' || 'Open' }} </a-button>
       <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
-          <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
+          <a-menu-item key="1"><a-icon type="delete" />Delete</a-menu-item>
           <!-- lock | unlock -->
-          <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
+          <a-menu-item key="2"><a-icon type="lock" />Lock</a-menu-item>
         </a-menu>
         <a-button style="margin-left: 8px">
-          批量操作 <a-icon type="down" />
+          Batch <a-icon type="down" />
         </a-button>
       </a-dropdown>
     </div>
@@ -98,9 +97,9 @@
 
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="handleEdit(record)">配置</a>
+          <a @click="handleEdit(record)">Edit</a>
           <a-divider type="vertical" />
-          <a @click="handleSub(record)">订阅报警</a>
+          <a @click="handleSub(record)">Subscribe</a>
         </template>
       </span>
     </s-table>
@@ -119,19 +118,19 @@ import { getRoleList, getServiceList } from '@/api/manage'
 const statusMap = {
   0: {
     status: 'default',
-    text: '关闭'
+    text: 'Closed'
   },
   1: {
-    status: 'processing',
-    text: '运行中'
+    status: 'processing', //todo: naming problem
+    text: 'pending'
   },
   2: {
     status: 'success',
-    text: '已上线'
+    text: 'Success'
   },
   3: {
     status: 'error',
-    text: '异常'
+    text: 'Error'
   }
 }
 
@@ -146,63 +145,63 @@ export default {
   data () {
     return {
       mdl: {},
-      // 高级搜索 展开/关闭
+      // advanced search
       advanced: false,
-      // 查询参数
       queryParam: {},
-      // 表头
       columns: [
         {
           title: '#',
           scopedSlots: { customRender: 'serial' }
         },
         {
-          title: '规则编号',
+          title: 'Serial',
           dataIndex: 'no'
         },
         {
-          title: '描述',
+          title: 'Desc',
           dataIndex: 'description',
           scopedSlots: { customRender: 'description' }
         },
         {
-          title: '服务调用次数',
+          title: 'Called',
           dataIndex: 'callNo',
           sorter: true,
           needTotal: true,
-          customRender: (text) => text + ' 次'
+          customRender: (text) => text + ' time(s)'
         },
         {
-          title: '状态',
+          title: 'Status',
           dataIndex: 'status',
           scopedSlots: { customRender: 'status' }
         },
         {
-          title: '更新时间',
+          title: 'Updated',
           dataIndex: 'updatedAt',
           sorter: true
         },
         {
-          title: '操作',
+          title: 'Action',
           dataIndex: 'action',
           width: '150px',
           scopedSlots: { customRender: 'action' }
         }
       ],
-      // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         console.log('loadData.parameter', parameter)
         return getServiceList(Object.assign(parameter, this.queryParam))
           .then(res => {
+            // todo: check json format
             return res.result
           })
+        // todo: catch events ?
       },
       selectedRowKeys: [],
       selectedRows: [],
-
       // custom table alert & rowSelection
       options: {
-        alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+        alert: {
+          show: true,
+          clear: () => { this.selectedRowKeys = [] } },
         rowSelection: {
           selectedRowKeys: this.selectedRowKeys,
           onChange: this.onSelectChange
@@ -248,16 +247,15 @@ export default {
         this.optionAlertShow = false
       }
     },
-
     handleEdit (record) {
       console.log(record)
       this.$refs.modal.edit(record)
     },
     handleSub (record) {
       if (record.status !== 0) {
-        this.$message.info(`${record.no} 订阅成功`)
+        this.$message.info(`${record.no} Subscribe success`)
       } else {
-        this.$message.error(`${record.no} 订阅失败，规则已关闭`)
+        this.$message.error(`${record.no} Subscribe fail，trade is closed`)
       }
     },
     handleOk () {
