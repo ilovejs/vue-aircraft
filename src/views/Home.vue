@@ -141,60 +141,60 @@
 <script>
 // @ is an alias to /src
 
-import Trend from '@/components/Trend'
-import AvatarList from '@/components/AvatarList'
-import CountDown from '@/components/CountDown/CountDown'
-import Ellipsis from '@/components/Ellipsis'
-import NumberInfo from '@/components/NumberInfo'
-import TagSelect from '@/components/TagSelect'
-import { DescriptionList, TagCloud } from '@/components/'
+  import Trend from '@/components/Trend'
+  import AvatarList from '@/components/AvatarList'
+  import CountDown from '@/components/CountDown/CountDown'
+  import Ellipsis from '@/components/Ellipsis'
+  import NumberInfo from '@/components/NumberInfo'
+  import TagSelect from '@/components/TagSelect'
+  import { DescriptionList, TagCloud } from '@/components/'
 
-const AvatarListItem = AvatarList.AvatarItem
-const TagSelectOption = TagSelect.Option
+  const AvatarListItem = AvatarList.AvatarItem
+  const TagSelectOption = TagSelect.Option
 
-const DescriptionListItem = DescriptionList.Item
+  const DescriptionListItem = DescriptionList.Item
 
-export default {
-  name: 'Home',
-  components: {
-    NumberInfo,
-    Ellipsis,
-    CountDown,
-    Trend,
-    AvatarList,
-    AvatarListItem,
-    TagSelect,
-    TagSelectOption,
-    TagCloud,
-    DescriptionList,
-    DescriptionListItem
-  },
-  data () {
-    return {
-      targetTime: new Date().getTime() + 3900000,
-      tagCloudData: []
-    }
-  },
-  created () {
-    this.getTagCloudData()
-  },
-  methods: {
-    onEndHandle () {
-      this.$message.success('CountDown callback!!!')
+  export default {
+    name: 'Home',
+    components: {
+      NumberInfo,
+      Ellipsis,
+      CountDown,
+      Trend,
+      AvatarList,
+      AvatarListItem,
+      TagSelect,
+      TagSelectOption,
+      TagCloud,
+      DescriptionList,
+      DescriptionListItem,
     },
-    onEndHandle2 () {
-      this.$notification.open({
-        message: 'Notification Title',
-        description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
-      })
+    data() {
+      return {
+        targetTime: new Date().getTime() + 3900000,
+        tagCloudData: [],
+      }
     },
-    getTagCloudData () {
-      this.$http.get('/data/antv/tag-cloud').then(res => {
-        this.tagCloudData = res.result
-      })
-    }
+    created() {
+      this.getTagCloudData()
+    },
+    methods: {
+      onEndHandle() {
+        this.$message.success('CountDown callback!!!')
+      },
+      onEndHandle2() {
+        this.$notification.open({
+          message: 'Notification Title',
+          description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+        })
+      },
+      getTagCloudData() {
+        this.$http.get('/data/antv/tag-cloud').then((res) => {
+          this.tagCloudData = res.result
+        })
+      },
+    },
   }
-}
 </script>
 
 <style scoped>

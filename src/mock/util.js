@@ -2,10 +2,10 @@ const responseBody = {
   message: '',
   timestamp: 0,
   result: null,
-  code: 0
+  code: 0,
 }
 
-//NOTE: fantastic
+// NOTE: fantastic
 export const builder = (data, message, code = 0, headers = {}) => {
   responseBody.result = data
   if (message !== undefined && message !== null) {
@@ -23,17 +23,15 @@ export const builder = (data, message, code = 0, headers = {}) => {
 }
 
 export const getQueryParameters = (options) => {
-  const url = options.url
+  const { url } = options
   const search = url.split('?')[1]
   if (!search) {
     return {}
   }
-  return JSON.parse('{"' + decodeURIComponent(search)
+  return JSON.parse(`{"${decodeURIComponent(search)
     .replace(/"/g, '\\"')
     .replace(/&/g, '","')
-    .replace(/=/g, '":"') + '"}')
+    .replace(/=/g, '":"')}"}`)
 }
 
-export const getBody = (options) => {
-  return options.body && JSON.parse(options.body)
-}
+export const getBody = (options) => options.body && JSON.parse(options.body)

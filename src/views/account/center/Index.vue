@@ -55,7 +55,7 @@
                 @blur="handleTagInputConfirm"
                 @keyup.enter="handleTagInputConfirm"
               />
-              <a-tag v-else @click="showTagInput" style="background: #fff; borderStyle: dashed;">
+              <a-tag v-else style="background: #fff; borderStyle: dashed;" @click="showTagInput">
                 <a-icon type="plus"/>New Tag
               </a-tag>
             </div>
@@ -67,7 +67,7 @@
             <a-spin :spinning="teamSpinning">
               <div class="members">
                 <a-row>
-                  <a-col :span="12" v-for="(item, index) in teams" :key="index">
+                  <a-col v-for="(item, index) in teams" :key="index" :span="12">
                     <a>
                       <a-avatar size="small" :src="item.avatar"/>
                       <span class="member">{{ item.name }}</span>
@@ -87,7 +87,7 @@
           :activeTabKey="noTitleKey"
           @tabChange="key => handleTabChange(key, 'noTitleKey')">
 
-<!--          <article-page v-if="noTitleKey === 'article'"></article-page>-->
+          <!--          <article-page v-if="noTitleKey === 'article'"></article-page>-->
 
           <app-page v-if="noTitleKey === 'app'"></app-page>
           <project-page v-else-if="noTitleKey === 'project'"></project-page>
@@ -99,87 +99,87 @@
 </template>
 
 <script>
-import { PageView, RouteView } from '@/layouts'
-import { AppPage, ArticlePage, ProjectPage } from './page'
+  import { mapGetters } from 'vuex'
+  import { PageView, RouteView } from '@/layouts'
+  import { AppPage, ArticlePage, ProjectPage } from './page'
 
-import { mapGetters } from 'vuex'
 
-export default {
-  components: {
-    RouteView,
-    PageView,
-    AppPage,
-    // ArticlePage,
-    ProjectPage
-  },
-  data () {
-    return {
-      tags: ['front-end', 'design', 'back-end', 'ux', 'database', 'data analytics'],
+  export default {
+    components: {
+      RouteView,
+      PageView,
+      AppPage,
+      // ArticlePage,
+      ProjectPage,
+    },
+    data() {
+      return {
+        tags: ['front-end', 'design', 'back-end', 'ux', 'database', 'data analytics'],
 
-      tagInputVisible: false,
-      tagInputValue: '',
-
-      teams: [],
-      teamSpinning: true,
-
-      tabListNoTitle: [
-        // {
-        //   key: 'article',
-        //   tab: 'Page(8)'
-        // },
-        {
-          key: 'app',
-          tab: 'Module(8)'
-        },
-        {
-          key: 'project',
-          tab: 'Project(8)'
-        }
-      ],
-      noTitleKey: 'app'
-    }
-  },
-  mounted () {
-    this.getTeams()
-  },
-  methods: {
-    ...mapGetters(['nickname', 'avatar']),
-    getTeams () {
-      this.$http.get('/workplace/teams').then(res => {
-        this.teams = res.result
-        this.teamSpinning = false
-      })
-    },
-    handleTabChange (key, type) {
-      this[type] = key
-    },
-    handleTagClose (removeTag) {
-      const tags = this.tags.filter(tag => tag !== removeTag)
-      this.tags = tags
-    },
-    showTagInput () {
-      this.tagInputVisible = true
-      this.$nextTick(() => {
-        this.$refs.tagInput.focus()
-      })
-    },
-    handleInputChange (e) {
-      this.tagInputValue = e.target.value
-    },
-    handleTagInputConfirm () {
-      const inputValue = this.tagInputValue
-      let tags = this.tags
-      if (inputValue && !tags.includes(inputValue)) {
-        tags = [...tags, inputValue]
-      }
-      Object.assign(this, {
-        tags,
         tagInputVisible: false,
-        tagInputValue: ''
-      })
-    }
+        tagInputValue: '',
+
+        teams: [],
+        teamSpinning: true,
+
+        tabListNoTitle: [
+          // {
+          //   key: 'article',
+          //   tab: 'Page(8)'
+          // },
+          {
+            key: 'app',
+            tab: 'Module(8)',
+          },
+          {
+            key: 'project',
+            tab: 'Project(8)',
+          },
+        ],
+        noTitleKey: 'app',
+      }
+    },
+    mounted() {
+      this.getTeams()
+    },
+    methods: {
+      ...mapGetters(['nickname', 'avatar']),
+      getTeams() {
+        this.$http.get('/workplace/teams').then((res) => {
+          this.teams = res.result
+          this.teamSpinning = false
+        })
+      },
+      handleTabChange(key, type) {
+        this[type] = key
+      },
+      handleTagClose(removeTag) {
+        const tags = this.tags.filter((tag) => tag !== removeTag)
+        this.tags = tags
+      },
+      showTagInput() {
+        this.tagInputVisible = true
+        this.$nextTick(() => {
+          this.$refs.tagInput.focus()
+        })
+      },
+      handleInputChange(e) {
+        this.tagInputValue = e.target.value
+      },
+      handleTagInputConfirm() {
+        const inputValue = this.tagInputValue
+        let { tags } = this
+        if (inputValue && !tags.includes(inputValue)) {
+          tags = [...tags, inputValue]
+        }
+        Object.assign(this, {
+          tags,
+          tagInputVisible: false,
+          tagInputValue: '',
+        })
+      },
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

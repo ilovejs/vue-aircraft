@@ -29,49 +29,52 @@
 </template>
 
 <script>
-import moment from 'moment'
-import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
-const TagSelectOption = TagSelect.Option
-const AvatarListItem = AvatarList.AvatarItem
+  import moment from 'moment'
+  import {
+    TagSelect, StandardFormRow, Ellipsis, AvatarList,
+  } from '@/components'
 
-export default {
-  name: 'Project',
-  components: {
-    AvatarList,
-    AvatarListItem,
-    Ellipsis,
-    TagSelect,
-    TagSelectOption,
-    StandardFormRow
-  },
-  data () {
-    return {
-      data: [],
-      form: this.$form.createForm(this),
-      loading: true
-    }
-  },
-  filters: {
-    fromNow (date) {
-      return moment(date).fromNow()
-    }
-  },
-  mounted () {
-    this.getList()
-  },
-  methods: {
-    handleChange (value) {
-      console.log(`selected ${value}`)
+  const TagSelectOption = TagSelect.Option
+  const AvatarListItem = AvatarList.AvatarItem
+
+  export default {
+    name: 'Project',
+    components: {
+      AvatarList,
+      AvatarListItem,
+      Ellipsis,
+      TagSelect,
+      TagSelectOption,
+      StandardFormRow,
     },
-    getList () {
-      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
-        console.log('res', res)
-        this.data = res.result
-        this.loading = false
-      })
-    }
+    filters: {
+      fromNow(date) {
+        return moment(date).fromNow()
+      },
+    },
+    data() {
+      return {
+        data: [],
+        form: this.$form.createForm(this),
+        loading: true,
+      }
+    },
+    mounted() {
+      this.getList()
+    },
+    methods: {
+      handleChange(value) {
+        console.log(`selected ${value}`)
+      },
+      getList() {
+        this.$http.get('/list/article', { params: { count: 8 } }).then((res) => {
+          console.log('res', res)
+          this.data = res.result
+          this.loading = false
+        })
+      },
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

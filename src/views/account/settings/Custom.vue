@@ -1,50 +1,50 @@
 <script>
-import { colorList } from '@/components/SettingDrawer/settingConfig'
-import ASwitch from 'ant-design-vue/es/switch'
-import AList from 'ant-design-vue/es/list'
-import AListItem from 'ant-design-vue/es/list/Item'
-import { mixin } from '@/utils/mixin'
+  import ASwitch from 'ant-design-vue/es/switch'
+  import AList from 'ant-design-vue/es/list'
+  import AListItem from 'ant-design-vue/es/list/Item'
+  import { colorList } from '@/components/SettingDrawer/settingConfig'
+  import { mixin } from '@/utils/mixin'
 
-const Meta = AListItem.Meta
+  const { Meta } = AListItem
 
-export default {
-  components: {
-    AListItem,
-    AList,
-    ASwitch,
-    Meta
-  },
-  mixins: [mixin],
-  data () {
-    return {
-    }
-  },
-  filters: {
-    themeFilter (theme) {
-      const themeMap = {
-        'dark': 'Dark',
-        'light': 'Light'
-      }
-      return themeMap[theme]
-    }
-  },
-  methods: {
-    colorFilter (color) {
-      const c = colorList.filter(o => o.color === color)[0]
-      return c && c.key
+  export default {
+    components: {
+      AListItem,
+      AList,
+      ASwitch,
+      Meta,
     },
-
-    onChange (checked) {
-      if (checked) {
-        this.$store.dispatch('ToggleTheme', 'dark')
-      } else {
-        this.$store.dispatch('ToggleTheme', 'light')
+    filters: {
+      themeFilter(theme) {
+        const themeMap = {
+          dark: 'Dark',
+          light: 'Light',
+        }
+        return themeMap[theme]
+      },
+    },
+    mixins: [mixin],
+    data() {
+      return {
       }
-    }
-  },
-  render () {
-    // this is the original Ant Design react style
-    return (
+    },
+    methods: {
+      colorFilter(color) {
+        const c = colorList.filter((o) => o.color === color)[0]
+        return c && c.key
+      },
+
+      onChange(checked) {
+        if (checked) {
+          this.$store.dispatch('ToggleTheme', 'dark')
+        } else {
+          this.$store.dispatch('ToggleTheme', 'light')
+        }
+      },
+    },
+    render() {
+      // this is the original Ant Design react style
+      return (
       <AList itemLayout="horizontal">
         <AListItem>
           <Meta>
@@ -70,8 +70,8 @@ export default {
         </AListItem>
       </AList>
     )
+    },
   }
-}
 </script>
 
 <style scoped>

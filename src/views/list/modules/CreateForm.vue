@@ -22,46 +22,46 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 7 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 13 }
-      },
-      visible: false,
-      confirmLoading: false,
+  export default {
+    data() {
+      return {
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 7 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 13 },
+        },
+        visible: false,
+        confirmLoading: false,
 
-      form: this.$form.createForm(this)
-    }
-  },
-  methods: {
-    add () {
-      this.visible = true
+        form: this.$form.createForm(this),
+      }
     },
-    handleSubmit () {
-      const { form: { validateFields } } = this
-      this.confirmLoading = true
-      validateFields((errors, values) => {
-        if (!errors) {
-          console.log('values', values)
-          setTimeout(() => {
-            this.visible = false
+    methods: {
+      add() {
+        this.visible = true
+      },
+      handleSubmit() {
+        const { form: { validateFields } } = this
+        this.confirmLoading = true
+        validateFields((errors, values) => {
+          if (!errors) {
+            console.log('values', values)
+            setTimeout(() => {
+              this.visible = false
+              this.confirmLoading = false
+              this.$emit('ok', values)
+            }, 1500)
+          } else {
             this.confirmLoading = false
-            this.$emit('ok', values)
-          }, 1500)
-        } else {
-          this.confirmLoading = false
-        }
-      })
+          }
+        })
+      },
+      handleCancel() {
+        this.visible = false
+      },
     },
-    handleCancel () {
-      this.visible = false
-    }
   }
-}
 </script>

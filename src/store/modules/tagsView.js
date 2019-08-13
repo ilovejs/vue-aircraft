@@ -2,7 +2,7 @@
 // https://github.com/zhaozhenghao1993/zh-web-vue/blob/master/src/store/modules/tagsView.js
 const tagsView = {
   state: {
-    cachedViews: []
+    cachedViews: [],
   },
   mutations: {
     ADD_CACHED_VIEW: (state, view) => {
@@ -12,6 +12,7 @@ const tagsView = {
       }
     },
     DEL_CACHED_VIEW: (state, view) => {
+      // eslint-disable-next-line no-restricted-syntax
       for (const i of state.cachedViews) {
         if (i === view.name) {
           const index = state.cachedViews.indexOf(i)
@@ -19,19 +20,19 @@ const tagsView = {
           break
         }
       }
-    }
+    },
   },
   actions: {
-    addCachedView ({ commit }, view) {
+    addCachedView({ commit }, view) {
       commit('ADD_CACHED_VIEW', view)
     },
-    delCachedView ({ commit, state }, view) {
-      return new Promise(resolve => {
+    delCachedView({ commit, state }, view) {
+      return new Promise((resolve) => {
         commit('DEL_CACHED_VIEW', view)
         resolve([...state.cachedViews])
       })
-    }
-  }
+    },
+  },
 }
 
 export default tagsView

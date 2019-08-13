@@ -7,8 +7,8 @@
         :wrapperCol="wrapperCol"
       >
         <a-select
-          placeholder="ant-design@alipay.com"
-          v-decorator="['paymentUser', { rules: [{required: true, message: '付款账户必须填写'}] }]">
+          v-decorator="['paymentUser', { rules: [{required: true, message: '付款账户必须填写'}] }]"
+          placeholder="ant-design@alipay.com">
           <a-select-option value="1">ant-design@alipay.com</a-select-option>
         </a-select>
       </a-form-item>
@@ -26,8 +26,8 @@
             <a-select-option value="wexinpay">微信</a-select-option>
           </a-select>
           <a-input
-            :style="{width: 'calc(100% - 100px)'}"
             v-decorator="['payType', { initialValue: 'test@example.com', rules: [{required: true, message: '收款账户必须填写'}]}]"
+            :style="{width: 'calc(100% - 100px)'}"
           />
         </a-input-group>
       </a-form-item>
@@ -43,7 +43,7 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input prefix="￥" v-decorator="['momey', { initialValue: '5000', rules: [{required: true, message: '转账金额必须填写'}] }]"/>
+        <a-input v-decorator="['momey', { initialValue: '5000', rules: [{required: true, message: '转账金额必须填写'}] }]" prefix="￥"/>
       </a-form-item>
       <a-form-item :wrapperCol="{span: 19, offset: 5}">
         <a-button type="primary" @click="nextStep">下一步</a-button>
@@ -61,27 +61,27 @@
 </template>
 
 <script>
-export default {
-  name: 'Step1',
-  data () {
-    return {
-      labelCol: { lg: { span: 5 }, sm: { span: 5 } },
-      wrapperCol: { lg: { span: 19 }, sm: { span: 19 } },
-      form: this.$form.createForm(this)
-    }
-  },
-  methods: {
-    nextStep () {
-      const { form: { validateFields } } = this
-      // 先校验，通过表单校验后，才进入下一步
-      validateFields((err, values) => {
-        if (!err) {
-          this.$emit('nextStep')
-        }
-      })
-    }
+  export default {
+    name: 'Step1',
+    data() {
+      return {
+        labelCol: { lg: { span: 5 }, sm: { span: 5 } },
+        wrapperCol: { lg: { span: 19 }, sm: { span: 19 } },
+        form: this.$form.createForm(this),
+      }
+    },
+    methods: {
+      nextStep() {
+        const { form: { validateFields } } = this
+        // 先校验，通过表单校验后，才进入下一步
+        validateFields((err, values) => {
+          if (!err) {
+            this.$emit('nextStep')
+          }
+        })
+      },
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

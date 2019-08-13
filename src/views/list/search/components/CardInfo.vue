@@ -12,19 +12,19 @@
 </template>
 
 <script>
-export default {
-  name: 'CardInfo',
-  props: {
-    activeUser: {
-      type: [String, Number],
-      default: 0
+  export default {
+    name: 'CardInfo',
+    props: {
+      activeUser: {
+        type: [String, Number],
+        default: 0,
+      },
+      newUser: {
+        type: [String, Number],
+        default: 0,
+      },
     },
-    newUser: {
-      type: [String, Number],
-      default: 0
-    }
   }
-}
 </script>
 
 <style lang="less" scoped>

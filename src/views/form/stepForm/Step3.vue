@@ -30,27 +30,27 @@
 </template>
 
 <script>
-import { Result } from '@/components'
+  import { Result } from '@/components'
 
-export default {
-  name: 'Step3',
-  components: {
-    Result
-  },
-  data () {
-    return {
-      loading: false
-    }
-  },
-  methods: {
-    finish () {
-      this.$emit('finish')
+  export default {
+    name: 'Step3',
+    components: {
+      Result,
     },
-    toOrderList () {
-      this.$router.push('/list/table-list')
-    }
+    data() {
+      return {
+        loading: false,
+      }
+    },
+    methods: {
+      finish() {
+        this.$emit('finish')
+      },
+      toOrderList() {
+        this.$router.push('/list/table-list')
+      },
+    },
   }
-}
 </script>
 <style lang="less" scoped>
   .information {

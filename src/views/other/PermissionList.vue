@@ -60,9 +60,9 @@
     </s-table>
 
     <a-modal
+      v-model="visible"
       title="Actions"
       :width="800"
-      v-model="visible"
       @ok="handleOk">
       <a-form :autoFormCreate="(form)=>{this.form = form}">
 
@@ -72,7 +72,7 @@
           label="Role Identifier"
           hasFeedback
           validateStatus="success">
-          <a-input placeholder="Unique identifier" v-model="mdl.id" id="no" disabled="disabled" />
+          <a-input id="no" v-model="mdl.id" placeholder="Unique identifier" disabled="disabled" />
         </a-form-item>
 
         <a-form-item
@@ -81,7 +81,7 @@
           label="Role Name"
           hasFeedback
           validateStatus="success">
-          <a-input placeholder="Pick a name" v-model="mdl.name" id="permission_name" />
+          <a-input id="permission_name" v-model="mdl.name" placeholder="Pick a name" />
         </a-form-item>
 
         <a-form-item
@@ -101,7 +101,7 @@
           :wrapperCol="wrapperCol"
           label="Description"
           hasFeedback>
-          <a-textarea :rows="5" v-model="mdl.describe" placeholder="..." id="describe"></a-textarea>
+          <a-textarea id="describe" v-model="mdl.describe" :rows="5" placeholder="..."></a-textarea>
         </a-form-item>
 
         <a-divider />
@@ -112,9 +112,9 @@
           label="Assign Permission"
           hasFeedback>
           <a-select
+            v-model="mdl.actions"
             style="width: 100%"
             mode="multiple"
-            v-model="mdl.actions"
             :allowClear="true">
             <a-select-option v-for="(action, index) in permissionList" :key="index" :value="action.value">{{ action.label }}</a-select-option>
           </a-select>
@@ -127,123 +127,84 @@
 </template>
 
 <script>
-import { STable } from '@/components'
+  import { STable } from '@/components'
 
-export default {
-  name: 'TableList',
-  components: {
-    STable
-  },
-  data () {
-    return {
-      description: 'Permission and Role management，based on RBAC design，Granularity in each action level',
-      visible: false,
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 5 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 }
-      },
-      form: null,
-      mdl: {},
-      // advanced search: on / off
-      advanced: false,
-      queryParam: {},
-      columns: [
-        {
-          title: 'Id',
-          dataIndex: 'id'
-        },
-        {
-          title: 'Name',
-          dataIndex: 'name'
-        },
-        {
-          title: 'Actions',
-          dataIndex: 'actions',
-          scopedSlots: { customRender: 'actions' }
-        },
-        {
-          title: 'Status',
-          dataIndex: 'status',
-          scopedSlots: { customRender: 'status' }
-        },
-        {
-          title: 'Ops',
-          width: '150px',
-          dataIndex: 'action',
-          scopedSlots: { customRender: 'action' }
+  export default {
+    name: 'TableList',
+    components: {
+      STable,
+    },
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          1: 'ok',
+          2: 'disabled',
         }
-      ],
-      // Pull actionList from Backend
-      permissionList: null,
-      // for the control
-      loadData: parameter => {
-        return this.$http.get('/permission', {
-          params: Object.assign(parameter, this.queryParam)
-        }).then(res => {
-          const result = res.result
-          result.data.map(permission => {
+        return statusMap[status]
+      },
+    },
+    data() {
+      return {
+        description: 'Permission and Role management，based on RBAC design，Granularity in each action level',
+        visible: false,
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 5 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 16 },
+        },
+        form: null,
+        mdl: {},
+        // advanced search: on / off
+        advanced: false,
+        queryParam: {},
+        columns: [
+          {
+            title: 'Id',
+            dataIndex: 'id',
+          },
+          {
+            title: 'Name',
+            dataIndex: 'name',
+          },
+          {
+            title: 'Actions',
+            dataIndex: 'actions',
+            scopedSlots: { customRender: 'actions' },
+          },
+          {
+            title: 'Status',
+            dataIndex: 'status',
+            scopedSlots: { customRender: 'status' },
+          },
+          {
+            title: 'Ops',
+            width: '150px',
+            dataIndex: 'action',
+            scopedSlots: { customRender: 'action' },
+          },
+        ],
+        // Pull actionList from Backend
+        permissionList: null,
+        // for the control
+        loadData: (parameter) => this.$http.get('/permission', {
+          params: Object.assign(parameter, this.queryParam),
+        }).then((res) => {
+          const { result } = res
+          result.data.map((permission) => {
             // todo: ??
             permission.actionList = JSON.parse(permission.actionData)
             return permission
           })
           return result
-        })
-      },
-      selectedRowKeys: [],
-      selectedRows: []
-    }
-  },
-  filters: {
-    statusFilter (status) {
-      const statusMap = {
-        1: 'ok',
-        2: 'disabled'
+        }),
+        selectedRowKeys: [],
+        selectedRows: [],
       }
-      return statusMap[status]
-    }
-  },
-  created () {
-    this.loadPermissionList()
-  },
-  methods: {
-    // todo: is this like initial values ?
-    loadPermissionList () {
-      // permissionList
-      new Promise(resolve => {
-        const data = [
-          { label: 'Add', value: 'add', defaultChecked: false },
-          { label: 'Get', value: 'get', defaultChecked: false },
-          { label: 'Update', value: 'update', defaultChecked: false },
-          { label: 'Query', value: 'query', defaultChecked: false },
-          { label: 'Delete', value: 'delete', defaultChecked: false },
-          { label: 'Import', value: 'import', defaultChecked: false },
-          { label: 'Export', value: 'export', defaultChecked: false }
-        ]
-        setTimeout(resolve(data), 1500)
-      }).then(res => {
-        this.permissionList = res
-      })
     },
-    handleEdit (record) {
-      this.mdl = Object.assign({}, record)
-      console.log(this.mdl)
-      this.visible = true
-    },
-    handleOk () {
-    },
-    onChange (selectedRowKeys, selectedRows) {
-      this.selectedRowKeys = selectedRowKeys
-      this.selectedRows = selectedRows
-    },
-    toggleAdvanced () {
-      this.advanced = !this.advanced
-    }
-  },
-  watch: {
+    watch: {
     /*
       'selectedRows': function (selectedRows) {
         this.needTotalList = this.needTotalList.map(item => {
@@ -256,6 +217,43 @@ export default {
         })
       }
     */
+    },
+    created() {
+      this.loadPermissionList()
+    },
+    methods: {
+      // todo: is this like initial values ?
+      loadPermissionList() {
+        // permissionList
+        new Promise((resolve) => {
+          const data = [
+            { label: 'Add', value: 'add', defaultChecked: false },
+            { label: 'Get', value: 'get', defaultChecked: false },
+            { label: 'Update', value: 'update', defaultChecked: false },
+            { label: 'Query', value: 'query', defaultChecked: false },
+            { label: 'Delete', value: 'delete', defaultChecked: false },
+            { label: 'Import', value: 'import', defaultChecked: false },
+            { label: 'Export', value: 'export', defaultChecked: false },
+          ]
+          setTimeout(resolve(data), 1500)
+        }).then((res) => {
+          this.permissionList = res
+        })
+      },
+      handleEdit(record) {
+        this.mdl = { ...record }
+        console.log(this.mdl)
+        this.visible = true
+      },
+      handleOk() {
+      },
+      onChange(selectedRowKeys, selectedRows) {
+        this.selectedRowKeys = selectedRowKeys
+        this.selectedRows = selectedRows
+      },
+      toggleAdvanced() {
+        this.advanced = !this.advanced
+      },
+    },
   }
-}
 </script>

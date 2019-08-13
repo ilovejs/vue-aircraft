@@ -13,10 +13,10 @@
         "airbnb-base"
     ],
     "rules": {
-        "indent": [
-          "error",
-          2
-        ],
+        "indent": "off",
+        "max-len": "off",
+        "func-names": "off",
+        "import/no-unresolved": 0,
         "vue/script-indent": [
           "error",
           2,

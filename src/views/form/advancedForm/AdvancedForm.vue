@@ -17,8 +17,8 @@
       >
         <template v-for="(col, i) in ['name', 'workId', 'department']" :slot="col" slot-scope="text, record">
           <a-input
-            :key="col"
             v-if="record.editable"
+            :key="col"
             style="margin: -5px 0"
             :value="text"
             :placeholder="columns[i].title"
@@ -58,233 +58,235 @@
       <span class="popover-wrapper">
         <a-popover title="表单校验信息" overlayClassName="antd-pro-pages-forms-style-errorPopover" trigger="click" :getPopupContainer="trigger => trigger.parentNode">
           <template slot="content">
-            <li v-for="item in errors" :key="item.key" @click="scrollToField(item.key)" class="antd-pro-pages-forms-style-errorListItem">
+            <li v-for="item in errors" :key="item.key" class="antd-pro-pages-forms-style-errorListItem" @click="scrollToField(item.key)">
               <a-icon type="cross-circle-o" class="antd-pro-pages-forms-style-errorIcon" />
               <div class="">{{ item.message }}</div>
               <div class="antd-pro-pages-forms-style-errorField">{{ item.fieldLabel }}</div>
             </li>
           </template>
-          <span class="antd-pro-pages-forms-style-errorIcon" v-if="errors.length > 0">
+          <span v-if="errors.length > 0" class="antd-pro-pages-forms-style-errorIcon">
             <a-icon type="exclamation-circle" />{{ errors.length }}
           </span>
         </a-popover>
       </span>
-      <a-button type="primary" @click="validate" :loading="loading">提交</a-button>
+      <a-button type="primary" :loading="loading" @click="validate">提交</a-button>
     </footer-tool-bar>
   </div>
 </template>
 
 <script>
-import RepositoryForm from './RepositoryForm'
-import TaskForm from './TaskForm'
-import FooterToolBar from '@/components/FooterToolbar'
-import { mixin, mixinDevice } from '@/utils/mixin'
+  import RepositoryForm from './RepositoryForm'
+  import TaskForm from './TaskForm'
+  import FooterToolBar from '@/components/FooterToolbar'
+  import { mixin, mixinDevice } from '@/utils/mixin'
 
-const fieldLabels = {
-  name: '仓库名',
-  url: '仓库域名',
-  owner: '仓库管理员',
-  approver: '审批人',
-  dateRange: '生效日期',
-  type: '仓库类型',
-  name2: '任务名',
-  url2: '任务描述',
-  owner2: '执行人',
-  approver2: '责任人',
-  dateRange2: '生效日期',
-  type2: '任务类型'
-}
+  const fieldLabels = {
+    name: '仓库名',
+    url: '仓库域名',
+    owner: '仓库管理员',
+    approver: '审批人',
+    dateRange: '生效日期',
+    type: '仓库类型',
+    name2: '任务名',
+    url2: '任务描述',
+    owner2: '执行人',
+    approver2: '责任人',
+    dateRange2: '生效日期',
+    type2: '任务类型',
+  }
 
-export default {
-  name: 'AdvancedForm',
-  mixins: [mixin, mixinDevice],
-  components: {
-    FooterToolBar,
-    RepositoryForm,
-    TaskForm
-  },
-  data () {
-    return {
-      description: '高级表单常见于一次性输入和提交大批量数据的场景。',
-      loading: false,
-      memberLoading: false,
-
-      // table
-      columns: [
-        {
-          title: '成员姓名',
-          dataIndex: 'name',
-          key: 'name',
-          width: '20%',
-          scopedSlots: { customRender: 'name' }
-        },
-        {
-          title: '工号',
-          dataIndex: 'workId',
-          key: 'workId',
-          width: '20%',
-          scopedSlots: { customRender: 'workId' }
-        },
-        {
-          title: '所属部门',
-          dataIndex: 'department',
-          key: 'department',
-          width: '40%',
-          scopedSlots: { customRender: 'department' }
-        },
-        {
-          title: '操作',
-          key: 'action',
-          scopedSlots: { customRender: 'operation' }
-        }
-      ],
-      data: [
-        {
-          key: '1',
-          name: '小明',
-          workId: '001',
-          editable: false,
-          department: '行政部'
-        },
-        {
-          key: '2',
-          name: '李莉',
-          workId: '002',
-          editable: false,
-          department: 'IT部'
-        },
-        {
-          key: '3',
-          name: '王小帅',
-          workId: '003',
-          editable: false,
-          department: '财务部'
-        }
-      ],
-
-      errors: []
-    }
-  },
-  methods: {
-    handleSubmit (e) {
-      e.preventDefault()
+  export default {
+    name: 'AdvancedForm',
+    components: {
+      FooterToolBar,
+      RepositoryForm,
+      TaskForm,
     },
-    newMember () {
-      const length = this.data.length
-      this.data.push({
-        key: length === 0 ? '1' : (parseInt(this.data[length - 1].key) + 1).toString(),
-        name: '',
-        workId: '',
-        department: '',
-        editable: true,
-        isNew: true
-      })
-    },
-    remove (key) {
-      const newData = this.data.filter(item => item.key !== key)
-      this.data = newData
-    },
-    saveRow (record) {
-      this.memberLoading = true
-      const { key, name, workId, department } = record
-      if (!name || !workId || !department) {
-        this.memberLoading = false
-        this.$message.error('请填写完整成员信息。')
-        return
+    mixins: [mixin, mixinDevice],
+    data() {
+      return {
+        description: '高级表单常见于一次性输入和提交大批量数据的场景。',
+        loading: false,
+        memberLoading: false,
+
+        // table
+        columns: [
+          {
+            title: '成员姓名',
+            dataIndex: 'name',
+            key: 'name',
+            width: '20%',
+            scopedSlots: { customRender: 'name' },
+          },
+          {
+            title: '工号',
+            dataIndex: 'workId',
+            key: 'workId',
+            width: '20%',
+            scopedSlots: { customRender: 'workId' },
+          },
+          {
+            title: '所属部门',
+            dataIndex: 'department',
+            key: 'department',
+            width: '40%',
+            scopedSlots: { customRender: 'department' },
+          },
+          {
+            title: '操作',
+            key: 'action',
+            scopedSlots: { customRender: 'operation' },
+          },
+        ],
+        data: [
+          {
+            key: '1',
+            name: '小明',
+            workId: '001',
+            editable: false,
+            department: '行政部',
+          },
+          {
+            key: '2',
+            name: '李莉',
+            workId: '002',
+            editable: false,
+            department: 'IT部',
+          },
+          {
+            key: '3',
+            name: '王小帅',
+            workId: '003',
+            editable: false,
+            department: '财务部',
+          },
+        ],
+
+        errors: [],
       }
-      // 模拟网络请求、卡顿 800ms
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ loop: false })
-        }, 800)
-      }).then(() => {
-        const target = this.data.filter(item => item.key === key)[0]
-        target.editable = false
-        target.isNew = false
-        this.memberLoading = false
-      })
     },
-    toggle (key) {
-      const target = this.data.filter(item => item.key === key)[0]
-      target.editable = !target.editable
-    },
-    getRowByKey (key, newData) {
-      const data = this.data
-      return (newData || data).filter(item => item.key === key)[0]
-    },
-    cancel (key) {
-      const target = this.data.filter(item => item.key === key)[0]
-      target.editable = false
-    },
-    handleChange (value, key, column) {
-      const newData = [...this.data]
-      const target = newData.filter(item => key === item.key)[0]
-      if (target) {
-        target[column] = value
+    methods: {
+      handleSubmit(e) {
+        e.preventDefault()
+      },
+      newMember() {
+        const { length } = this.data
+        this.data.push({
+          key: length === 0 ? '1' : (parseInt(this.data[length - 1].key) + 1).toString(),
+          name: '',
+          workId: '',
+          department: '',
+          editable: true,
+          isNew: true,
+        })
+      },
+      remove(key) {
+        const newData = this.data.filter((item) => item.key !== key)
         this.data = newData
-      }
-    },
+      },
+      saveRow(record) {
+        this.memberLoading = true
+        const {
+          key, name, workId, department,
+        } = record
+        if (!name || !workId || !department) {
+          this.memberLoading = false
+          this.$message.error('请填写完整成员信息。')
+          return
+        }
+        // 模拟网络请求、卡顿 800ms
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({ loop: false })
+          }, 800)
+        }).then(() => {
+          const target = this.data.filter((item) => item.key === key)[0]
+          target.editable = false
+          target.isNew = false
+          this.memberLoading = false
+        })
+      },
+      toggle(key) {
+        const target = this.data.filter((item) => item.key === key)[0]
+        target.editable = !target.editable
+      },
+      getRowByKey(key, newData) {
+        const { data } = this
+        return (newData || data).filter((item) => item.key === key)[0]
+      },
+      cancel(key) {
+        const target = this.data.filter((item) => item.key === key)[0]
+        target.editable = false
+      },
+      handleChange(value, key, column) {
+        const newData = [...this.data]
+        const target = newData.filter((item) => key === item.key)[0]
+        if (target) {
+          target[column] = value
+          this.data = newData
+        }
+      },
 
-    // 最终全页面提交
-    validate () {
-      const { $refs: { repository, task }, $notification } = this
-      const repositoryForm = new Promise((resolve, reject) => {
-        repository.form.validateFields((err, values) => {
-          if (err) {
-            reject(err)
-            return
-          }
-          resolve(values)
+      // 最终全页面提交
+      validate() {
+        const { $refs: { repository, task }, $notification } = this
+        const repositoryForm = new Promise((resolve, reject) => {
+          repository.form.validateFields((err, values) => {
+            if (err) {
+              reject(err)
+              return
+            }
+            resolve(values)
+          })
         })
-      })
-      const taskForm = new Promise((resolve, reject) => {
-        task.form.validateFields((err, values) => {
-          if (err) {
-            reject(err)
-            return
-          }
-          resolve(values)
+        const taskForm = new Promise((resolve, reject) => {
+          task.form.validateFields((err, values) => {
+            if (err) {
+              reject(err)
+              return
+            }
+            resolve(values)
+          })
         })
-      })
 
-      // clean this.errors
-      this.errors = []
-      Promise.all([repositoryForm, taskForm]).then(values => {
-        $notification['error']({
-          message: 'Received values of form:',
-          description: JSON.stringify(values)
+        // clean this.errors
+        this.errors = []
+        Promise.all([repositoryForm, taskForm]).then((values) => {
+          $notification.error({
+            message: 'Received values of form:',
+            description: JSON.stringify(values),
+          })
+        }).catch(() => {
+          const errors = { ...repository.form.getFieldsError(), ...task.form.getFieldsError() }
+          const tmp = { ...errors }
+          this.errorList(tmp)
+          console.log(tmp)
         })
-      }).catch(() => {
-        const errors = Object.assign({}, repository.form.getFieldsError(), task.form.getFieldsError())
-        const tmp = { ...errors }
-        this.errorList(tmp)
-        console.log(tmp)
-      })
-    },
-    errorList (errors) {
-      if (!errors || errors.length === 0) {
-        return null
-      }
-      this.errors = Object.keys(errors).map(key => {
-        if (!errors[key]) {
+      },
+      errorList(errors) {
+        if (!errors || errors.length === 0) {
           return null
         }
+        this.errors = Object.keys(errors).map((key) => {
+          if (!errors[key]) {
+            return null
+          }
 
-        return {
-          key: key,
-          message: errors[key][0],
-          fieldLabel: fieldLabels[key]
+          return {
+            key,
+            message: errors[key][0],
+            fieldLabel: fieldLabels[key],
+          }
+        })
+      },
+      scrollToField(fieldKey) {
+        const labelNode = document.querySelector(`label[for="${fieldKey}"]`)
+        if (labelNode) {
+          labelNode.scrollIntoView(true)
         }
-      })
+      },
     },
-    scrollToField (fieldKey) {
-      const labelNode = document.querySelector(`label[for="${fieldKey}"]`)
-      if (labelNode) {
-        labelNode.scrollIntoView(true)
-      }
-    }
   }
-}
 </script>
 
 <style lang="less" scoped>

@@ -27,7 +27,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
           >
-            <a-textarea :rows="4" v-decorator="['desc', {rules: [{required: true}]}]"></a-textarea>
+            <a-textarea v-decorator="['desc', {rules: [{required: true}]}]" :rows="4"></a-textarea>
           </a-form-item>
         </div>
         <div v-show="currentStep === 1">
@@ -88,7 +88,7 @@
       </a-form>
     </a-spin>
     <template slot="footer">
-      <a-button key="back" @click="backward" v-if="currentStep > 0" :style="{ float: 'left' }" >上一步</a-button>
+      <a-button v-if="currentStep > 0" key="back" :style="{ float: 'left' }" @click="backward" >上一步</a-button>
       <a-button key="cancel" @click="handleCancel">取消</a-button>
       <a-button key="forward" :loading="confirmLoading" type="primary" @click="handleNext(currentStep)">{{ currentStep === 2 && '完成' || '下一步' }}</a-button>
     </template>
@@ -96,77 +96,77 @@
 </template>
 
 <script>
-import pick from 'lodash.pick'
+  import pick from 'lodash.pick'
 
-const stepForms = [
-  ['name', 'desc'],
-  ['target', 'template', 'type'],
-  ['time', 'frequency']
-]
+  const stepForms = [
+    ['name', 'desc'],
+    ['target', 'template', 'type'],
+    ['time', 'frequency'],
+  ]
 
-export default {
-  name: 'StepByStepModal',
-  data () {
-    return {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 7 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 13 }
-      },
-      visible: false,
-      confirmLoading: false,
-      currentStep: 0,
-      mdl: {},
+  export default {
+    name: 'StepByStepModal',
+    data() {
+      return {
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 7 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 13 },
+        },
+        visible: false,
+        confirmLoading: false,
+        currentStep: 0,
+        mdl: {},
 
-      form: this.$form.createForm(this)
-    }
-  },
-  methods: {
-    edit (record) {
-      this.visible = true
-      const { form: { setFieldsValue } } = this
-      this.$nextTick(() => {
-        setFieldsValue(pick(record, []))
-      })
+        form: this.$form.createForm(this),
+      }
     },
-    handleNext (step) {
-      const { form: { validateFields } } = this
-      const currentStep = step + 1
-      if (currentStep <= 2) {
-        // stepForms
-        validateFields(stepForms[ this.currentStep ], (errors, values) => {
+    methods: {
+      edit(record) {
+        this.visible = true
+        const { form: { setFieldsValue } } = this
+        this.$nextTick(() => {
+          setFieldsValue(pick(record, []))
+        })
+      },
+      handleNext(step) {
+        const { form: { validateFields } } = this
+        const currentStep = step + 1
+        if (currentStep <= 2) {
+          // stepForms
+          validateFields(stepForms[this.currentStep], (errors, values) => {
+            if (!errors) {
+              this.currentStep = currentStep
+            }
+          })
+          return
+        }
+        // last step
+        this.confirmLoading = true
+        validateFields((errors, values) => {
+          console.log('errors:', errors, 'val:', values)
           if (!errors) {
-            this.currentStep = currentStep
+            console.log('values:', values)
+            setTimeout(() => {
+              this.confirmLoading = false
+              this.$emit('ok', values)
+            }, 1500)
+          } else {
+            this.confirmLoading = false
           }
         })
-        return
-      }
-      // last step
-      this.confirmLoading = true
-      validateFields((errors, values) => {
-        console.log('errors:', errors, 'val:', values)
-        if (!errors) {
-          console.log('values:', values)
-          setTimeout(() => {
-            this.confirmLoading = false
-            this.$emit('ok', values)
-          }, 1500)
-        } else {
-          this.confirmLoading = false
-        }
-      })
+      },
+      backward() {
+        this.currentStep--
+      },
+      handleCancel() {
+        // clear form & currentStep
+        this.visible = false
+        this.currentStep = 0
+      },
     },
-    backward () {
-      this.currentStep--
-    },
-    handleCancel () {
-      // clear form & currentStep
-      this.visible = false
-      this.currentStep = 0
-    }
   }
-}
 </script>

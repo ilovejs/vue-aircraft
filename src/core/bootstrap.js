@@ -11,11 +11,11 @@ import {
   DEFAULT_FIXED_HEADER_HIDDEN,
   DEFAULT_FIXED_SIDEMENU,
   DEFAULT_CONTENT_WIDTH_TYPE,
-  DEFAULT_MULTI_TAB
+  DEFAULT_MULTI_TAB,
 } from '@/store/mutation-types'
 import config from '@/config/defaultSettings'
 
-export default function Initializer () {
+export default function Initializer() {
   console.log(`API_URL: ${process.env.BASE_URL}`)
 
   store.commit('SET_SIDEBAR_TYPE', Vue.ls.get(SIDEBAR_TYPE, true))

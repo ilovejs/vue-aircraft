@@ -24,10 +24,10 @@
             <a-col :md="24">
               <a-form-item :wrapper-col="{ span: 24 }">
                 <a-select
+                  v-decorator="['owner']"
                   style="max-width: 268px; width: 100%;"
                   mode="multiple"
                   placeholder="选择 onwer"
-                  v-decorator="['owner']"
                   @change="handleChange"
                 >
                   <a-select-option v-for="item in owners" :key="item.id">{{ item.name }}</a-select-option>
@@ -85,8 +85,8 @@
           </a-list-item-meta>
           <article-list-content :description="item.description" :owner="item.owner" :avatar="item.avatar" :href="item.href" :updateAt="item.updatedAt" />
         </a-list-item>
-        <div slot="footer" v-if="data.length > 0" style="text-align: center; margin-top: 16px;">
-          <a-button @click="loadMore" :loading="loadingMore">加载更多</a-button>
+        <div v-if="data.length > 0" slot="footer" style="text-align: center; margin-top: 16px;">
+          <a-button :loading="loadingMore" @click="loadMore">加载更多</a-button>
         </div>
       </a-list>
     </a-card>
@@ -94,80 +94,81 @@
 </template>
 
 <script>
-import { TagSelect, StandardFormRow, ArticleListContent } from '@/components'
-import IconText from './components/IconText'
-const TagSelectOption = TagSelect.Option
+  import { TagSelect, StandardFormRow, ArticleListContent } from '@/components'
+  import IconText from './components/IconText'
 
-const owners = [
-  {
-    id: 'wzj',
-    name: '我自己'
-  },
-  {
-    id: 'wjh',
-    name: '吴家豪'
-  },
-  {
-    id: 'zxx',
-    name: '周星星'
-  },
-  {
-    id: 'zly',
-    name: '赵丽颖'
-  },
-  {
-    id: 'ym',
-    name: '姚明'
-  }
-]
+  const TagSelectOption = TagSelect.Option
 
-export default {
-  components: {
-    TagSelect,
-    TagSelectOption,
-    StandardFormRow,
-    ArticleListContent,
-    IconText
-  },
-  data () {
-    return {
-      owners,
-      loading: true,
-      loadingMore: false,
-      data: [],
-      form: this.$form.createForm(this)
-    }
-  },
-  mounted () {
-    this.getList()
-  },
-  methods: {
-    handleChange (value) {
-      console.log(`selected ${value}`)
+  const owners = [
+    {
+      id: 'wzj',
+      name: '我自己',
     },
-    getList () {
-      this.$http.get('/list/article').then(res => {
-        console.log('res', res)
-        this.data = res.result
-        this.loading = false
-      })
+    {
+      id: 'wjh',
+      name: '吴家豪',
     },
-    loadMore () {
-      this.loadingMore = true
-      this.$http.get('/list/article').then(res => {
-        this.data = this.data.concat(res.result)
-      }).finally(() => {
-        this.loadingMore = false
-      })
+    {
+      id: 'zxx',
+      name: '周星星',
     },
-    setOwner () {
-      const { form: { setFieldsValue } } = this
-      setFieldsValue({
-        owner: ['wzj']
-      })
-    }
+    {
+      id: 'zly',
+      name: '赵丽颖',
+    },
+    {
+      id: 'ym',
+      name: '姚明',
+    },
+  ]
+
+  export default {
+    components: {
+      TagSelect,
+      TagSelectOption,
+      StandardFormRow,
+      ArticleListContent,
+      IconText,
+    },
+    data() {
+      return {
+        owners,
+        loading: true,
+        loadingMore: false,
+        data: [],
+        form: this.$form.createForm(this),
+      }
+    },
+    mounted() {
+      this.getList()
+    },
+    methods: {
+      handleChange(value) {
+        console.log(`selected ${value}`)
+      },
+      getList() {
+        this.$http.get('/list/article').then((res) => {
+          console.log('res', res)
+          this.data = res.result
+          this.loading = false
+        })
+      },
+      loadMore() {
+        this.loadingMore = true
+        this.$http.get('/list/article').then((res) => {
+          this.data = this.data.concat(res.result)
+        }).finally(() => {
+          this.loadingMore = false
+        })
+      },
+      setOwner() {
+        const { form: { setFieldsValue } } = this
+        setFieldsValue({
+          owner: ['wzj'],
+        })
+      },
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

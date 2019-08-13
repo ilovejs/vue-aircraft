@@ -9,21 +9,21 @@ const titles = [
   'Bootstrap',
   'React',
   'Vue',
-  'Webpack'
+  'Webpack',
 ]
 
 const avatar = ['https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
   'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
   'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
   'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png'
+  'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
 ]
 
 const covers = [
   'https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png',
   'https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png',
   'https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png',
-  'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png'
+  'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png',
 ]
 
 const owner = [
@@ -31,11 +31,11 @@ const owner = [
   'Andrew',
   'James',
   'Rob',
-  'Michael'
+  'Michael',
 ]
 
-const content = 'WT service platform by ant.design，Given by least of work, seamlessly integrated to larger open source ecosystem，' +
-  'Providing solution to bridge the gap between design and development.'
+const content = 'WT service platform by ant.design，Given by least of work, seamlessly integrated to larger open source ecosystem，'
+  + 'Providing solution to bridge the gap between design and development.'
 const description = 'Standard UI that extract out of other project. Made to be useful for data intensive application.'
 const href = 'http://wtpartnership.com/'
 
@@ -54,35 +54,35 @@ const article = (options) => {
       id: tmpKey,
       avatar: avatar[num],
       owner: owner[num],
-      content: content,
+      content,
       star: Mock.mock('@integer(1, 999)'),
       percent: Mock.mock('@integer(1, 999)'),
       like: Mock.mock('@integer(1, 999)'),
       message: Mock.mock('@integer(1, 999)'),
-      description: description,
-      href: href,
-      title: titles[ i % 8 ],
+      description,
+      href,
+      title: titles[i % 8],
       updatedAt: Mock.mock('@datetime'),
       members: [
         {
           avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
           name: 'Jason',
-          id: 'member1'
+          id: 'member1',
         },
         {
           avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
           name: 'Adam',
-          id: 'member2'
+          id: 'member2',
         },
         {
           avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
           name: 'Fabian',
-          id: 'member3'
-        }
+          id: 'member3',
+        },
       ],
       activeUser: Math.ceil(Math.random() * 100000) + 100000,
       newUser: Math.ceil(Math.random() * 1000) + 1000,
-      cover: parseInt(i / 4, 10) % 2 === 0 ? covers[i % 4] : covers[3 - (i % 4)]
+      cover: parseInt(i / 4, 10) % 2 === 0 ? covers[i % 4] : covers[3 - (i % 4)],
     })
   }
   return builder(data)

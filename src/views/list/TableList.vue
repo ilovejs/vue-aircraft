@@ -49,7 +49,7 @@
             <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a-button type="primary" @click="$refs.table.refresh(true)">Search</a-button>
               <a-button style="margin-left: 8px" @click="() => queryParam = {}">Reset</a-button>
-              <a @click="toggleAdvanced" style="margin-left: 8px">
+              <a style="margin-left: 8px" @click="toggleAdvanced">
                 {{ advanced ? 'Fold' : 'Expand' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
@@ -63,7 +63,7 @@
     <div class="table-operator">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">Add</a-button>
       <a-button type="dashed" @click="tableOption">{{ optionAlertShow && 'Close' || 'Open' }} </a-button>
-      <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+      <a-dropdown v-if="selectedRowKeys.length > 0" v-action:edit>
         <a-menu slot="overlay">
           <a-menu-item key="1"><a-icon type="delete" />Delete</a-menu-item>
           <!-- lock | unlock -->
@@ -109,170 +109,170 @@
 </template>
 
 <script>
-import moment from 'moment'
-import { STable, Ellipsis } from '@/components'
-import StepByStepModal from './modules/StepByStepModal'
-import CreateForm from './modules/CreateForm'
-import { getRoleList, getServiceList } from '@/api/manage'
+  import moment from 'moment'
+  import { STable, Ellipsis } from '@/components'
+  import StepByStepModal from './modules/StepByStepModal'
+  import CreateForm from './modules/CreateForm'
+  import { getRoleList, getServiceList } from '@/api/manage'
 
-const statusMap = {
-  0: {
-    status: 'default',
-    text: 'Closed'
-  },
-  1: {
-    status: 'processing', //todo: naming problem
-    text: 'pending'
-  },
-  2: {
-    status: 'success',
-    text: 'Success'
-  },
-  3: {
-    status: 'error',
-    text: 'Error'
-  }
-}
-
-export default {
-  name: 'TableList',
-  components: {
-    STable,
-    Ellipsis,
-    CreateForm,
-    StepByStepModal
-  },
-  data () {
-    return {
-      mdl: {},
-      // advanced search
-      advanced: false,
-      queryParam: {},
-      columns: [
-        {
-          title: '#',
-          scopedSlots: { customRender: 'serial' }
-        },
-        {
-          title: 'Serial',
-          dataIndex: 'no'
-        },
-        {
-          title: 'Desc',
-          dataIndex: 'description',
-          scopedSlots: { customRender: 'description' }
-        },
-        {
-          title: 'Called',
-          dataIndex: 'callNo',
-          sorter: true,
-          needTotal: true,
-          customRender: (text) => text + ' time(s)'
-        },
-        {
-          title: 'Status',
-          dataIndex: 'status',
-          scopedSlots: { customRender: 'status' }
-        },
-        {
-          title: 'Updated',
-          dataIndex: 'updatedAt',
-          sorter: true
-        },
-        {
-          title: 'Action',
-          dataIndex: 'action',
-          width: '150px',
-          scopedSlots: { customRender: 'action' }
-        }
-      ],
-      loadData: parameter => {
-        console.log('loadData.parameter', parameter)
-        return getServiceList(Object.assign(parameter, this.queryParam))
-          .then(res => {
-            // todo: check json format
-            return res.result
-          })
-        // todo: catch events ?
-      },
-      selectedRowKeys: [],
-      selectedRows: [],
-      // custom table alert & rowSelection
-      options: {
-        alert: {
-          show: true,
-          clear: () => { this.selectedRowKeys = [] } },
-        rowSelection: {
-          selectedRowKeys: this.selectedRowKeys,
-          onChange: this.onSelectChange
-        }
-      },
-      optionAlertShow: false
-    }
-  },
-  filters: {
-    statusFilter (type) {
-      return statusMap[type].text
+  const statusMap = {
+    0: {
+      status: 'default',
+      text: 'Closed',
     },
-    statusTypeFilter (type) {
-      return statusMap[type].status
-    }
-  },
-  created () {
-    this.tableOption()
-    getRoleList({ t: new Date() })
-  },
-  methods: {
-    tableOption () {
-      if (!this.optionAlertShow) {
-        this.options = {
-          alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+    1: {
+      status: 'processing', // todo: naming problem
+      text: 'pending',
+    },
+    2: {
+      status: 'success',
+      text: 'Success',
+    },
+    3: {
+      status: 'error',
+      text: 'Error',
+    },
+  }
+
+  export default {
+    name: 'TableList',
+    components: {
+      STable,
+      Ellipsis,
+      CreateForm,
+      StepByStepModal,
+    },
+    filters: {
+      statusFilter(type) {
+        return statusMap[type].text
+      },
+      statusTypeFilter(type) {
+        return statusMap[type].status
+      },
+    },
+    data() {
+      return {
+        mdl: {},
+        // advanced search
+        advanced: false,
+        queryParam: {},
+        columns: [
+          {
+            title: '#',
+            scopedSlots: { customRender: 'serial' },
+          },
+          {
+            title: 'Serial',
+            dataIndex: 'no',
+          },
+          {
+            title: 'Desc',
+            dataIndex: 'description',
+            scopedSlots: { customRender: 'description' },
+          },
+          {
+            title: 'Called',
+            dataIndex: 'callNo',
+            sorter: true,
+            needTotal: true,
+            customRender: (text) => `${text} time(s)`,
+          },
+          {
+            title: 'Status',
+            dataIndex: 'status',
+            scopedSlots: { customRender: 'status' },
+          },
+          {
+            title: 'Updated',
+            dataIndex: 'updatedAt',
+            sorter: true,
+          },
+          {
+            title: 'Action',
+            dataIndex: 'action',
+            width: '150px',
+            scopedSlots: { customRender: 'action' },
+          },
+        ],
+        loadData: (parameter) => {
+          console.log('loadData.parameter', parameter)
+          return getServiceList(Object.assign(parameter, this.queryParam))
+            .then((res) =>
+              // todo: check json format
+              res.result)
+        // todo: catch events ?
+        },
+        selectedRowKeys: [],
+        selectedRows: [],
+        // custom table alert & rowSelection
+        options: {
+          alert: {
+            show: true,
+            clear: () => { this.selectedRowKeys = [] },
+          },
           rowSelection: {
             selectedRowKeys: this.selectedRowKeys,
             onChange: this.onSelectChange,
-            getCheckboxProps: record => ({
-              props: {
-                disabled: record.no === 'No 2', // Column configuration not to be checked
-                name: record.no
-              }
-            })
+          },
+        },
+        optionAlertShow: false,
+      }
+    },
+    created() {
+      this.tableOption()
+      getRoleList({ t: new Date() })
+    },
+    methods: {
+      tableOption() {
+        if (!this.optionAlertShow) {
+          this.options = {
+            alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+            rowSelection: {
+              selectedRowKeys: this.selectedRowKeys,
+              onChange: this.onSelectChange,
+              getCheckboxProps: (record) => ({
+                props: {
+                  disabled: record.no === 'No 2', // Column configuration not to be checked
+                  name: record.no,
+                },
+              }),
+            },
           }
+          this.optionAlertShow = true
+        } else {
+          this.options = {
+            alert: false,
+            rowSelection: null,
+          }
+          this.optionAlertShow = false
         }
-        this.optionAlertShow = true
-      } else {
-        this.options = {
-          alert: false,
-          rowSelection: null
+      },
+      handleEdit(record) {
+        console.log(record)
+        this.$refs.modal.edit(record)
+      },
+      handleSub(record) {
+        if (record.status !== 0) {
+          this.$message.info(`${record.no} Subscribe success`)
+        } else {
+          this.$message.error(`${record.no} Subscribe fail，trade is closed`)
         }
-        this.optionAlertShow = false
-      }
+      },
+      handleOk() {
+        this.$refs.table.refresh()
+      },
+      onSelectChange(selectedRowKeys, selectedRows) {
+        this.selectedRowKeys = selectedRowKeys
+        this.selectedRows = selectedRows
+      },
+      toggleAdvanced() {
+        this.advanced = !this.advanced
+      },
+      resetSearchForm() {
+        this.queryParam = {
+          date: moment(new Date()),
+        }
+      },
     },
-    handleEdit (record) {
-      console.log(record)
-      this.$refs.modal.edit(record)
-    },
-    handleSub (record) {
-      if (record.status !== 0) {
-        this.$message.info(`${record.no} Subscribe success`)
-      } else {
-        this.$message.error(`${record.no} Subscribe fail，trade is closed`)
-      }
-    },
-    handleOk () {
-      this.$refs.table.refresh()
-    },
-    onSelectChange (selectedRowKeys, selectedRows) {
-      this.selectedRowKeys = selectedRowKeys
-      this.selectedRows = selectedRows
-    },
-    toggleAdvanced () {
-      this.advanced = !this.advanced
-    },
-    resetSearchForm () {
-      this.queryParam = {
-        date: moment(new Date())
-      }
-    }
   }
-}
 </script>

@@ -24,50 +24,50 @@
       </a-list-item-meta>
       <article-list-content :description="item.description" :owner="item.owner" :avatar="item.avatar" :href="item.href" :updateAt="item.updatedAt" />
     </a-list-item>
-    <div slot="footer" v-if="data.length > 0" style="text-align: center; margin-top: 16px;">
-      <a-button @click="loadMore" :loading="loadingMore">加载更多</a-button>
+    <div v-if="data.length > 0" slot="footer" style="text-align: center; margin-top: 16px;">
+      <a-button :loading="loadingMore" @click="loadMore">加载更多</a-button>
     </div>
   </a-list>
 </template>
 
 <script>
-import { ArticleListContent } from '@/components'
-import IconText from '@/views/list/search/components/IconText'
+  import { ArticleListContent } from '@/components'
+  import IconText from '@/views/list/search/components/IconText'
 
-export default {
-  name: 'Article',
-  components: {
-    IconText,
-    ArticleListContent
-  },
-  data () {
-    return {
-      loading: true,
-      loadingMore: false,
-      data: []
-    }
-  },
-  mounted () {
-    this.getList()
-  },
-  methods: {
-    getList () {
-      this.$http.get('/list/article').then(res => {
-        console.log('res', res)
-        this.data = res.result
-        this.loading = false
-      })
+  export default {
+    name: 'Article',
+    components: {
+      IconText,
+      ArticleListContent,
     },
-    loadMore () {
-      this.loadingMore = true
-      this.$http.get('/list/article').then(res => {
-        this.data = this.data.concat(res.result)
-      }).finally(() => {
-        this.loadingMore = false
-      })
-    }
+    data() {
+      return {
+        loading: true,
+        loadingMore: false,
+        data: [],
+      }
+    },
+    mounted() {
+      this.getList()
+    },
+    methods: {
+      getList() {
+        this.$http.get('/list/article').then((res) => {
+          console.log('res', res)
+          this.data = res.result
+          this.loading = false
+        })
+      },
+      loadMore() {
+        this.loadingMore = true
+        this.$http.get('/list/article').then((res) => {
+          this.data = this.data.concat(res.result)
+        }).finally(() => {
+          this.loadingMore = false
+        })
+      },
+    },
   }
-}
 </script>
 
 <style scoped>
