@@ -8,12 +8,11 @@
     "build:preview": "vue-cli-service build --mode preview",
     "lint": "vue-cli-service lint",
     "lint:nofix": "vue-cli-service lint --no-fix",
-    "test:unit": "vue-cli-service test:unit",
-    "postinstall": "opencollective-postinstall"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@antv/data-set": "^0.10.1",
-    "ant-design-vue": "~1.3.9",
+    "ant-design-vue": "^1.3.14",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "enquire.js": "^2.1.6",
@@ -38,6 +37,7 @@
   },
   "devDependencies": {
     "@ant-design/colors": "^3.1.0",
+    "@babel/core": "^7.5.5",
     "@babel/polyfill": "^7.2.5",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
@@ -49,91 +49,16 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-import": "^1.11.0",
-    "eslint": "^5.8.0",
-    "eslint-plugin-html": "^5.0.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-vue": "^5.2.3",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
-    "opencollective": "^1.0.3",
-    "opencollective-postinstall": "^2.0.2",
     "vue-svg-icon-loader": "^2.1.1",
     "vue-template-compiler": "^2.5.22",
     "webpack-theme-color-replacer": "^1.2.15"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/strongly-recommended",
-      "@vue/standard"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "indent": ["error", 2],
-      "vue/script-indent": [
-        "error",
-        2,
-        { "baseIndent": 1 }
-      ],
-      "overrides": [
-        {
-          "files": ["*.vue"],
-          "rules": {
-            "indent": "off"
-          }
-        }
-      ],
-      "generator-star-spacing": "off",
-      "no-mixed-operators": 0,
-      "vue/max-attributes-per-line": [
-        2,
-        {
-          "singleline": 5,
-          "multiline": {
-            "max": 1,
-            "allowFirstLine": false
-          }
-        }
-      ],
-      "vue/attribute-hyphenation": 0,
-      "vue/html-self-closing": 0,
-      "vue/component-name-in-template-casing": 0,
-      "vue/html-closing-bracket-spacing": 0,
-      "vue/singleline-html-element-content-newline": 0,
-      "vue/no-unused-components": 0,
-      "vue/multiline-html-element-content-newline": 0,
-      "vue/no-use-v-if-with-v-for": 0,
-      "vue/html-closing-bracket-newline": 0,
-      "vue/no-parsing-error": 0,
-      "no-console": 0,
-      "no-tabs": 0,
-      "quotes": [
-        2,
-        "single",
-        {
-          "avoidEscape": true,
-          "allowTemplateLiterals": true
-        }
-      ],
-      "semi": [
-        2,
-        "never",
-        {
-          "beforeStatementContinuationChars": "never"
-        }
-      ],
-      "no-delete-var": 2,
-      "prefer-const": [
-        2,
-        {
-          "ignoreReadBeforeAssign": false
-        }
-      ]
-    }
   },
   "postcss": {
     "plugins": {
@@ -144,9 +69,5 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 10"
-  ],
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/ant-design-pro-vue"
-  }
+  ]
 }
