@@ -166,11 +166,17 @@ Mouse click import string redirect to true file path, rather than yellow warning
 
 - https://cli.vuejs.org/guide/webpack.html
 
+* More 
+  
+  https://webpack.js.org/concepts/hot-module-replacement/
+
+  d2-admin 
+
 ## TS compiler options
 
 https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
-## eslint FAQ
+## Eslint FAQ
 
 * Full scale extends is verbose
 "extends": [
@@ -179,6 +185,7 @@ https://www.typescriptlang.org/docs/handbook/compiler-options.html
         "plugin:vue/strongly-recommended"
         // "@vue/standard"
     ],
+* [Quick guide]https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8
 
 * Vscode plugin:
 https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint 
