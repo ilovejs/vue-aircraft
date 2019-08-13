@@ -16,7 +16,8 @@
         "indent": "off",
         "max-len": "off",
         "func-names": "off",
-        "import/no-unresolved": 0,
+        "import/no-unresolved": "off",
+        "no-param-reassign": "warn", 
         "vue/script-indent": [
           "error",
           2,

@@ -19,9 +19,9 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_NAME: (state, { name, welcome }) => {
+    SET_NAME: (state, { name, welcomeText }) => {
       state.name = name
-      state.welcome = welcome
+      state.welcome = welcomeText
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
@@ -71,6 +71,7 @@ const user = {
                 // build new actionList from `actionEntitySet`
                 p.actionList = p.actionEntitySet.map((x) => x.action)
               }
+              return p
             })
             // build permissionList from `permissionId`
             role.permissionList = role.permissions.map((p) => p.permissionId)
