@@ -17,7 +17,11 @@
         "max-len": "off",
         "func-names": "off",
         "import/no-unresolved": "off",
-        "no-param-reassign": "warn", 
+        "no-param-reassign": ["error", { 
+          "props": true, 
+          "ignorePropertyModificationsFor": [
+            "state", "permission"
+          ] }],
         "vue/script-indent": [
           "error",
           2,

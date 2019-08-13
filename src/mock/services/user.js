@@ -397,13 +397,14 @@ export function mockUserInfo() {
 
 const info = (options) => {
   console.log('mock user: options', options)
-
   const u = mockUserInfo()
-
   return builder(u)
 }
 
-if (process.env.MOCK_FLAG === 'true') {
+// todo: not working
+if (process.env.MOCK_FLAG === true) {
+  console.log('MOCK_FLAG')
   // Only turn off this api, but not other mocks
-  Mock.mock(/\/api\/user\/info/, 'get', info)
 }
+
+Mock.mock(/\/api\/user\/info/, 'get', info)
