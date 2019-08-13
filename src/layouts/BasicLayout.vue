@@ -71,7 +71,7 @@
   import GlobalHeader from '@/components/GlobalHeader'
   import GlobalFooter from '@/components/GlobalFooter'
   import SettingDrawer from '@/components/SettingDrawer'
-  import { asyncRouterMap } from '@/config/router.config.js'
+  import { ASYNC_ROUTERS } from '@/config/router.config'
 
   export default {
     name: 'BasicLayout',
@@ -113,7 +113,7 @@
     },
     created() {
       // todo: turn off login
-      this.menus = asyncRouterMap.find((item) => item.path === '/').children
+      this.menus = ASYNC_ROUTERS.find((item) => item.path === '/').children
       // this.menus = this.mainMenu.find((item) => item.path === '/').children
       this.collapsed = !this.sidebarOpened
     },

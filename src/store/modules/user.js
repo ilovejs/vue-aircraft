@@ -60,7 +60,7 @@ const user = {
         getInfo(token).then((response) => {
           // Mock Backend json field
           const result = mockUserInfo()
-          console.log('mockUserInfo', result)
+          console.log('GetInfo: mockUserInfo', result)
           // response.result
           if (result.role && result.role.permissions.length > 0) {
             const { role } = result

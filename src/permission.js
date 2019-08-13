@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import NProgress from 'nprogress'
+
+import notification from 'ant-design-vue/es/notification'
 import router from './router'
 import store from './store'
-
 import 'nprogress/nprogress.css'
-import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle, domTitle } from '@/utils/domUtil'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
@@ -16,8 +16,15 @@ const whiteList = ['login', 'register', 'registerResult']
 router.beforeEach((to, from, next) => {
   NProgress.start()
 
-  to.meta && (typeof to.meta.title !== 'undefined'
-    && setDocumentTitle(`${to.meta.title} - ${domTitle}`))
+  // todo: weird line https://router.vuejs.org/guide/advanced/meta.html
+  // https://router.vuejs.org/guide/advanced/navigation-guards.html#in-component-guards
+  if (to.meta
+      && (typeof to.meta.title !== 'undefined'
+          && setDocumentTitle(`${to.meta.title} - ${domTitle}`))) {
+        console.log('to.meta')
+    } else {
+      next()
+    }
 
   if (Vue.ls.get(ACCESS_TOKEN)) {
     console.log('Vue.ls get token ok.')

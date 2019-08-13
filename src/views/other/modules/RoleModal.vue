@@ -80,26 +80,26 @@
         this.visible = false
       },
       handleOk() {
-        const _this = this
+        const that = this
         // 触发表单验证
         this.form.validateFields((err, values) => {
           // 验证表单没错误
           if (!err) {
             console.log('form values', values)
 
-            _this.confirmLoading = true
+            that.confirmLoading = true
             // 模拟后端请求 2000 毫秒延迟
             new Promise((resolve) => {
               setTimeout(() => resolve(), 2000)
             }).then(() => {
               // Do something
-              _this.$message.success('保存成功')
-              _this.$emit('ok')
+              that.$message.success('保存成功')
+              that.$emit('ok')
             }).catch(() => {
             // Do something
             }).finally(() => {
-              _this.confirmLoading = false
-              _this.close()
+              that.confirmLoading = false
+              that.close()
             })
           }
         })

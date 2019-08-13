@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { DEFAULT_ROUTERS, constantRouterMap, asyncRouterMap } from '@/config/router.config'
+import {
+  DEFAULT_ROUTERS,
+  ASYNC_ROUTERS,
+} from '@/config/router.config'
 
 
 Vue.use(Router)
@@ -12,7 +15,7 @@ if (process.env.LOGIN === 'true') {
     mode: 'history',
     base: process.env.BASE_URL,
     scrollBehavior: () => ({ y: 0 }),
-    routes: constantRouterMap.concat(asyncRouterMap),
+    routes: DEFAULT_ROUTERS.concat(ASYNC_ROUTERS),
   })
 } else {
   // html5 history mode

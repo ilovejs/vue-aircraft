@@ -10,8 +10,6 @@ import api from '@/api'
  *     remember_me: true,
  *     captcha: '12345'
  * }
- * @param parameter
- * @returns {*}
  */
 export function login(parameter) {
   return axios({
