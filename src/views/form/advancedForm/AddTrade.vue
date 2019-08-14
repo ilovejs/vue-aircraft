@@ -69,10 +69,11 @@
 
           <!--add and clean button-->
           <a-col :md="!advanced && 4 || 24" :sm="24">
-            <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+            <span class="table-page-search-submitButtons"
+                  :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
 
               <a-button type="primary" icon="plus"></a-button>
-              <a-button style="margin-left: 3px">Clear</a-button>
+              <a-button style="margin-left: 3px" icon="delete"></a-button>
 
               <a @click="toggleAdvanced" style="margin-left: 3px">
                 <a-icon :type="advanced ? 'up' : 'down'"/>
@@ -95,26 +96,33 @@
         </a-button>
       </a-dropdown>
     </div>
-
+    <!--display table-->
     <s-table
       ref="table"
       size="default"
       :columns="columns"
       :data="loadData"
       :alert="{ show: true, clear: true }"
-      :rowSelection="{ selectedRowKeys: this.selectedRowKeys, onChange: this.onSelectChange }"
-    >
-      <template v-for="(col, index) in columns" v-if="col.scopedSlots" :slot="col.dataIndex" slot-scope="text, record">
+      :rowSelection="{
+        selectedRowKeys: this.selectedRowKeys,
+        onChange: this.onSelectChange
+      }">
+      <template v-for="(col, index) in columns"
+                v-if="col.scopedSlots"
+                :slot="col.dataIndex"
+                slot-scope="text, record">
         <div :key="index">
-          <a-input
-            v-if="record.editable"
+          <!-- edit or show-->
+          <a-input v-if="record.editable"
             style="margin: -5px 0"
             :value="text"
-            @change="e => handleChange(e.target.value, record.key, col, record)"
-          />
-          <template v-else>{{ text }}</template>
+            @change="e => handleChange(e.target.value, record.key, col, record)"/>
+          <template v-else>
+            {{ text }}
+          </template>
         </div>
       </template>
+
       <template slot="action" slot-scope="text, record">
         <div class="editable-row-operations">
           <span v-if="record.editable">
@@ -152,15 +160,12 @@ export default {
         {
           title: 'ProjectId',
           dataIndex: 'pid',
+          width: 90,
           sorter: true,
-          width: 90
         },
         {
           title: 'CreatorId',
           dataIndex: 'cid',
-          needTotal: true,
-          scopedSlots: { customRender: 'CreatorId' },
-          customRender: (text) => 'by: ' + text,
           width: 100,
           sorter: true,
         },
@@ -179,7 +184,7 @@ export default {
         {
           title: 'Action',
           dataIndex: 'action',
-          width: '120px',
+          width: 120,
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -187,6 +192,7 @@ export default {
         return this.$http.get('/service', {
           params: Object.assign(parameter, this.queryParam)
         }).then(res => {
+          console.log(res)
           return res.result
         })
       },

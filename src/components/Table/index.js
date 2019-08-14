@@ -1,5 +1,6 @@
 import T from 'ant-design-vue/es/table/Table'
 import get from 'lodash.get'
+import permission from '@/store/modules/permission'
 
 export default {
   data () {
@@ -149,37 +150,51 @@ export default {
         ...filters
       }
       )
-      console.log('parameter', parameter)
+      console.log('--------------- () -------------------')
+      console.warn('parameter', parameter)
+      // result is of type promise
       const result = this.data(parameter)
+
       // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
       // eslint-disable-next-line
-      if ((typeof result === 'object' || typeof result === 'function') && typeof result.then === 'function') {
-        result.then(r => {
-          this.localPagination = this.showPagination && Object.assign({}, this.localPagination, {
-            current: r.pageNo, // 返回结果中的当前分页数
-            total: r.totalCount, // 返回结果中的总记录数
-            showSizeChanger: this.showSizeChanger,
-            pageSize: (pagination && pagination.pageSize) ||
-              this.localPagination.pageSize
-          }) || false
+      if ((typeof result === 'object' || typeof result === 'function')
+        && typeof result.then === 'function') {
+        result.then(resp => {
+          this.localPagination = this.showPagination
+            && Object.assign({}, this.localPagination,
+              {
+              current: resp.pageNo, // 返回结果中的当前分页数
+              total: resp.totalCount, // 返回结果中的总记录数
+              showSizeChanger: this.showSizeChanger,
+              pageSize: (pagination && pagination.pageSize) || this.localPagination.pageSize
+            }) || false
+
+          console.error(resp)
+          console.warn(JSON.stringify(this.localPagination))
+
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
-          if (r.data.length === 0 && this.showPagination && this.localPagination.current > 1) {
-            this.localPagination.current--
+          // TODO: 30 items, click page 3, redirect to page 2. It's not a bug
+          if (resp.data.length === 0
+            && this.showPagination
+            && this.localPagination.current > 1) {
+            console.warn('r.data.length==0')
+            this.localPagination.current -= 1
             this.loadData()
             return
           }
 
-          // 这里用于判断接口是否有返回 r.totalCount 且 this.showPagination = true 且 pageNo 和 pageSize 存在 且 totalCount 小于等于 pageNo * pageSize 的大小
+          // 这里用于判断接口是否有返回 r.totalCount 且 this.showPagination = true
+          // 且 pageNo 和 pageSize 存在 且 totalCount 小于等于 pageNo * pageSize 的大小
           // 当情况满足时，表示数据不满足分页大小，关闭 table 分页功能
           try {
-            if ((['auto', true].includes(this.showPagination) && r.totalCount <= (r.pageNo * this.localPagination.pageSize))) {
+            if ((['auto', true].includes(this.showPagination)
+              && resp.totalCount <= (resp.pageNo * this.localPagination.pageSize))) {
               this.localPagination.hideOnSinglePage = true
             }
           } catch (e) {
             this.localPagination = false
           }
-          console.log('loadData -> this.localPagination', this.localPagination)
-          this.localDataSource = r.data // 返回结果中的数组数据
+          this.localDataSource = resp.data // 返回结果中的数组数据
           this.localLoading = false
         })
       }

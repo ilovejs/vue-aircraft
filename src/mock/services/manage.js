@@ -1,32 +1,52 @@
 import Mock from 'mockjs2'
 import { builder, getQueryParameters } from '../util'
 
-const totalCount = 5701
+// TODO: some bug in component: component/table/index.js
+// 50 is minimal value for '40/page' options
+const totalCount = 20
 
 const serverList = (options) => {
+  // params
   const parameters = getQueryParameters(options)
-
-  const result = []
+  // DB api has offset and limit as params
   const pageNo = parseInt(parameters.pageNo)
   const pageSize = parseInt(parameters.pageSize)
+
+  const result = []
   const totalPage = Math.ceil(totalCount / pageSize)
   const key = (pageNo - 1) * pageSize
-  const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
 
-  for (let i = 1; i < next; i++) {
+  let batchSize = 0
+  if (pageNo >= totalPage) {
+    // page size overflow
+    batchSize = totalCount % pageSize
+    if (batchSize === 0) {
+      // if 20 % 10 == 0, we handle edge case,
+      // put pageSize to batch size
+      batchSize += pageSize
+    }
+  } else {
+    batchSize = pageSize
+  }
+
+  batchSize += 1
+
+  for (let i = 1; i < batchSize; i++) {
     const tmpKey = key + i
+    // format:
     result.push({
       key: tmpKey,
       id: tmpKey,
-      no: 'No ' + tmpKey,
-      description: 'Trade description....',
-      callNo: Mock.mock('@integer(1, 999)'),
-      status: Mock.mock('@integer(0, 3)'),
-      updatedAt: Mock.mock('@datetime'),
+
+      pid: 'Nox ' + tmpKey,
+      cid: Mock.mock('@integer(0, 3)'),
+      cat: Mock.mock('@integer(1, 999)'),
+      subtitle: 'more description....',
       editable: false
     })
   }
 
+  // request.body = xx
   return builder({
     pageSize: pageSize,
     pageNo: pageNo,
@@ -245,7 +265,58 @@ const radar = () => {
   ])
 }
 
+const originServerList = (options) => {
+  const parameters = getQueryParameters(options)
+
+  const result = []
+  const pageNo = parseInt(parameters.pageNo)
+  const pageSize = parseInt(parameters.pageSize)
+  console.log(pageNo, ' ', pageSize)
+
+  const totalPage = Math.ceil(totalCount / pageSize)
+  const key = (pageNo - 1) * pageSize
+  // const next = (pageNo > totalPage ? (totalCount % pageSize) : pageSize) + 1
+
+  let batchSize = 0
+  if (pageNo >= totalPage) {
+    // page size overflow
+    batchSize = totalCount % pageSize
+    if (batchSize === 0) {
+      // if 20 % 10 == 0, we handle edge case,
+      // put pageSize to batch size
+      batchSize += pageSize
+    }
+  } else {
+    batchSize = pageSize
+  }
+  batchSize += 1
+
+  for (let i = 1; i < batchSize; i++) {
+    const tmpKey = key + i
+    result.push({
+      key: tmpKey,
+      id: tmpKey,
+      no: `No ${tmpKey}`,
+      description: 'Trade description....',
+      callNo: Mock.mock('@integer(1, 999)'),
+      status: Mock.mock('@integer(0, 3)'),
+      updatedAt: Mock.mock('@datetime'),
+      editable: false,
+    })
+  }
+
+  return builder({
+    pageSize,
+    pageNo,
+    totalCount,
+    totalPage,
+    data: result,
+  })
+}
+
 Mock.mock(/\/service/, 'get', serverList)
+Mock.mock(/\/originservice/, 'get', originServerList)
+
 Mock.mock(/\/list\/search\/projects/, 'get', projects)
 Mock.mock(/\/workplace\/activity/, 'get', activity)
 Mock.mock(/\/workplace\/teams/, 'get', teams)
