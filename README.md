@@ -149,5 +149,6 @@ util/request.js
   
     - base_url and axios service, timeout
   
+## Axios issues
 
-  
+https://github.com/axios/axios/issues/960#issuecomment-320659373 

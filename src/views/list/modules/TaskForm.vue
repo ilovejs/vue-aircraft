@@ -140,15 +140,18 @@ export default {
       // offloading variables from this
       const {
         form: { validateFields },
+        // $message
       } = this
 
       this.visible = true
 
       validateFields((errors, values) => {
-        if (!errors) {
-          console.log('TaskForm.Vue, errors:', errors)
+        if (errors) {
+          console.log('TaskForm.Vue validation errors:', errors)
+          return
+        } else {
+          console.log('TaskFrom: submit values:', values)
         }
-        console.log('TaskFrom: submit values:', values)
 
         this.confirmLoading = true;
 
@@ -170,18 +173,28 @@ export default {
         }
 
         // only pick the first one as manager, cuz db
-        apiCreateProject(token, params).
-          then(res => {
-              console.log('project created !', res)
-              // close dialog
-              this.visible = false;
-              this.confirmLoading = false;
-          }).catch(e => {
-              submitError = e.errors.body
-              console.log('Taskform: submit error: ', e)
-              this.confirmLoading = false
-              console.log(this.$form)
-        })
+        apiCreateProject(token, params)
+          .then((res) => {
+            console.log('project created !', res)
+            // close dialog
+            this.visible = false;
+            this.confirmLoading = false;
+            // todo: improve to have component reload, send signal to parent
+            window.location.reload()
+          }).catch((e) => {
+            console.log(e)
+            console.log(e.response)
+
+            const status = e.response.status
+            if (e.data !== 'undefined') {
+              const data = e.response.data.errors.body
+              this.submitError = `Code:${status} ${data}`
+            } else {
+              const data = e.response
+              this.submitError = `Code:${status} ${data}`
+            }
+            this.confirmLoading = false
+          })
       })
 
     }

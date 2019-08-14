@@ -57,10 +57,11 @@ export default {
     TaskForm
   },
   data () {
+    // Belongs to PageView, see in dev tools
     return {
       description: 'A recent view of ongoing projects',
       linkList: [
-        { icon: 'plus', href: '#', title: 'Add project' },
+        // { icon: 'plus', href: '#', title: 'Add project' },
         { icon: 'rocket', href: '#', title: 'Quick start' },
         { icon: 'info-circle-o', href: '#', title: 'Intro' },
         { icon: 'file-text', href: '#', title: 'Documents' }
@@ -72,18 +73,18 @@ export default {
   methods: {
     ...mapActions(['ListProjects'])
   },
-  beforeMount(){
-    let token = Vue.ls.get(ACCESS_TOKEN)
+  beforeMount() {
+    const token = Vue.ls.get(ACCESS_TOKEN)
+    const that = this
     let projects = []
-    let that = this
 
-    store.dispatch('ListProjects', {token:token}).
-      then(res => {
+    store.dispatch('ListProjects', { token: token })
+      .then(res => {
         const result = res.projects
 
         projects = result.map(p => {
             // todo: fix the back
-            p.project.coverImage = '/project/airport.png'
+            p.project.coverImage = '/project/construction-1.png'
             p.project.avatar = '/avatar/44.jpg'
             return p.project
         })

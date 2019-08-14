@@ -96,7 +96,7 @@
 
 <script>
 import { mixinDevice } from '@/utils/mixin.js'
-import { getSmsCaptcha } from '@/api/login'
+// import { getSmsCaptcha } from '@/api/login'
 
 const levelNames = {
   0: 'Low',
@@ -217,8 +217,12 @@ export default {
 
     getCaptcha (e) {
       e.preventDefault()
-      const { form: { validateFields }, state, $message, $notification } = this
-
+      const {
+        form: { validateFields },
+        state,
+        $message,
+        $notification
+      } = this
       validateFields(['mobile'], { force: true },
         (err, values) => {
           if (!err) {
@@ -234,20 +238,21 @@ export default {
 
             const hide = $message.loading('Sending token ...', 0)
 
-            getSmsCaptcha({ mobile: values.mobile }).then(res => {
-              setTimeout(hide, 2500)
-              $notification['success']({
-                message: 'Hint',
-                description: 'Your token is: ' + res.result.captcha,
-                duration: 8
-              })
-            }).catch(err => {
-              setTimeout(hide, 1)
-              clearInterval(interval)
-              state.time = 60
-              state.smsSendBtn = false
-              this.requestFailed(err)
-            })
+            // getSmsCaptcha({ mobile: values.mobile }).then(res => {
+            //   setTimeout(hide, 2500)
+            //   $notification['success']({
+            //     message: 'Hint',
+            //     description: 'Your token is: ' + res.result.captcha,
+            //     duration: 8
+            //   })
+            // }).catch(err => {
+            //   setTimeout(hide, 1)
+            //   clearInterval(interval)
+            //   state.time = 60
+            //   state.smsSendBtn = false
+            //   this.requestFailed(err)
+            // })
+
           }
         }
       )

@@ -12,7 +12,7 @@ const service = axios.create({
   timeout: 6000
 })
 
-const err = (error) => {
+const interceptorErrorCallback = (error) => {
   if (error.response) {
     const data = error.response.data
     const token = Vue.ls.get(ACCESS_TOKEN)
@@ -57,12 +57,12 @@ service.interceptors.request.use(config => {
     console.log('no token via Interceptor')
   }
   return config
-}, err)
+}, interceptorErrorCallback)
 
 // response interceptor
 service.interceptors.response.use((response) => {
   return response.data
-}, err)
+}, interceptorErrorCallback)
 
 const installer = {
   vm: {},

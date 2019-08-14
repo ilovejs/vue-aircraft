@@ -9,8 +9,8 @@ import { ASYNC_ROUTERS, DEFAULT_ROUTERS } from '@/config/router.config'
  * @returns {boolean}
  */
 function _hasPermission (allowedPermissions, routeToVisit) {
-  // debugger;
-  console.log('allowedPermissions', allowedPermissions)
+  // todo: debugging logs
+  // console.log('allowedPermissions', allowedPermissions)
   if (routeToVisit.meta && routeToVisit.meta.permission) {
     let flag = false
     for (let i = 0, len = allowedPermissions.length; i < len; i++) {
@@ -49,7 +49,8 @@ function _filterAsyncRouter (routes, roles) {
     //Format: permissionList = ["dashboard","exception","result","profile"]
     //        route = {path: "/", name: "index", component: {…},
     //                 meta: {…}, redirect: "/dashboard/workplace", …
-    console.log('_filterAsyncRouter roles: ', roles)
+    // todo: debug to open
+    // console.log('_filterAsyncRouter roles: ', roles)
     if (_hasPermission(roles.permissionList, route)) {
       //recursive lookup if route has children
       //see route.config.js for setup e.g. / has children /dashboard /form /..
