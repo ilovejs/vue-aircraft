@@ -4,28 +4,35 @@
            :confirmLoading="confirmLoading"
            @ok="handleSubmit"
            @cancel="visible = false">
-    <a-form
-      :form="form"
-      @submit="handleSubmit">
+    <a-form :form="form" @submit="handleSubmit">
       <a-form-item label="Name" :labelCol="labelCol" :wrapperCol="wrapperCol">
         <a-input v-decorator="['name', {rules:[{required: true, message: 'Please type in project name'}]}]" />
       </a-form-item>
 
-<!--      <a-form-item label="Start" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
-<!--        <a-date-picker style="width: 100%"-->
-<!--                       v-decorator="['startTime', {rules:[{required: true, message: 'Please pick a start time'}]}]">-->
-<!--        </a-date-picker>-->
-<!--      </a-form-item>-->
+      <a-form-item label="SerialNo" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-input v-decorator="['sn', {rules:[{required: true, message: 'Please type in serial number'}]}]" />
+      </a-form-item>
 
-      <!--todo: multiple chose, don't misuse v-model-->
+      <a-form-item label="Address" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-input v-decorator="['address', {rules:[{required: true, message: 'Please type in address'}]}]" />
+      </a-form-item>
+
+      <a-form-item label="TotalContractValue" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-input v-decorator="['tcv', {rules:[{required: true, message: 'Total contract value missing'}]}]" />
+      </a-form-item>
+
+      <a-form-item label="Qs" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-input v-decorator="['qs', {rules:[{required: true, message: 'Qs Person'}]}]" />
+      </a-form-item>
+
+      <!--multiple chose, don't misuse v-model-->
       <a-form-item label="Manager" :labelCol="labelCol" :wrapperCol="wrapperCol" v-model="managers">
         <a-select mode="multiple" labelInValue
-                  placeholder="Select users" style="width: 100%" :filterOption="false"
+                  placeholder="Type Manager First name to chose" style="width: 100%" :filterOption="false"
                   @search="fetchUser"
                   @change="handleChange"
                   :notFoundContent="fetching ? undefined : null"
-                  v-decorator="['manager_id', {rules:[{required: true, message:'Please put manager id'}]}]"
-        >
+                  v-decorator="['manager_id', {rules:[{required: true, message:'Please put manager id'}]}]">
           <a-spin v-if="fetching" slot="notFoundContent" size="small"/>
           <a-select-option v-for="d in data" :key="d.value">
             {{d.text}}
@@ -33,9 +40,16 @@
         </a-select>
       </a-form-item>
 
-<!--      <a-form-item label="Description" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
-<!--        <a-textarea v-decorator="['desc']"></a-textarea>-->
-<!--      </a-form-item>-->
+      <a-form-item label="Notes" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <a-textarea v-decorator="['notes']"></a-textarea>
+      </a-form-item>
+
+      <a-alert v-if="submitError"
+        message="Error"
+        :description="submitError"
+        type="error"
+        showIcon
+      />
     </a-form>
   </a-modal>
 </template>
@@ -70,6 +84,7 @@ export default {
       data: [],
       managers: [],
       fetching: false,
+      submitError: '',
     }
   },
   methods: {
@@ -143,19 +158,29 @@ export default {
         // note: api format
         let params = {
           project: {
-            name: values.name,
+            manager_id : parseInt(values.manager_id[0].key),
             creator_id : user_id,
-            manager_id : parseInt(values.manager_id[0].key)
+            name: values.name,
+            serial_no: values.sn,
+            address: values.address,
+            total_contract_value: parseFloat(values.tcv),
+            quantity_surveyor: values.qs,
+            notes: values.notes,
           }
-        } // only pick the first one as manager, cuz db
-        apiCreateProject(token, params).then(res => {
-          console.log('project created !', res)
-          // close dialog
-          this.visible = false;
-          this.confirmLoading = false;
-        }).catch(e => {
-          console.log('Taskform: submit error: ', e)
-          this.confirmLoading = false
+        }
+
+        // only pick the first one as manager, cuz db
+        apiCreateProject(token, params).
+          then(res => {
+              console.log('project created !', res)
+              // close dialog
+              this.visible = false;
+              this.confirmLoading = false;
+          }).catch(e => {
+              submitError = e.errors.body
+              console.log('Taskform: submit error: ', e)
+              this.confirmLoading = false
+              console.log(this.$form)
         })
       })
 

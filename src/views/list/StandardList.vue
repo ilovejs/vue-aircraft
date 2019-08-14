@@ -68,7 +68,7 @@
           </div>
         </a-list-item>
       </a-list>
-      <!--create project form-->
+      <!--create project form in modal-->
       <task-form ref="taskForm" />
     </a-card>
   </div>

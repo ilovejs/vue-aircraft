@@ -1,5 +1,12 @@
 <template>
   <div class="card-list" ref="content">
+    <div class="operate" style="padding-bottom: 1%;">
+      <a-button type="dashed" style="width: 100%;"
+                icon="plus" @click="$refs.NewProjectForm.add()">Add</a-button>
+    </div>
+    <!--modal for add project-->
+    <task-form ref="NewProjectForm"></task-form>
+
     <!--responsive column number-->
     <a-list
       :grid="{gutter: 24, xxl:6, xl:4, lg: 4, md: 2, sm: 1, xs: 1}"
@@ -42,9 +49,13 @@ import { mapActions } from 'vuex'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import Vue from 'vue'
 import store from '../../store'
+import TaskForm from './modules/TaskForm'
 
 export default {
   name: 'ProjectCardList',
+  components: {
+    TaskForm
+  },
   data () {
     return {
       description: 'A recent view of ongoing projects',
