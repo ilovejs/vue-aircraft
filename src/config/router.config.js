@@ -102,6 +102,13 @@ export const ASYNC_ROUTERS = [
             meta: { title: 'Detail', permission: [ 'table' ] } //todo: change permission
           },
           {
+            path: '/project/add-trade',
+            name: 'Add Trades',
+            component: () => import('@/views/form/advancedForm/AddTrade'),
+            meta: { title: 'Add Trades', keepAlive: true }
+          },
+          // Search
+          {
             path: '/list/search',
             name: 'SearchList',
             component: () => import('@/views/list/search/SearchLayout'),

@@ -7,14 +7,16 @@ if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'tr
   // console.log('MOCK MOUNTING')
   //
   // require('./services/auth')
-  // require('./services/user')
-  // require('./services/manage')
-  // require('./services/other')
-  // require('./services/tagCloud')
-  // require('./services/article')
-  //
-  // Mock.setup({
-  //   timeout: 800 // setter delay time
-  // })
-  // console.log('MOCK MOUNTED')
+
+  require('./services/user')
+  require('./services/manage')
+  require('./services/other')
+  require('./services/tagCloud')
+  require('./services/article')
+
+  // TODO: more config ?
+  Mock.setup({
+    timeout: 800 // setter delay time
+  })
+  console.log('MOCK MOUNTED')
 }

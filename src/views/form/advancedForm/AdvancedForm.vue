@@ -1,20 +1,17 @@
 <template>
   <div>
-    <a-card class="card" title="仓库管理" :bordered="false">
-      <repository-form ref="repository" :showSubmit="false" />
+    <!-- top commands -->
+    <a-card class="card" title="Trade Management" :bordered="false">
+      <trade-header-form ref="tradeHeaderForm" :showSubmit="false" />
     </a-card>
-    <a-card class="card" title="任务管理" :bordered="false">
-      <task-form ref="task" :showSubmit="false" />
-    </a-card>
-
-    <!-- table -->
+    <!-- data table -->
     <a-card>
       <a-table
         :columns="columns"
         :dataSource="data"
         :pagination="false"
-        :loading="memberLoading"
-      >
+        :loading="memberLoading">
+
         <template v-for="(col, i) in ['name', 'workId', 'department']" :slot="col" slot-scope="text, record">
           <a-input
             :key="col"
@@ -26,39 +23,45 @@
           />
           <template v-else>{{ text }}</template>
         </template>
+
         <template slot="operation" slot-scope="text, record">
           <template v-if="record.editable">
             <span v-if="record.isNew">
-              <a @click="saveRow(record)">添加</a>
+              <a @click="saveRow(record)">Add</a>
               <a-divider type="vertical" />
-              <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
-                <a>删除</a>
+              <a-popconfirm title="Remove row ?" @confirm="remove(record.key)">
+                <a>Remove</a>
               </a-popconfirm>
             </span>
             <span v-else>
-              <a @click="saveRow(record)">保存</a>
+              <a @click="saveRow(record)">Save</a>
               <a-divider type="vertical" />
-              <a @click="cancel(record.key)">取消</a>
+              <a @click="cancel(record.key)">Cancel</a>
             </span>
           </template>
           <span v-else>
-            <a @click="toggle(record.key)">编辑</a>
+            <a @click="toggle(record.key)">Edit</a>
             <a-divider type="vertical" />
-            <a-popconfirm title="是否要删除此行？" @confirm="remove(record.key)">
-              <a>删除</a>
+            <a-popconfirm title="Delete ?" @confirm="remove(record.key)">
+              <a>Delete</a>
             </a-popconfirm>
           </span>
         </template>
+
       </a-table>
-      <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">新增成员</a-button>
+      <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">Add New Record</a-button>
     </a-card>
 
     <!-- fixed footer toolbar -->
     <footer-tool-bar :style="{ width: isSideMenu() && isDesktop() ? `calc(100% - ${sidebarOpened ? 256 : 80}px)` : '100%'}">
       <span class="popover-wrapper">
-        <a-popover title="表单校验信息" overlayClassName="antd-pro-pages-forms-style-errorPopover" trigger="click" :getPopupContainer="trigger => trigger.parentNode">
+        <a-popover title="form check info" overlayClassName="antd-pro-pages-forms-style-errorPopover" trigger="click"
+                   :getPopupContainer="trigger => trigger.parentNode">
           <template slot="content">
-            <li v-for="item in errors" :key="item.key" @click="scrollToField(item.key)" class="antd-pro-pages-forms-style-errorListItem">
+            <li v-for="item in errors"
+                :key="item.key"
+                @click="scrollToField(item.key)"
+                class="antd-pro-pages-forms-style-errorListItem">
               <a-icon type="cross-circle-o" class="antd-pro-pages-forms-style-errorIcon" />
               <div class="">{{ item.message }}</div>
               <div class="antd-pro-pages-forms-style-errorField">{{ item.fieldLabel }}</div>
@@ -69,30 +72,22 @@
           </span>
         </a-popover>
       </span>
-      <a-button type="primary" @click="validate" :loading="loading">提交</a-button>
+      <!--submit btn-->
+      <a-button type="primary" @click="validate" :loading="loading">Submit</a-button>
     </footer-tool-bar>
   </div>
 </template>
 
 <script>
-import RepositoryForm from './RepositoryForm'
-import TaskForm from './TaskForm'
+import TradeHeaderForm from './TradeHeaderForm'
 import FooterToolBar from '@/components/FooterToolbar'
 import { mixin, mixinDevice } from '@/utils/mixin'
 
+// used by sub-components
 const fieldLabels = {
-  name: '仓库名',
-  url: '仓库域名',
-  owner: '仓库管理员',
-  approver: '审批人',
-  dateRange: '生效日期',
-  type: '仓库类型',
-  name2: '任务名',
-  url2: '任务描述',
-  owner2: '执行人',
-  approver2: '责任人',
-  dateRange2: '生效日期',
-  type2: '任务类型'
+  name2: 'Name',
+  url2: 'Description',
+  owner2: 'Owner',
 }
 
 export default {
@@ -100,16 +95,13 @@ export default {
   mixins: [mixin, mixinDevice],
   components: {
     FooterToolBar,
-    RepositoryForm,
-    TaskForm
+    TradeHeaderForm
   },
   data () {
     return {
-      description: '高级表单常见于一次性输入和提交大批量数据的场景。',
+      description: 'Batch trade submission form',
       loading: false,
       memberLoading: false,
-
-      // table
       columns: [
         {
           title: '成员姓名',
@@ -189,10 +181,9 @@ export default {
       const { key, name, workId, department } = record
       if (!name || !workId || !department) {
         this.memberLoading = false
-        this.$message.error('请填写完整成员信息。')
+        this.$message.error('Please fill in complete data')
         return
       }
-      // 模拟网络请求、卡顿 800ms
       new Promise((resolve) => {
         setTimeout(() => {
           resolve({ loop: false })
@@ -224,21 +215,12 @@ export default {
         this.data = newData
       }
     },
-
-    // 最终全页面提交
     validate () {
-      const { $refs: { repository, task }, $notification } = this
-      const repositoryForm = new Promise((resolve, reject) => {
-        repository.form.validateFields((err, values) => {
-          if (err) {
-            reject(err)
-            return
-          }
-          resolve(values)
-        })
-      })
-      const taskForm = new Promise((resolve, reject) => {
-        task.form.validateFields((err, values) => {
+      // ref property was used at the top of this file.
+      const { $refs: { tradeHeaderForm }, $notification } = this
+
+      const tHForm = new Promise((resolve, reject) => {
+        tradeHeaderForm.form.validateFields((err, values) => {
           if (err) {
             reject(err)
             return
@@ -249,13 +231,14 @@ export default {
 
       // clean this.errors
       this.errors = []
-      Promise.all([repositoryForm, taskForm]).then(values => {
+
+      Promise.all([tHForm]).then(values => {
         $notification['error']({
           message: 'Received values of form:',
           description: JSON.stringify(values)
         })
       }).catch(() => {
-        const errors = Object.assign({}, repository.form.getFieldsError(), task.form.getFieldsError())
+        const errors = Object.assign({}, tradeHeaderForm.form.getFieldsError())
         const tmp = { ...errors }
         this.errorList(tmp)
         console.log(tmp)
@@ -269,7 +252,6 @@ export default {
         if (!errors[key]) {
           return null
         }
-
         return {
           key: key,
           message: errors[key][0],
