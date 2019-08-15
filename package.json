@@ -74,6 +74,7 @@
       "parser": "babel-eslint"
     },
     "rules": {
+      "comma-dangle": "off",
       "indent": "off",
       "space-before-function-paren": "off",
       "vue/spaced-comment": "off",

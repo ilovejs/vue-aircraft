@@ -95,8 +95,6 @@
         </a-row>
       </a-form>
     </div>
-
-
     <!--display table-->
     <s-table
       ref="table"
@@ -104,28 +102,28 @@
       :columns="columns"
       :data="loadData"
       :alert="{ show: true, clear: true }"
-      :rowSelection="{
-        selectedRowKeys: this.selectedRowKeys,
-        onChange: this.onSelectChange
-      }">
-      <template v-for="(col, index) in columns"
-                v-if="col.scopedSlots"
-                :slot="col.dataIndex"
-                slot-scope="text, record">
+      :rowSelection="{ selectedRowKeys: this.selectedRowKeys, onChange: this.onSelectChange}"
+    >
+      <!--data part-->
+      <template v-for="(col, index) in columns" v-if="col.scopedSlots"
+                :slot="col.dataIndex" slot-scope="text, record">
         <div :key="index">
-          <!-- edit or show-->
+          <!--edit-->
           <a-input v-if="record.editable"
-            style="margin: -5px 0"
             :value="text"
-            @change="e => handleChange(e.target.value, record.key, col, record)"/>
+            @change="e => handleChange(e.target.value, record.key, col, record)"
+            style="margin: -5px 0"
+          />
+          <!--show-->
           <template v-else>
             {{ text }}
           </template>
         </div>
       </template>
-
+      <!--action part-->
       <template slot="action" slot-scope="text, record">
         <div class="editable-row-operations">
+          <!--edit-->
           <span v-if="record.editable">
             <a @click="() => save(record)">Save</a>
             <a-divider type="vertical" />
@@ -133,6 +131,7 @@
               <a>Cancel</a>
             </a-popconfirm>
           </span>
+          <!--show-->
           <span v-else>
             <a class="edit" @click="() => edit(record)">Edit</a>
             <a-divider type="vertical" />
@@ -149,7 +148,7 @@
 import { STable } from '@/components'
 
 export default {
-  name: 'TableList',
+  name: 'AddTrade',
   components: {
     STable
   },
@@ -157,30 +156,41 @@ export default {
     return {
       advanced: false,
       queryParam: {},
+      // very important to keep scopedSlots or Edit wont functioning
       columns: [
+        {
+          title: 'Id',
+          dataIndex: 'id',
+          width: 30,
+          sorter: true
+        },
         {
           title: 'ProjectId',
           dataIndex: 'pid',
           width: 90,
           sorter: true,
+          scopedSlots: { customRender: 'pid' }
         },
         {
           title: 'CreatorId',
           dataIndex: 'cid',
           width: 100,
           sorter: true,
+          scopedSlots: { customRender: 'cid' }
         },
         {
           title: 'Category',
           dataIndex: 'cat',
           width: 100,
           sorter: true,
+          scopedSlots: { customRender: 'cat' }
         },
         {
           title: 'Subtitle',
           dataIndex: 'subtitle',
           width: 100,
           sorter: true,
+          scopedSlots: { customRender: 'subtitle' }
         },
         {
           title: 'Action',
@@ -203,15 +213,16 @@ export default {
   },
   methods: {
     handleChange (value, key, column, record) {
-      console.log(value, key, column)
+      console.log('handleChange', value, key, column)
       record[column.dataIndex] = value
     },
     edit (row) {
       row.editable = true
+      console.log('edit row', row)
       // row = Object.assign({}, row)
     },
-    // eslint-disable-next-line
     del (row) {
+      console.log('del')
       this.$confirm({
         title: 'Warn',
         content: `Delete ${row.no} ?`,
@@ -232,6 +243,7 @@ export default {
       })
     },
     save (row) {
+      console.log('save')
       row.editable = false
     },
     cancel (row) {

@@ -12,7 +12,9 @@
         :pagination="false"
         :loading="memberLoading">
 
-        <template v-for="(col, i) in ['name', 'workId', 'department']" :slot="col" slot-scope="text, record">
+        <template v-for="(col, i) in ['name', 'workId', 'department']"
+                  :slot="col"
+                  slot-scope="text, record">
           <a-input
             :key="col"
             v-if="record.editable"
@@ -104,28 +106,28 @@ export default {
       memberLoading: false,
       columns: [
         {
-          title: '成员姓名',
+          title: 'Name',
           dataIndex: 'name',
           key: 'name',
           width: '20%',
           scopedSlots: { customRender: 'name' }
         },
         {
-          title: '工号',
+          title: 'WorkId',
           dataIndex: 'workId',
           key: 'workId',
           width: '20%',
           scopedSlots: { customRender: 'workId' }
         },
         {
-          title: '所属部门',
+          title: 'Dep',
           dataIndex: 'department',
           key: 'department',
           width: '40%',
           scopedSlots: { customRender: 'department' }
         },
         {
-          title: '操作',
+          title: 'Action',
           key: 'action',
           scopedSlots: { customRender: 'operation' }
         }
