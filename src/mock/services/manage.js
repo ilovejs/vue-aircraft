@@ -3,7 +3,7 @@ import { builder, getQueryParameters } from '../util'
 
 // TODO: some bug in component: component/table/index.js
 // 50 is minimal value for '40/page' options
-const totalCount = 20
+const TOTAL_COUNT = 20
 
 const newServerList = (options) => {
   // params
@@ -13,13 +13,13 @@ const newServerList = (options) => {
   const pageSize = parseInt(parameters.pageSize)
 
   const result = []
-  const totalPage = Math.ceil(totalCount / pageSize)
+  const totalPage = Math.ceil(TOTAL_COUNT / pageSize)
   const key = (pageNo - 1) * pageSize
 
   let batchSize = 0
   if (pageNo >= totalPage) {
     // page size overflow
-    batchSize = totalCount % pageSize
+    batchSize = TOTAL_COUNT % pageSize
     if (batchSize === 0) {
       // if 20 % 10 == 0, we handle edge case,
       // put pageSize to batch size
@@ -33,7 +33,7 @@ const newServerList = (options) => {
 
   for (let i = 1; i < batchSize; i++) {
     const tmpKey = key + i
-    // format:
+    // todo: FORMAT
     result.push({
       key: tmpKey,
       id: tmpKey,
@@ -50,7 +50,7 @@ const newServerList = (options) => {
   return builder({
     pageSize: pageSize,
     pageNo: pageNo,
-    totalCount: totalCount,
+    totalCount: TOTAL_COUNT,
     totalPage: totalPage,
     data: result
   })
@@ -273,14 +273,14 @@ const oldServerList = (options) => {
   const pageSize = parseInt(parameters.pageSize)
   console.log(pageNo, ' ', pageSize)
 
-  const totalPage = Math.ceil(totalCount / pageSize)
+  const totalPage = Math.ceil(TOTAL_COUNT / pageSize)
   const key = (pageNo - 1) * pageSize
-  // const next = (pageNo > totalPage ? (totalCount % pageSize) : pageSize) + 1
+  // const next = (pageNo > totalPage ? (TOTAL_COUNT % pageSize) : pageSize) + 1
 
   let batchSize = 0
   if (pageNo >= totalPage) {
     // page size overflow
-    batchSize = totalCount % pageSize
+    batchSize = TOTAL_COUNT % pageSize
     if (batchSize === 0) {
       // if 20 % 10 == 0, we handle edge case,
       // put pageSize to batch size
@@ -308,7 +308,7 @@ const oldServerList = (options) => {
   return builder({
     pageSize,
     pageNo,
-    totalCount,
+    totalCount: TOTAL_COUNT,
     totalPage,
     data: result,
   })

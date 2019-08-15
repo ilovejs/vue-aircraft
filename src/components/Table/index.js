@@ -153,8 +153,7 @@ export default {
       const result = this.data(parameter)
 
       // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
-      if ((typeof result === 'object' || typeof result === 'function')
-        && typeof result.then === 'function') {
+      if ((typeof result === 'object' || typeof result === 'function') && typeof result.then === 'function') {
         result.then(resp => {
           this.localPagination = this.showPagination
             && Object.assign({}, this.localPagination,
@@ -165,14 +164,12 @@ export default {
               pageSize: (pagination && pagination.pageSize) || this.localPagination.pageSize
             }) || false
 
-          console.error(resp)
-          console.warn(JSON.stringify(this.localPagination))
+          console.debug(resp)
+          console.debug(JSON.stringify(this.localPagination))
 
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
           // TODO: 30 items, click page 3, redirect to page 2. It's not a bug
-          if (resp.data.length === 0
-            && this.showPagination
-            && this.localPagination.current > 1) {
+          if (resp.data.length === 0 && this.showPagination && this.localPagination.current > 1) {
             console.warn('r.data.length==0')
             this.localPagination.current -= 1
 

@@ -92,7 +92,7 @@ export const ASYNC_ROUTERS = [
           {
             path: '/list/card',
             name: 'ProjectCardList',
-            component: () => import('@/views/list/ProjectCardList'),
+            component: () => import('@/views/list/ProjectList'),
             meta: { title: 'List', keepAlive: true, permission: [ 'table' ] }
           },
           // Detail view need a select bar or we hide from menu

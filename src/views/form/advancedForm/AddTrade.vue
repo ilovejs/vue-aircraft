@@ -158,7 +158,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { STable } from '@/components'
+import { apiLoadTrades } from '@/api/trade'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 /* Component Derived from TableInnerEditList */
 export default {
@@ -200,9 +203,16 @@ export default {
         {
           title: 'Category',
           dataIndex: 'cat',
-          width: 100,
+          width: 50,
           sorter: true,
           scopedSlots: { customRender: 'cat' }
+        },
+        {
+          title: 'CategoryID',
+          dataIndex: 'cat_id',
+          width: 50,
+          sorter: true,
+          scopedSlots: { customRender: 'cat_id' }
         },
         {
           title: 'Subtitle',
@@ -218,14 +228,16 @@ export default {
           scopedSlots: { customRender: 'action' }
         }
       ],
-      loadData: parameter => {
-        return this.$http.get('/newservice', {
-          params: Object.assign(parameter, this.queryParam)
-        }).then(res => {
-          this.tableData = res.result.data
-          console.log('tableData', this.tableData)
-          return res.result
-        })
+      loadData: () => {
+        const token =  Vue.ls.get(ACCESS_TOKEN)
+        // Must be a Promise not just return
+        return apiLoadTrades(token, this.queryParam).
+          then(res => {
+            console.log('res', res)
+            return res
+          }).catch(e => {
+            console.error(e)
+          })
       },
       selectedRowKeys: [],
       selectedRows: []

@@ -20,5 +20,5 @@ const postTrades = () => {
   ])
 
 }
-Mock.mock(/\/project\/trades/, 'get', trades)
+// Mock.mock(/\/project\/trades/, 'get', trades)
 Mock.mock(/\/project\/trades/, 'post', postTrades)

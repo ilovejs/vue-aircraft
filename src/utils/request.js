@@ -5,7 +5,7 @@ import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
-// axios instance
+// axios instance: https://github.com/axios/axios
 const service = axios.create({
   // baseURL: location.protocol + '//' + location.hostname + ':' + process.env.BE_PORT + process.env.BASE_URL,
   baseURL: location.protocol + '//' + location.hostname + ':' + '8585/api',
