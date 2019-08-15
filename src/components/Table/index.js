@@ -129,9 +129,9 @@ export default {
     },
     /**
      * 加载数据方法
-     * @param {Object} pagination 分页选项器
-     * @param {Object} filters 过滤条件
-     * @param {Object} sorter 排序条件
+     * @param {Object} pagination
+     * @param {Object} filters
+     * @param {Object} sorter condition
      */
     loadData (pagination, filters, sorter) {
       this.localLoading = true
@@ -231,7 +231,7 @@ export default {
       })
     },
     /**
-     * 清空 table 已选中项
+     * Clear selected table options
      */
     clearSelected () {
       if (this.rowSelection) {
@@ -254,21 +254,21 @@ export default {
       )
     },
     renderAlert () {
-      // 绘制统计列数据
+      // Draw stats column
       const needTotalItems = this.needTotalList.map((item) => {
         return (<span style="margin-right: 12px">
           {item.title} Total <a style="font-weight: 600">{!item.customRender ? item.total : item.customRender(item.total)}</a>
         </span>)
       })
 
-      // 绘制 清空 按钮
+      // Draw Clean Button
       const clearItem = (typeof this.alert.clear === 'boolean' && this.alert.clear) ? (
         this.renderClear(this.clearSelected)
       ) : (this.alert !== null && typeof this.alert.clear === 'function') ? (
         this.renderClear(this.alert.clear)
       ) : null
 
-      // 绘制 alert 组件
+      // Draw alert component
       return (
         <a-alert showIcon={true} style="margin-bottom: 16px">
           <template slot="message">
@@ -298,7 +298,7 @@ export default {
       }
       if (k === 'rowSelection') {
         if (showAlert && this.rowSelection) {
-          // 如果需要使用alert，则重新绑定 rowSelection 事件
+          // If need to use alert，then rebind rowSelection event
           console.log('this.rowSelection', this.rowSelection)
           props[k] = {
             ...this.rowSelection,
@@ -311,7 +311,7 @@ export default {
           }
           return props[k]
         } else if (!this.rowSelection) {
-          // 如果没打算开启 rowSelection 则清空默认的选择项
+          // If no plan to enable rowSelection, then clear the default selected option
           props[k] = null
           return props[k]
         }
