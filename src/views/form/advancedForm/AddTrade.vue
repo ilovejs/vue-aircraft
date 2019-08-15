@@ -3,12 +3,16 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline"
               ref="AddTradeForm"
+              :form="form"
+              @submit="submitRow"
       >
         <a-row :gutter="48">
 
           <a-col :md="6" :sm="24">
-            <a-form-item label="Project">
-              <a-select placeholder="Project" default-value="15">
+            <a-form-item label="Project" name="project">
+              <a-select placeholder="Project"
+                        v-decorator="['project', { rules: [{ required: true, message: 'Please pick project'}] }]"
+                        >
                 <a-select-option value="15">Green Doom 21</a-select-option>
                 <a-select-option value="24">asdfsadf</a-select-option>
                 <a-select-option value="26">Capochino</a-select-option>
@@ -18,13 +22,16 @@
 
           <a-col :md="4" :sm="24">
             <a-form-item label="Creator">
-              <a-input placeholder="Qs who record this trade" default-value="13"/>
+              <a-input placeholder="Qs who record this trade"
+                       v-decorator="['creator', { rules: [{ required: true, message: 'Please pick creator'}] }]"/>
             </a-form-item>
           </a-col>
 
           <a-col :md="6" :sm="24">
             <a-form-item label="Category">
-              <a-select placeholder="Trade Category" default-value="13">
+              <a-select placeholder="Trade Category"
+                        v-decorator="['category', { rules: [{ required: true, message: 'Please pick category'}] }]"
+                        name="category">
                 <a-select-option value="13">Concrete</a-select-option>
                 <a-select-option value="14">Formwork</a-select-option>
                 <a-select-option value="15">Reinforcement</a-select-option>
@@ -33,11 +40,12 @@
           </a-col>
 
           <a-col :md="6" :sm="24">
-            <a-form-item label="Subtitle">
-              <a-input placeholder="Trade Breakdown"/>
+            <a-form-item label="Breakdown">
+              <a-input placeholder="Trade Breakdown"
+                       v-decorator="['breakdown', { rules: [{ required: true, message: 'Please pick breakdown'}] }]"/>
             </a-form-item>
           </a-col>
-
+          <!--advanced-->
           <template v-if="advanced">
             <a-col :md="8" :sm="24">
               <a-form-item label="Times">
@@ -51,7 +59,7 @@
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="Status">
-                <a-select placeholder="Chose" default-value="0">
+                <a-select placeholder="Chose">
                   <a-select-option value="0">1</a-select-option>
                   <a-select-option value="1">2</a-select-option>
                   <a-select-option value="2">3</a-select-option>
@@ -60,7 +68,7 @@
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="Usage">
-                <a-select placeholder="Pick" default-value="0">
+                <a-select placeholder="Pick">
                   <a-select-option value="0">1</a-select-option>
                   <a-select-option value="1">2</a-select-option>
                   <a-select-option value="2">3</a-select-option>
@@ -74,7 +82,7 @@
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <!--add-->
-              <a-button type="primary" icon="plus" @click="addRow"></a-button>
+              <a-button type="primary" icon="plus" htmlType="submit"></a-button>
               <!--delete-->
               <a-button style="margin-left: 3px" icon="delete"></a-button>
               <!--batch-->
@@ -160,6 +168,7 @@ export default {
   },
   data() {
     return {
+      form: this.$form.createForm(this),
       advanced: false,
       queryParam: {},
       loading: false, // for submit
@@ -227,8 +236,31 @@ export default {
       console.log('handleRowChange', value, key, column)
       record[column.dataIndex] = value
     },
-    addRow(row) {
-      console.log('add', row)
+    submitRow(e) {
+      const that = this
+      console.log('submitRow', e)
+      e.preventDefault()
+
+      this.form.validateFields((err, values) => {
+        if (err) {
+          this.$notification['error']({
+            message: 'Received values of form:',
+            description: values
+          })
+        }
+        console.log(values)
+
+        this.$http.post('/project/trades').then(res => {
+          console.debug(res)
+          return res.data
+        }).catch(e => {
+          console.debug(e)
+        }).finally(()=>{
+          this.memberLoading = false
+          that.$refs.table.refresh()
+        })
+
+      })
     },
     edit(row) {
       row.editable = true
@@ -266,13 +298,13 @@ export default {
         }
       })
     },
-    save(record) {
+    save(row) {
       const that = this
-      console.log('save', record)
+      console.log('save', row)
       // This could talk to BackEnd or FrontEnd only !!
       this.memberLoading = true
       // FORMAT
-      const { pid, cid, cat, subtitle } = record
+      const { pid, cid, cat, subtitle } = row
       if (!pid || !cid || !cat || !subtitle) {
         this.memberLoading = false
         this.$message.error('Please fill in data completely')
