@@ -188,12 +188,14 @@ export default {
       ],
       loadData: parameter => {
         console.log('loadData.parameter', parameter)
+
         return getServiceList(Object.assign(parameter, this.queryParam))
           .then(res => {
-            // todo: check json format
+            console.debug(res)
             return res.result
+          }).catch(e => {
+            console.log(e)
           })
-        // todo: catch events ?
       },
       selectedRowKeys: [],
       selectedRows: [],

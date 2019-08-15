@@ -4,9 +4,9 @@
       <a-form layout="inline">
         <a-row :gutter="48">
 
-          <a-col :md="4" :sm="24">
+          <a-col :md="6" :sm="24">
             <a-form-item label="Project">
-              <a-select placeholder="Pick a project" default-value="15">
+              <a-select placeholder="Project" default-value="15">
                 <a-select-option value="15">Green Doom 21</a-select-option>
                 <a-select-option value="24">asdfsadf</a-select-option>
                 <a-select-option value="26">Capochino</a-select-option>
@@ -22,7 +22,7 @@
 
           <a-col :md="6" :sm="24">
             <a-form-item label="Category">
-              <a-select placeholder="Pick trade category" default-value="13">
+              <a-select placeholder="Trade Category" default-value="13">
                 <a-select-option value="13">Concrete</a-select-option>
                 <a-select-option value="14">Formwork</a-select-option>
                 <a-select-option value="15">Reinforcement</a-select-option>
@@ -32,7 +32,7 @@
 
           <a-col :md="6" :sm="24">
             <a-form-item label="Subtitle">
-              <a-input placeholder="Subtitle under each category"/>
+              <a-input placeholder="Trade Breakdown"/>
             </a-form-item>
           </a-col>
 
@@ -68,13 +68,25 @@
           </template>
 
           <!--add and clean button-->
-          <a-col :md="!advanced && 4 || 24" :sm="24">
+          <a-col :md="!advanced && 3 || 24" :sm="24">
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
-
+              <!--add-->
               <a-button type="primary" icon="plus"></a-button>
+              <!--delete-->
               <a-button style="margin-left: 3px" icon="delete"></a-button>
-
+              <!--batch-->
+              <span class="table-operator">
+                <a-dropdown v-if="selectedRowKeys.length > 0">
+                  <a-menu slot="overlay">
+                    <a-menu-item key="1"><a-icon type="delete" />Remove</a-menu-item>
+                    <!-- lock | unlock -->
+                    <a-menu-item key="2"><a-icon type="lock" />Lock</a-menu-item>
+                  </a-menu>
+                  <a-button style="margin-left: 8px">Batch<a-icon type="down" /></a-button>
+                </a-dropdown>
+              </span>
+              <!--fold-->
               <a @click="toggleAdvanced" style="margin-left: 3px">
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
@@ -84,18 +96,7 @@
       </a-form>
     </div>
 
-    <div class="table-operator">
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1"><a-icon type="delete" />Remove</a-menu-item>
-          <!-- lock | unlock -->
-          <a-menu-item key="2"><a-icon type="lock" />Lock</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px">
-          Batch Operation <a-icon type="down" />
-        </a-button>
-      </a-dropdown>
-    </div>
+
     <!--display table-->
     <s-table
       ref="table"
@@ -189,7 +190,7 @@ export default {
         }
       ],
       loadData: parameter => {
-        return this.$http.get('/service', {
+        return this.$http.get('/newservice', {
           params: Object.assign(parameter, this.queryParam)
         }).then(res => {
           console.log(res)

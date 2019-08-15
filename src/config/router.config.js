@@ -87,7 +87,7 @@ export const ASYNC_ROUTERS = [
             path: '/list/table-list/:pageNo([1-9]\\d*)?',
             name: 'TableListWrapper',
             component: () => import('@/views/list/TableList'),
-            meta: { title: 'Manage Trades', keepAlive: true, permission: [ 'table' ] }
+            meta: { title: 'Subscription', keepAlive: true, permission: [ 'table' ] }
           },
           {
             path: '/list/card',
@@ -95,6 +95,7 @@ export const ASYNC_ROUTERS = [
             component: () => import('@/views/list/ProjectCardList'),
             meta: { title: 'List', keepAlive: true, permission: [ 'table' ] }
           },
+          // Detail view need a select bar or we hide from menu
           {
             path: '/project/detail/:projectId([1-9]\\d*)?',
             name: 'ProjectDetail',
@@ -105,7 +106,7 @@ export const ASYNC_ROUTERS = [
             path: '/project/add-trade',
             name: 'Add Trades',
             component: () => import('@/views/form/advancedForm/AddTrade'),
-            meta: { title: 'Add Trades', keepAlive: true }
+            meta: { title: 'Trades', keepAlive: true }
           },
           // Search
           {
@@ -182,33 +183,33 @@ export const ASYNC_ROUTERS = [
       //   ]
       // },
       // Exception
-      {
-        path: '/exception',
-        name: 'exception',
-        component: RouteView,
-        redirect: '/exception/403',
-        meta: { title: 'Exception', icon: 'warning', permission: [ 'exception' ] },
-        children: [
-          {
-            path: '/exception/403',
-            name: 'Exception403',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
-            meta: { title: '403', permission: [ 'exception' ] }
-          },
-          {
-            path: '/exception/404',
-            name: 'Exception404',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
-            meta: { title: '404', permission: [ 'exception' ] }
-          },
-          {
-            path: '/exception/500',
-            name: 'Exception500',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
-            meta: { title: '500', permission: [ 'exception' ] }
-          }
-        ]
-      },
+      // {
+      //   path: '/exception',
+      //   name: 'exception',
+      //   component: RouteView,
+      //   redirect: '/exception/403',
+      //   meta: { title: 'Exception', icon: 'warning', permission: [ 'exception' ] },
+      //   children: [
+      //     {
+      //       path: '/exception/403',
+      //       name: 'Exception403',
+      //       component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
+      //       meta: { title: '403', permission: [ 'exception' ] }
+      //     },
+      //     {
+      //       path: '/exception/404',
+      //       name: 'Exception404',
+      //       component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
+      //       meta: { title: '404', permission: [ 'exception' ] }
+      //     },
+      //     {
+      //       path: '/exception/500',
+      //       name: 'Exception500',
+      //       component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
+      //       meta: { title: '500', permission: [ 'exception' ] }
+      //     }
+      //   ]
+      // },
       // User
       {
         path: '/account',

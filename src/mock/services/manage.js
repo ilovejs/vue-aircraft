@@ -5,7 +5,7 @@ import { builder, getQueryParameters } from '../util'
 // 50 is minimal value for '40/page' options
 const totalCount = 20
 
-const serverList = (options) => {
+const newServerList = (options) => {
   // params
   const parameters = getQueryParameters(options)
   // DB api has offset and limit as params
@@ -265,7 +265,7 @@ const radar = () => {
   ])
 }
 
-const originServerList = (options) => {
+const oldServerList = (options) => {
   const parameters = getQueryParameters(options)
 
   const result = []
@@ -314,8 +314,8 @@ const originServerList = (options) => {
   })
 }
 
-Mock.mock(/\/service/, 'get', serverList)
-Mock.mock(/\/originservice/, 'get', originServerList)
+Mock.mock(/\/service/, 'get', oldServerList)
+Mock.mock(/\/newservice/, 'get', newServerList)
 
 Mock.mock(/\/list\/search\/projects/, 'get', projects)
 Mock.mock(/\/workplace\/activity/, 'get', activity)
