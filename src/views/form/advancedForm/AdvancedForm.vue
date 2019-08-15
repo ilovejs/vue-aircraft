@@ -4,7 +4,7 @@
     <a-card class="card" title="Trade Management" :bordered="false">
       <trade-header-form ref="tradeHeaderForm" :showSubmit="false" />
     </a-card>
-    <!-- data table -->
+    <!-- Ant Deisng native data table not s-table-->
     <a-card>
       <a-table
         :columns="columns"
@@ -96,8 +96,8 @@ export default {
   name: 'AdvancedForm',
   mixins: [mixin, mixinDevice],
   components: {
-    FooterToolBar,
-    TradeHeaderForm
+    TradeHeaderForm,
+    FooterToolBar
   },
   data () {
     return {
@@ -179,18 +179,22 @@ export default {
       this.data = newData
     },
     saveRow (record) {
+      // This could talk to BackEnd or FrontEnd only !!
       this.memberLoading = true
+      // FORMAT
       const { key, name, workId, department } = record
       if (!name || !workId || !department) {
         this.memberLoading = false
         this.$message.error('Please fill in complete data')
         return
       }
+
       new Promise((resolve) => {
         setTimeout(() => {
           resolve({ loop: false })
         }, 800)
       }).then(() => {
+        // turn off row states
         const target = this.data.filter(item => item.key === key)[0]
         target.editable = false
         target.isNew = false
@@ -242,6 +246,7 @@ export default {
       }).catch(() => {
         const errors = Object.assign({}, tradeHeaderForm.form.getFieldsError())
         const tmp = { ...errors }
+        // call below fn
         this.errorList(tmp)
         console.log(tmp)
       })

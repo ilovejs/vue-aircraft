@@ -11,6 +11,7 @@ Table 重封装组件说明
 
 该 `table` 由 [@Saraka](https://github.com/saraka-tsukai) 完成封装
 
+> Michael: This component is Backend dependent, save trigger backend update, refresh to /get
 
 例子1
 ----

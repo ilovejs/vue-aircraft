@@ -1,7 +1,10 @@
 import T from 'ant-design-vue/es/table/Table'
 import get from 'lodash.get'
-import permission from '@/store/modules/permission'
 
+/*
+Inside s-table logic which extend origin a-table.
+Compare with AdvancedForm.vue for detail.
+*/
 export default {
   data () {
     return {
@@ -117,46 +120,39 @@ export default {
   },
   methods: {
     /**
-     * 表格重新加载方法
-     * 如果参数为 true, 则强制刷新到第一页
-     * @param Boolean bool
+     * Table refresh
+     * If bool is true, then force refresh to page 1
      */
     refresh (bool = false) {
       bool && (this.localPagination = Object.assign({}, {
         current: 1, pageSize: this.pageSize
       }))
-      this.loadData()
+      this.loadData(undefined, undefined, undefined)
     },
     /**
-     * 加载数据方法
+     * Load data async
      * @param {Object} pagination
      * @param {Object} filters
      * @param {Object} sorter condition
      */
     loadData (pagination, filters, sorter) {
       this.localLoading = true
+
       const parameter = Object.assign({
-        pageNo: (pagination && pagination.current) ||
-          this.showPagination && this.localPagination.current || this.pageNum,
-        pageSize: (pagination && pagination.pageSize) ||
-          this.showPagination && this.localPagination.pageSize || this.pageSize
+        pageNo: (pagination && pagination.current) || this.showPagination && this.localPagination.current || this.pageNum,
+        pageSize: (pagination && pagination.pageSize) || this.showPagination && this.localPagination.pageSize || this.pageSize
       },
-      (sorter && sorter.field && {
-        sortField: sorter.field
-      }) || {},
-      (sorter && sorter.order && {
-        sortOrder: sorter.order
-      }) || {}, {
-        ...filters
-      }
+      (sorter && sorter.field && { sortField: sorter.field }) || {},
+      (sorter && sorter.order && { sortOrder: sorter.order }) || {},
+      { ...filters }
       )
-      console.log('--------------- () -------------------')
       console.warn('parameter', parameter)
+
+      console.log('--------------- () -------------------')
       // result is of type promise
       const result = this.data(parameter)
 
       // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
-      // eslint-disable-next-line
       if ((typeof result === 'object' || typeof result === 'function')
         && typeof result.then === 'function') {
         result.then(resp => {
@@ -179,7 +175,8 @@ export default {
             && this.localPagination.current > 1) {
             console.warn('r.data.length==0')
             this.localPagination.current -= 1
-            this.loadData()
+
+            this.loadData(undefined, undefined, undefined)
             return
           }
 
@@ -194,7 +191,7 @@ export default {
           } catch (e) {
             this.localPagination = false
           }
-          this.localDataSource = resp.data // 返回结果中的数组数据
+          this.localDataSource = resp.data // return data from response
           this.localLoading = false
         })
       }
@@ -212,7 +209,7 @@ export default {
       return totalList
     },
     /**
-     * 用于更新已选中的列表数据 total 统计
+     * Update selected row `total stats`
      * @param selectedRowKeys
      * @param selectedRows
      */
@@ -319,9 +316,11 @@ export default {
       this[k] && (props[k] = this[k])
       return props[k]
     })
+
     const table = (
       <a-table {...{ props, scopedSlots: { ...this.$scopedSlots } }} onChange={this.loadData}>
-        { Object.keys(this.$slots).map(name => (<template slot={name}>{this.$slots[name]}</template>)) }
+        { Object.keys(this.$slots).map(
+          name => (<template slot={name}>{this.$slots[name]}</template>)) }
       </a-table>
     )
 
