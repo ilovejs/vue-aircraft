@@ -58,35 +58,35 @@
 </template>
 
 <script>
-import AvatarModal from './AvatarModal'
+  import AvatarModal from './AvatarModal'
 
-export default {
-  components: {
-    AvatarModal
-  },
-  data () {
-    return {
-      // cropper
-      preview: {},
-      option: {
-        img: '/avatar2.jpg',
-        info: true,
-        size: 1,
-        outputType: 'jpeg',
-        canScale: false,
-        autoCrop: true,
-        autoCropWidth: 180,
-        autoCropHeight: 180,
-        fixedBox: true,
-        fixed: true,
-        fixedNumber: [1, 1]
+  export default {
+    components: {
+      AvatarModal,
+    },
+    data() {
+      return {
+        // cropper
+        preview: {},
+        option: {
+          img: '/avatar2.jpg',
+          info: true,
+          size: 1,
+          outputType: 'jpeg',
+          canScale: false,
+          autoCrop: true,
+          autoCropWidth: 180,
+          autoCropHeight: 180,
+          fixedBox: true,
+          fixed: true,
+          fixedNumber: [1, 1],
+        },
       }
-    }
-  },
-  methods: {
+    },
+    methods: {
 
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

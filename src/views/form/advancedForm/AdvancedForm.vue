@@ -1,10 +1,16 @@
 <template>
   <div>
-    <!-- top commands -->
-    <a-card class="card" title="Trade Management" :bordered="false">
-      <trade-header-form ref="tradeHeaderForm" :showSubmit="false" />
+    <!--
+    <a-card class="card" title="repository" :bordered="false">
+      <repository-form ref="repository" :showSubmit="false" />
     </a-card>
-    <!-- Ant Deisng native data table not s-table-->
+    -->
+
+    <!--top commands -->
+    <a-card class="card" title="Trade Management" :bordered="false">
+      <trade-header-form ref="tradeHeaderForm" :showSubmit="false"/>
+    </a-card>
+    <!-- Ant Design native data table not s-table-->
     <a-card>
       <a-table
         :columns="columns"
@@ -16,13 +22,12 @@
                   :slot="col"
                   slot-scope="text, record">
           <a-input
-            :key="col"
             v-if="record.editable"
+            :key="col"
             style="margin: -5px 0"
             :value="text"
             :placeholder="columns[i].title"
-            @change="e => handleChange(e.target.value, record.key, col)"
-          />
+            @change="e => handleChange(e.target.value, record.key, col)"></a-input>
           <template v-else>{{ text }}</template>
         </template>
 
@@ -30,20 +35,20 @@
           <template v-if="record.editable">
             <span v-if="record.isNew">
               <a @click="saveRow(record)">Add</a>
-              <a-divider type="vertical" />
+              <a-divider type="vertical"></a-divider>
               <a-popconfirm title="Remove row ?" @confirm="remove(record.key)">
                 <a>Remove</a>
               </a-popconfirm>
             </span>
             <span v-else>
               <a @click="saveRow(record)">Save</a>
-              <a-divider type="vertical" />
+              <a-divider type="vertical"></a-divider>
               <a @click="cancel(record.key)">Cancel</a>
             </span>
           </template>
           <span v-else>
             <a @click="toggle(record.key)">Edit</a>
-            <a-divider type="vertical" />
+            <a-divider type="vertical"></a-divider>
             <a-popconfirm title="Delete ?" @confirm="remove(record.key)">
               <a>Delete</a>
             </a-popconfirm>
@@ -51,11 +56,14 @@
         </template>
 
       </a-table>
-      <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">Add New Record</a-button>
+      <a-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" type="dashed" icon="plus" @click="newMember">
+        Add New Record
+      </a-button>
     </a-card>
 
     <!-- fixed footer toolbar -->
-    <footer-tool-bar :style="{ width: isSideMenu() && isDesktop() ? `calc(100% - ${sidebarOpened ? 256 : 80}px)` : '100%'}">
+    <footer-tool-bar
+      :style="{ width: isSideMenu() && isDesktop() ? `calc(100% - ${sidebarOpened ? 256 : 80}px)` : '100%'}">
       <span class="popover-wrapper">
         <a-popover title="form check info" overlayClassName="antd-pro-pages-forms-style-errorPopover" trigger="click"
                    :getPopupContainer="trigger => trigger.parentNode">
@@ -64,13 +72,13 @@
                 :key="item.key"
                 @click="scrollToField(item.key)"
                 class="antd-pro-pages-forms-style-errorListItem">
-              <a-icon type="cross-circle-o" class="antd-pro-pages-forms-style-errorIcon" />
+              <a-icon type="cross-circle-o" class="antd-pro-pages-forms-style-errorIcon"></a-icon>
               <div class="">{{ item.message }}</div>
               <div class="antd-pro-pages-forms-style-errorField">{{ item.fieldLabel }}</div>
             </li>
           </template>
-          <span class="antd-pro-pages-forms-style-errorIcon" v-if="errors.length > 0">
-            <a-icon type="exclamation-circle" />{{ errors.length }}
+          <span v-if="errors.length > 0" class="antd-pro-pages-forms-style-errorIcon">
+            <a-icon type="exclamation-circle"></a-icon>{{ errors.length }}
           </span>
         </a-popover>
       </span>
@@ -81,6 +89,7 @@
 </template>
 
 <script>
+
 import TradeHeaderForm from './TradeHeaderForm'
 import FooterToolBar from '@/components/FooterToolbar'
 import { mixin, mixinDevice } from '@/utils/mixin'
@@ -89,7 +98,7 @@ import { mixin, mixinDevice } from '@/utils/mixin'
 const fieldLabels = {
   name2: 'Name',
   url2: 'Description',
-  owner2: 'Owner',
+  owner2: 'Owner'
 }
 
 export default {
@@ -99,7 +108,7 @@ export default {
     TradeHeaderForm,
     FooterToolBar
   },
-  data () {
+  data() {
     return {
       description: 'Batch trade submission form',
       loading: false,
@@ -135,35 +144,34 @@ export default {
       data: [
         {
           key: '1',
-          name: '小明',
+          name: 'Hinton',
           workId: '001',
           editable: false,
-          department: '行政部'
+          department: 'Executive'
         },
         {
           key: '2',
-          name: '李莉',
+          name: 'Lily',
           workId: '002',
           editable: false,
-          department: 'IT部'
+          department: 'IT'
         },
         {
           key: '3',
-          name: '王小帅',
+          name: 'John',
           workId: '003',
           editable: false,
-          department: '财务部'
+          department: 'Finance'
         }
       ],
-
       errors: []
     }
   },
   methods: {
-    handleSubmit (e) {
+    handleSubmit(e) {
       e.preventDefault()
     },
-    newMember () {
+    newMember() {
       const length = this.data.length
       this.data.push({
         key: length === 0 ? '1' : (parseInt(this.data[length - 1].key) + 1).toString(),
@@ -174,11 +182,10 @@ export default {
         isNew: true
       })
     },
-    remove (key) {
-      const newData = this.data.filter(item => item.key !== key)
-      this.data = newData
+    remove(key) {
+      this.data = this.data.filter(item => item.key !== key)
     },
-    saveRow (record) {
+    saveRow(record) {
       // This could talk to BackEnd or FrontEnd only !!
       this.memberLoading = true
       // FORMAT
@@ -201,27 +208,27 @@ export default {
         this.memberLoading = false
       })
     },
-    toggle (key) {
+    toggle(key) {
       const target = this.data.filter(item => item.key === key)[0]
       target.editable = !target.editable
     },
-    getRowByKey (key, newData) {
-      const data = this.data
-      return (newData || data).filter(item => item.key === key)[0]
+    getRowByKey(key, newData) {
+      const { data } = this
+      return (newData || data).filter((item) => item.key === key)[0]
     },
-    cancel (key) {
-      const target = this.data.filter(item => item.key === key)[0]
+    cancel(key) {
+      const target = this.data.filter((item) => item.key === key)[0]
       target.editable = false
     },
-    handleChange (value, key, column) {
+    handleChange(value, key, column) {
       const newData = [...this.data]
-      const target = newData.filter(item => key === item.key)[0]
+      const target = newData.filter((item) => key === item.key)[0]
       if (target) {
         target[column] = value
         this.data = newData
       }
     },
-    validate () {
+    validate() {
       // ref property was used at the top of this file.
       const { $refs: { tradeHeaderForm }, $notification } = this
 
@@ -244,6 +251,7 @@ export default {
           description: JSON.stringify(values)
         })
       }).catch(() => {
+        // const errors = { ...repository.form.getFieldsError(), ...task.form.getFieldsError() }
         const errors = Object.assign({}, tradeHeaderForm.form.getFieldsError())
         const tmp = { ...errors }
         // call below fn
@@ -251,22 +259,19 @@ export default {
         console.log(tmp)
       })
     },
-    errorList (errors) {
+    errorList(errors) {
       if (!errors || errors.length === 0) {
-        return null
+        return
       }
-      this.errors = Object.keys(errors).map(key => {
-        if (!errors[key]) {
-          return null
-        }
-        return {
+      this.errors = Object.keys(errors)
+        .filter(key => errors[key])
+        .map(key => ({
           key: key,
           message: errors[key][0],
           fieldLabel: fieldLabels[key]
-        }
-      })
+        }))
     },
-    scrollToField (fieldKey) {
+    scrollToField(fieldKey) {
       const labelNode = document.querySelector(`label[for="${fieldKey}"]`)
       if (labelNode) {
         labelNode.scrollIntoView(true)
@@ -277,9 +282,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .card{
+  .card {
     margin-bottom: 24px;
   }
+
   .popover-wrapper {
     /deep/ .antd-pro-pages-forms-style-errorPopover .ant-popover-inner-content {
       min-width: 256px;
@@ -288,15 +294,18 @@ export default {
       overflow: auto;
     }
   }
+
   .antd-pro-pages-forms-style-errorIcon {
     user-select: none;
     margin-right: 24px;
     color: #f5222d;
     cursor: pointer;
+
     i {
-          margin-right: 4px;
+      margin-right: 4px;
     }
   }
+
   .antd-pro-pages-forms-style-errorListItem {
     padding: 8px 16px;
     list-style: none;
@@ -307,6 +316,7 @@ export default {
     &:hover {
       background: #e6f7ff;
     }
+
     .antd-pro-pages-forms-style-errorIcon {
       float: left;
       margin-top: 4px;
@@ -314,9 +324,10 @@ export default {
       padding-bottom: 22px;
       color: #f5222d;
     }
+
     .antd-pro-pages-forms-style-errorField {
       margin-top: 2px;
-      color: rgba(0,0,0,.45);
+      color: rgba(0, 0, 0, .45);
       font-size: 12px;
     }
   }

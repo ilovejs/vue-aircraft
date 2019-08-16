@@ -12,30 +12,30 @@
       :grid="{gutter: 24, xxl:6, xl:4, lg: 4, md: 2, sm: 1, xs: 1}"
       :dataSource="dataSource">
       <a-list-item slot="renderItem" slot-scope="item">
-          <a-card :hoverable="true" style="">
-            <img alt="project image" :src="item.coverImage" slot="cover"/>
-            <a-card-meta>
-              <div slot="title">{{ item.name }} {{ item.address }}</div>
-              <a-avatar class="card-avatar" slot="avatar" :src="item.avatar" size="small"/>
-              <div class="meta-content" slot="description">
-                ${{ item.total_contract_value }}<br>
-                Qs: {{ item.quantity_surveyor }}<br>
-                Notes: {{ item.notes }}
-              </div>
-            </a-card-meta>
+        <a-card :hoverable="true" style="">
+          <img slot="cover" alt="project image" :src="item.coverImage"/>
+          <a-card-meta>
+            <div slot="title">{{ item.name }} {{ item.address }}</div>
+            <a-avatar slot="avatar" class="card-avatar" :src="item.avatar" size="small"/>
+            <div slot="description" class="meta-content">
+              ${{ item.total_contract_value }}<br>
+              Qs: {{ item.quantity_surveyor }}<br>
+              Notes: {{ item.notes }}
+            </div>
+          </a-card-meta>
 
-            <template class="ant-card-actions" slot="actions">
-              <router-link
-                :to="{ name: 'profile' }">
-                <a-icon type="setting" />
-              </router-link>
+          <template slot="actions" class="ant-card-actions">
+            <router-link
+              :to="{ name: 'profile' }">
+              <a-icon type="setting" />
+            </router-link>
 
-              <router-link
-                :to="{ name: 'ProjectDetail', params: { projectId: item.id } }">
-                <a-icon type="edit" />
-              </router-link>
-            </template>
-          </a-card>
+            <router-link
+              :to="{ name: 'ProjectDetail', params: { projectId: item.id } }">
+              <a-icon type="edit" />
+            </router-link>
+          </template>
+        </a-card>
       </a-list-item>
 
     </a-list>
@@ -82,18 +82,18 @@ export default {
       .then(res => {
         const result = res.projects
 
-        projects = result.map(p => {
+          projects = result.map((p) => {
             // todo: fix the back
             p.project.coverImage = '/project/construction-1.png'
             p.project.avatar = '/avatar/44.jpg'
             return p.project
-        })
+          })
 
-        console.log('dispatch list project:', projects)
-        that.dataSource = projects
-      })
+          console.log('dispatch list project:', projects)
+          that.dataSource = projects
+        })
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

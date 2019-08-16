@@ -6,13 +6,13 @@
           <!--Serial Number-->
           <a-col :md="6" :sm="24">
             <a-form-item label="Serial">
-              <a-input v-model="queryParam.id" placeholder="Serial Number"/>
+              <a-input v-model="queryParam.id" placeholder="Serial Number"></a-input>
             </a-form-item>
           </a-col>
           <!--name-->
           <a-col :md="6" :sm="24">
             <a-form-item label="Number of use">
-              <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
+              <a-input-number v-model="queryParam.callNo" style="width: 100%"></a-input-number>
             </a-form-item>
           </a-col>
           <!--status-->
@@ -30,7 +30,8 @@
 
             <a-col :md="8" :sm="24">
               <a-form-item label="Updated">
-                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="Chose Update Time"></a-date-picker>
+                <a-date-picker v-model="queryParam.date" style="width: 100%"
+                               placeholder="Chose Update Time"></a-date-picker>
               </a-form-item>
             </a-col>
 
@@ -46,12 +47,13 @@
           </template>
           <!--Search and Reset-->
           <a-col :md="!advanced && 6 || 24" :sm="24">
-            <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+            <span class="table-page-search-submitButtons"
+                  :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a-button type="primary" @click="$refs.table.refresh(true)">Search</a-button>
               <a-button style="margin-left: 8px" @click="() => queryParam = {}">Reset</a-button>
-              <a @click="toggleAdvanced" style="margin-left: 8px">
+              <a style="margin-left: 8px" @click="toggleAdvanced">
                 {{ advanced ? 'Fold' : 'Expand' }}
-                <a-icon :type="advanced ? 'up' : 'down'"/>
+                <a-icon :type="advanced ? 'up' : 'down'"></a-icon>
               </a>
             </span>
           </a-col>
@@ -62,15 +64,22 @@
 
     <div class="table-operator">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">Add</a-button>
-      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && 'Close' || 'Open' }} </a-button>
-      <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && 'Close' || 'Open' }}</a-button>
+      <a-dropdown v-if="selectedRowKeys.length > 0" v-action:edit>
         <a-menu slot="overlay">
-          <a-menu-item key="1"><a-icon type="delete" />Delete</a-menu-item>
+          <a-menu-item key="1">
+            <a-icon type="delete"/>
+            Delete
+          </a-menu-item>
           <!-- lock | unlock -->
-          <a-menu-item key="2"><a-icon type="lock" />Lock</a-menu-item>
+          <a-menu-item key="2">
+            <a-icon type="lock"/>
+            Lock
+          </a-menu-item>
         </a-menu>
         <a-button style="margin-left: 8px">
-          Batch <a-icon type="down" />
+          Batch
+          <a-icon type="down"/>
         </a-button>
       </a-dropdown>
     </div>
@@ -89,7 +98,7 @@
         {{ index + 1 }}
       </span>
       <span slot="status" slot-scope="text">
-        <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
+        <a-badge :status="text | statusTypeFilter" :text="text | statusFilter"/>
       </span>
       <span slot="description" slot-scope="text">
         <ellipsis :length="4" tooltip>{{ text }}</ellipsis>
@@ -98,12 +107,12 @@
       <span slot="action" slot-scope="text, record">
         <template>
           <a @click="handleEdit(record)">Edit</a>
-          <a-divider type="vertical" />
+          <a-divider type="vertical"/>
           <a @click="handleSub(record)">Subscribe</a>
         </template>
       </span>
     </s-table>
-    <create-form ref="createModal" @ok="handleOk" />
+    <create-form ref="createModal" @ok="handleOk"/>
     <step-by-step-modal ref="modal" @ok="handleOk"/>
   </a-card>
 </template>
@@ -121,7 +130,7 @@ const statusMap = {
     text: 'Closed'
   },
   1: {
-    status: 'processing', //todo: naming problem
+    status: 'processing', // todo: naming problem
     text: 'pending'
   },
   2: {
@@ -142,7 +151,7 @@ export default {
     CreateForm,
     StepByStepModal
   },
-  data () {
+  data() {
     return {
       mdl: {},
       // advanced search
@@ -188,7 +197,6 @@ export default {
       ],
       loadData: parameter => {
         console.log('loadData.parameter', parameter)
-
         return getServiceList(Object.assign(parameter, this.queryParam))
           .then(res => {
             console.debug(res)
@@ -199,11 +207,15 @@ export default {
       },
       selectedRowKeys: [],
       selectedRows: [],
+
       // custom table alert & rowSelection
       options: {
         alert: {
           show: true,
-          clear: () => { this.selectedRowKeys = [] } },
+          clear: () => {
+            this.selectedRowKeys = []
+          }
+        },
         rowSelection: {
           selectedRowKeys: this.selectedRowKeys,
           onChange: this.onSelectChange
@@ -213,26 +225,30 @@ export default {
     }
   },
   filters: {
-    statusFilter (type) {
+    statusFilter(type) {
       return statusMap[type].text
     },
-    statusTypeFilter (type) {
+    statusTypeFilter(type) {
       return statusMap[type].status
     }
   },
-  created () {
+  created() {
     this.tableOption()
     getRoleList({ t: new Date() })
   },
   methods: {
-    tableOption () {
+    tableOption() {
       if (!this.optionAlertShow) {
         this.options = {
-          alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+          alert: {
+            show: true, clear: () => {
+              this.selectedRowKeys = []
+            }
+          },
           rowSelection: {
             selectedRowKeys: this.selectedRowKeys,
             onChange: this.onSelectChange,
-            getCheckboxProps: record => ({
+            getCheckboxProps: (record) => ({
               props: {
                 disabled: record.no === 'No 2', // Column configuration not to be checked
                 name: record.no
@@ -249,28 +265,28 @@ export default {
         this.optionAlertShow = false
       }
     },
-    handleEdit (record) {
+    handleEdit(record) {
       console.log(record)
       this.$refs.modal.edit(record)
     },
-    handleSub (record) {
+    handleSub(record) {
       if (record.status !== 0) {
         this.$message.info(`${record.no} Subscribe success`)
       } else {
         this.$message.error(`${record.no} Subscribe fail，trade is closed`)
       }
     },
-    handleOk () {
+    handleOk() {
       this.$refs.table.refresh()
     },
-    onSelectChange (selectedRowKeys, selectedRows) {
+    onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    toggleAdvanced () {
+    toggleAdvanced() {
       this.advanced = !this.advanced
     },
-    resetSearchForm () {
+    resetSearchForm() {
       this.queryParam = {
         date: moment(new Date())
       }

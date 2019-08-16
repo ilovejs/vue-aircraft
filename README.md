@@ -43,7 +43,6 @@ Overview
 - node
 - yarn
 - webpack
-- eslint
 - @vue/cli ~3
 - [ant-design-vue](https://github.com/vueComponent/ant-design-vue) - Ant Design Of Vue 
 - [vue-cropper](https://github.com/xyxiao001/vue-cropper) - Picture edit
@@ -87,7 +86,6 @@ yarn run lint
 - **IMPORTANT : About Issue feedback !! when opening Issue read [Issue / PR Contributing](https://github.com/sendya/ant-design-pro-vue/issues/90)**
 
 - [Vue-cli3](https://cli.vuejs.org/guide/) used by the project.
-- Disable Eslint (not recommended): remove `eslintConfig`  field in `package.json`  and `vue.config.js` field `lintOnSave: false`
 
 - Load on Demand: modify `/src/main.js` L14,  replace to `import './core/lazy_use'` code.
 
@@ -133,17 +131,43 @@ Modern browsers and IE10.
 vue ui
 ```
 
-## IDE library path inference for Webpack 
+## Webpack + IDE 
+
+* library path inference for Webpack 
 
 Mouse click import string redirect to true file path, rather than yellow warning line.
 
-[Pick the right webpack.config.js](https://cli.vuejs.org/guide/webpack.html#inspecting-the-project-s-webpack-config)
+- [Nice]https://medium.com/js-dojo/how-to-configure-webpack-4-with-vuejs-a-complete-guide-209e943c4772
+
+- https://cli.vuejs.org/guide/webpack.html
+
+* More 
+  
+  https://webpack.js.org/concepts/hot-module-replacement/
+
+  d2-admin 
 
 ## TS compiler options
 
 https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
-## custom settings
+## Eslint FAQ
+
+* Full scale extends is verbose
+"extends": [
+        "airbnb-base",
+        // "plugin:vue/recommended"
+        "plugin:vue/strongly-recommended"
+        // "@vue/standard"
+    ],
+* [Quick guide]https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8
+
+* for vscode, open console eslint error logs for .json file syntax..
+
+* Vscode plugin:
+https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint 
+
+## Custom Backend settings
 
 util/request.js
   

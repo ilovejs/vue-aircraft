@@ -6,17 +6,17 @@
 </template>
 
 <script>
-export default {
-  name: 'IconText',
-  props: {
-    'type': {
-      type: String,
-      required: true
+  export default {
+    name: 'IconText',
+    props: {
+      type: {
+        type: String,
+        required: true,
+      },
+      text: {
+        type: [String, Number],
+        required: true,
+      },
     },
-    text: {
-      type: [String, Number],
-      required: true
-    }
   }
-}
 </script>

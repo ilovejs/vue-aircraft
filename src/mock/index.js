@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'tr
 
   // TODO: more config ?
   Mock.setup({
-    timeout: 800 // setter delay time
+    timeout: 500, // setter delay time
   })
   console.log('MOCK MOUNTED')
 }

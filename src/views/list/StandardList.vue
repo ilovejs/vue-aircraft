@@ -32,7 +32,7 @@
       </div>
 
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 5, total: 50}">
-        <a-list-item :key="index" v-for="(item, index) in data">
+        <a-list-item v-for="(item, index) in data" :key="index">
 
           <a-list-item-meta :description="item.description">
             <a-avatar slot="avatar" size="large" shape="square" :src="item.avatar"/>
@@ -62,8 +62,10 @@
               <p>{{ item.startAt }}</p>
             </div>
             <div class="list-content-item">
-              <a-progress :percent="item.progress.value"
-                          :status="!item.progress.status ? null : item.progress.status" style="width: 180px" />
+              <a-progress
+                :percent="item.progress.value"
+                :status="!item.progress.status ? null : item.progress.status"
+                style="width: 180px" />
             </div>
           </div>
         </a-list-item>
@@ -75,53 +77,53 @@
 </template>
 
 <script>
-import HeadInfo from '@/components/tools/HeadInfo'
-import TaskForm from './modules/TaskForm'
+  import HeadInfo from '@/components/tools/HeadInfo'
+  import TaskForm from './modules/TaskForm'
 
-const data = []
-data.push({
-  title: 'Master pay',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-  description: 'asdfasdfasdfasdfasdf',
-  owner: 'xxxx',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 90
-  }
-})
-data.push({
-  title: 'Angular',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-  description: 'asdfasdfasdfasfasdfasdfas 241234',
-  owner: 'asdfasf',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 54
-  }
-})
-data.push({
-  title: 'Ant Design',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
-  description: '23r423423423',
-  owner: 'xxx',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 66
-  }
-})
+  const data = []
+  data.push({
+    title: 'Master pay',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
+    description: 'asdfasdfasdfasdfasdf',
+    owner: 'xxxx',
+    startAt: '2018-07-26 22:44',
+    progress: {
+      value: 90,
+    },
+  })
+  data.push({
+    title: 'Angular',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
+    description: 'asdfasdfasdfasfasdfasdfas 241234',
+    owner: 'asdfasf',
+    startAt: '2018-07-26 22:44',
+    progress: {
+      value: 54,
+    },
+  })
+  data.push({
+    title: 'Ant Design',
+    avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
+    description: '23r423423423',
+    owner: 'xxx',
+    startAt: '2018-07-26 22:44',
+    progress: {
+      value: 66,
+    },
+  })
 
-export default {
-  name: 'StandardList',
-  components: {
-    HeadInfo,
-    TaskForm
-  },
-  data () {
-    return {
-      data
-    }
+  export default {
+    name: 'StandardList',
+    components: {
+      HeadInfo,
+      TaskForm,
+    },
+    data() {
+      return {
+        data,
+      }
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

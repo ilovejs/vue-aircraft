@@ -6,9 +6,9 @@
       <a-list-item slot="renderItem" slot-scope="item">
         <a-card :hoverable="true">
           <a-card-meta>
-            <div style="margin-bottom: 3px" slot="title">{{ item.title }}</div>
-            <a-avatar class="card-avatar" slot="avatar" :src="item.avatar" size="small"/>
-            <div class="meta-cardInfo" slot="description">
+            <div slot="title" style="margin-bottom: 3px">{{ item.title }}</div>
+            <a-avatar slot="avatar" class="card-avatar" :src="item.avatar" size="small"/>
+            <div slot="description" class="meta-cardInfo">
               <div>
                 <p>Active User</p>
                 <p>
@@ -21,7 +21,7 @@
               </div>
             </div>
           </a-card-meta>
-          <template class="ant-card-actions" slot="actions">
+          <template slot="actions" class="ant-card-actions">
             <a>
               <a-icon type="download"/>
             </a>
@@ -58,25 +58,25 @@
 </template>
 
 <script>
-const dataSource = []
-for (let i = 0; i < 11; i++) {
-  dataSource.push({
-    title: 'Microsoft Note',
-    avatar: '/msft-note.png',
-    activeUser: 17,
-    newUser: 1700
-  })
-}
-
-export default {
-  name: 'Article',
-  components: {},
-  data () {
-    return {
-      dataSource
-    }
+  const dataSource = []
+  for (let i = 0; i < 11; i++) {
+    dataSource.push({
+      title: 'Microsoft Note',
+      avatar: '/msft-note.png',
+      activeUser: 17,
+      newUser: 1700,
+    })
   }
-}
+
+  export default {
+    name: 'Article',
+    components: {},
+    data() {
+      return {
+        dataSource,
+      }
+    },
+  }
 </script>
 
 <style lang="less" scoped>

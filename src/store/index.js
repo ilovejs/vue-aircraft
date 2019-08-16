@@ -15,9 +15,9 @@ export default new Vuex.Store({
   modules: {
     app,
     permission,
-    tagsView,    //don't forget
+    tagsView, // don't forget
     user,
-    project
+    project,
   },
   state: {
   },
@@ -26,20 +26,20 @@ export default new Vuex.Store({
   actions: {
   },
   getters: {
-    device: state => state.app.device,
-    theme: state => state.app.theme,
-    color: state => state.app.color,
+    device: (state) => state.app.device,
+    theme: (state) => state.app.theme,
+    color: (state) => state.app.color,
 
-    token: state => state.user.token,
-    avatar: state => state.user.avatar,
-    nickname: state => state.user.name,
-    welcome: state => state.user.welcome,
-    roles: state => state.user.roles,
-    userInfo: state => state.user.info,
-    addRouters: state => state.permission.addRouters,
+    token: (state) => state.user.token,
+    avatar: (state) => state.user.avatar,
+    nickname: (state) => state.user.name,
+    welcome: (state) => state.user.welcome,
+    roles: (state) => state.user.roles,
+    userInfo: (state) => state.user.info,
+    addRouters: (state) => state.permission.addRouters,
 
     // must leave this to last
-    multiTab: state => state.app.multiTab,
-    cachedViews: state => state.tagsView.cachedViews
-  }
+    multiTab: (state) => state.app.multiTab,
+    cachedViews: (state) => state.tagsView.cachedViews,
+  },
 })

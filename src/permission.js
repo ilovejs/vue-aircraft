@@ -1,10 +1,10 @@
 import Vue from 'vue'
+import NProgress from 'nprogress'
+
+import notification from 'ant-design-vue/es/notification'
 import router from './router'
 import store from './store'
-
-import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle, domTitle } from '@/utils/domUtil'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
@@ -16,8 +16,15 @@ const whiteList = ['login', 'register', 'registerResult']
 router.beforeEach((to, from, next) => {
   NProgress.start()
 
-  to.meta && (typeof to.meta.title !== 'undefined'
-    && setDocumentTitle(`${to.meta.title} - ${domTitle}`))
+  // todo: weird line https://router.vuejs.org/guide/advanced/meta.html
+  // https://router.vuejs.org/guide/advanced/navigation-guards.html#in-component-guards
+  if (to.meta
+      && (typeof to.meta.title !== 'undefined'
+          && setDocumentTitle(`${to.meta.title} - ${domTitle}`))) {
+        console.log('to.meta')
+    } else {
+      next()
+    }
 
   if (Vue.ls.get(ACCESS_TOKEN)) {
     console.log('Vue.ls get token ok.')
@@ -28,25 +35,23 @@ router.beforeEach((to, from, next) => {
 
       next({ path: '/dashboard/workplace' })
       NProgress.done()
-    } else {
-
-      if (store.getters.roles.length === 0) {
-
+    } else if (store.getters.roles.length === 0) {
         console.log('len(getters.roles)==0, dispatching GetInfo')
 
-        store.dispatch('GetInfo').then(response => {
+        store.dispatch('GetInfo').then((response) => {
           // protocol:
           const roles = response.result && response.result.role
           console.log('permission.js roles: ', roles)
 
           // Dynamic routes
-          store.dispatch('GenerateRoutes', { roles }).
-            then(() => {
+          store.dispatch('GenerateRoutes', { roles })
+            .then(() => {
             // Generate routes from roles !! add route table dynamically
             router.addRoutes(store.getters.addRouters)
 
             const redirect = decodeURIComponent(
-              from.query.redirect || to.path)
+              from.query.redirect || to.path,
+)
 
             if (to.path === redirect) {
               // HACK: ensure addRoutes is done,
@@ -62,7 +67,7 @@ router.beforeEach((to, from, next) => {
 
           notification.error({
             message: 'Error',
-            description: 'Request user info failed, please retry.'
+            description: 'Request user info failed, please retry.',
           })
 
           store.dispatch('Logout').then(() => {
@@ -73,9 +78,8 @@ router.beforeEach((to, from, next) => {
         console.log('getters.roles have length !')
         next()
       }
-    }
   } else {
-    console.log("Vue.ls token not found")
+    console.log('Vue.ls token not found')
     if (whiteList.includes(to.name)) {
       // if name is in whitelist
       next()

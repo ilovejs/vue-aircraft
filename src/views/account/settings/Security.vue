@@ -2,7 +2,7 @@
   <a-list
     itemLayout="horizontal"
     :dataSource="data">
-    <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
+    <a-list-item slot="renderItem" :key="index" slot-scope="item, index">
 
       <a-list-item-meta>
         <a slot="title">{{ item.title }}</a>
@@ -22,31 +22,32 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      data: [
-        {
-          title: 'Account password',
-          description: 'Current strength',
-          value: 'strong',
-          actions: {
-            title: 'Change',
-            callback: () => { this.$message.info('This is a normal message') }
-          }
-        },
-        { title: 'Email',
-          description: 'bind with email',
-          value: '',
-          actions: {
-            title: 'bind',
-            callback: () => { this.$message.info('This is a normal message') }
-          }
-        }
-      ]
-    }
+  export default {
+    data() {
+      return {
+        data: [
+          {
+            title: 'Account password',
+            description: 'Current strength',
+            value: 'strong',
+            actions: {
+              title: 'Change',
+              callback: () => { this.$message.info('This is a normal message') },
+            },
+          },
+          {
+            title: 'Email',
+            description: 'bind with email',
+            value: '',
+            actions: {
+              title: 'bind',
+              callback: () => { this.$message.info('This is a normal message') },
+            },
+          },
+        ],
+      }
+    },
   }
-}
 </script>
 
 <style scoped>

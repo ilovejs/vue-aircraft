@@ -1,6 +1,6 @@
 export default {
-  userRegister:{
-    confirmPsw: 'Confirm Password'
-  }
+  userRegister: {
+    confirmPsw: 'Confirm Password',
+  },
 
 }

@@ -1,4 +1,6 @@
-export function actionToObject (json) {
+
+// eslint-disable-next-line import/prefer-default-export
+export const actionToObject = (json) => {
   try {
     return JSON.parse(json)
   } catch (e) {

@@ -2,7 +2,9 @@
 <template>
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
-      <div class="title">{{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome() }}</span></div>
+      <div class="title">
+        {{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome() }}</span>
+      </div>
       <div>Quantity Surveyor | WT - Tech - Platform</div>
     </div>
     <div slot="extra">
@@ -31,7 +33,7 @@
             :body-style="{ padding: 0 }">
             <a slot="extra">All projects</a>
             <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">
+              <a-card-grid v-for="(item, i) in projects" :key="i" class="project-card-grid">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
                   <a-card-meta>
                     <div slot="title" class="card-title">
@@ -53,7 +55,7 @@
 
           <a-card :loading="loading" title="Activities" :bordered="false">
             <a-list>
-              <a-list-item :key="index" v-for="(item, index) in activities">
+              <a-list-item v-for="(item, index) in activities" :key="index">
                 <a-list-item-meta>
                   <a-avatar slot="avatar" :src="item.user.avatar" />
                   <div slot="title">
@@ -69,7 +71,13 @@
           </a-card>
         </a-col>
 
-        <a-col style="padding: 0 12px" :xl="8" :lg="24" :md="24" :sm="24" :xs="24">
+        <a-col
+          style="padding: 0 12px"
+          :xl="8"
+          :lg="24"
+          :md="24"
+          :sm="24"
+          :xs="24">
           <a-card title="Shortcut" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
             <div class="item-group">
               <a>Ops1</a>
@@ -88,7 +96,7 @@
           <a-card :loading="loading" title="Team" :bordered="false">
             <div class="members">
               <a-row>
-                <a-col :span="12" v-for="(item, index) in teams" :key="index">
+                <a-col v-for="(item, index) in teams" :key="index" :span="12">
                   <a>
                     <a-avatar size="small" :src="item.avatar" />
                     <span class="member">{{ item.name }}</span>
@@ -105,133 +113,145 @@
 </template>
 
 <script>
-import { timeFix } from '@/utils/util'
-import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
+  import { timeFix } from '@/utils/util'
 
-import { PageView } from '@/layouts'
-import HeadInfo from '@/components/tools/HeadInfo'
-import { Radar } from '@/components'
+  import { PageView } from '@/layouts'
+  import HeadInfo from '@/components/tools/HeadInfo'
+  import { Radar } from '@/components'
 
-import { getRoleList, getServiceList } from '@/api/manage'
+  import { getRoleList, getServiceList } from '@/api/manage'
 
-const DataSet = require('@antv/data-set')
+  const DataSet = require('@antv/data-set')
 
-export default {
-  name: 'Workplace',
-  components: {
-    PageView,
-    HeadInfo,
-    Radar
-  },
-  data () {
-    return {
-      teams: [],
-      projects: [],
-      timeFix: timeFix(),
-      avatar: '',
-      user: {},
-      loading: true,
-      radarLoading: true,
-      activities: [],
-      axis1Opts: {
-        dataKey: 'item',
-        line: null,
-        tickLine: null,
-        grid: {
-          lineStyle: {
-            lineDash: null
+  export default {
+    name: 'Workplace',
+    components: {
+      PageView,
+      HeadInfo,
+      Radar,
+    },
+    data() {
+      return {
+        teams: [],
+        projects: [],
+        timeFix: timeFix(),
+        avatar: '',
+        user: {},
+        loading: true,
+        radarLoading: true,
+        activities: [],
+        axis1Opts: {
+          dataKey: 'item',
+          line: null,
+          tickLine: null,
+          grid: {
+            lineStyle: {
+              lineDash: null,
+            },
+            hideFirstLine: false,
           },
-          hideFirstLine: false
-        }
+        },
+        axis2Opts: {
+          dataKey: 'score',
+          line: null,
+          tickLine: null,
+          grid: {
+            type: 'polygon',
+            lineStyle: {
+              lineDash: null,
+            },
+          },
+        },
+        scale: [{
+          dataKey: 'score',
+          min: 0,
+          max: 80,
+        }],
+        axisData: [
+          {
+            item: 'A', a: 70, b: 30, c: 40,
+          },
+          {
+            item: 'B', a: 60, b: 70, c: 40,
+          },
+          {
+            item: 'C', a: 50, b: 60, c: 40,
+          },
+          {
+            item: 'D', a: 40, b: 50, c: 40,
+          },
+          {
+            item: 'E', a: 60, b: 70, c: 40,
+          },
+          {
+            item: 'F', a: 70, b: 50, c: 40,
+          },
+        ],
+        radarData: [],
+      }
+    },
+    computed: {
+      userInfo() {
+        return this.$store.getters.userInfo
       },
-      axis2Opts: {
-        dataKey: 'score',
-        line: null,
-        tickLine: null,
-        grid: {
-          type: 'polygon',
-          lineStyle: {
-            lineDash: null
-          }
-        }
-      },
-      scale: [{
-        dataKey: 'score',
-        min: 0,
-        max: 80
-      }],
-      axisData: [
-        { item: 'A', a: 70, b: 30, c: 40 },
-        { item: 'B', a: 60, b: 70, c: 40 },
-        { item: 'C', a: 50, b: 60, c: 40 },
-        { item: 'D', a: 40, b: 50, c: 40 },
-        { item: 'E', a: 60, b: 70, c: 40 },
-        { item: 'F', a: 70, b: 50, c: 40 }
-      ],
-      radarData: []
-    }
-  },
-  computed: {
-    userInfo () {
-      return this.$store.getters.userInfo
-    }
-  },
-  created () {
-    // search mock/services/user.js
-    this.user = this.userInfo
-    this.avatar = this.userInfo.avatar
-    getRoleList().then(res => {
-      console.log('workplace -> call getRoleList()', res)
-    })
-    getServiceList().then(res => {
-      console.log('workplace -> call getServiceList()', res)
-    })
-  },
-  mounted () {
-    this.getProjects()
-    this.getActivity()
-    this.getTeams()
-    this.initRadar()
-  },
-  methods: {
-    ...mapGetters(['nickname', 'welcome']),
-    getProjects () {
-      this.$http.get('/list/search/projects')
-        .then(res => {
-          this.projects = res.result && res.result.data
-          this.loading = false
-        })
     },
-    getActivity () {
-      this.$http.get('/workplace/activity')
-        .then(res => {
-          this.activities = res.result
-        })
+    created() {
+      // search mock/services/user.js
+      this.user = this.userInfo
+      this.avatar = this.userInfo.avatar
+      getRoleList().then((res) => {
+        console.log('workplace -> call getRoleList()', res)
+      })
+      getServiceList().then((res) => {
+        console.log('workplace -> call getServiceList()', res)
+      })
     },
-    getTeams () {
-      this.$http.get('/workplace/teams')
-        .then(res => {
-          this.teams = res.result
-        })
+    mounted() {
+      this.getProjects()
+      this.getActivity()
+      this.getTeams()
+      this.initRadar()
     },
-    initRadar () { //radar shows multi-dimension
-      this.radarLoading = true
-      //mock > ... > manage.js
-      this.$http.get('/workplace/radar')
-        .then(res => {
-          const dv = new DataSet.View().source(res.result)
-          dv.transform({
-            type: 'fold',
-            fields: ['Personal', 'Team', 'Department'], //a,b,c in data
-            key: 'user',
-            value: 'score'
+    methods: {
+      ...mapGetters(['nickname', 'welcome']),
+      getProjects() {
+        this.$http.get('/list/search/projects')
+          .then((res) => {
+            this.projects = res.result && res.result.data
+            this.loading = false
           })
-          this.radarData = dv.rows
-          this.radarLoading = false
-        })
-    }
+      },
+      getActivity() {
+        this.$http.get('/workplace/activity')
+          .then((res) => {
+            this.activities = res.result
+          })
+      },
+      getTeams() {
+        this.$http.get('/workplace/teams')
+          .then((res) => {
+            this.teams = res.result
+          })
+      },
+      initRadar() { // radar shows multi-dimension
+        this.radarLoading = true
+        // mock > ... > manage.js
+        this.$http.get('/workplace/radar')
+          .then((res) => {
+            const dv = new DataSet.View().source(res.result)
+            dv.transform({
+              type: 'fold',
+              fields: ['Personal', 'Team', 'Department'], // a,b,c in data
+              key: 'user',
+              value: 'score',
+            })
+            this.radarData = dv.rows
+            this.radarLoading = false
+          })
+      },
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

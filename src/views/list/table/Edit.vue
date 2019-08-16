@@ -10,11 +10,11 @@
         validateStatus="success"
       >
         <a-input
-          placeholder="规则编号"
           v-decorator="[
             'no',
             {rules: [{ required: true, message: '请输入规则编号' }]}
           ]"
+          placeholder="规则编号"
           :disabled="true"
         ></a-input>
       </a-form-item>
@@ -26,7 +26,7 @@
         hasFeedback
         validateStatus="success"
       >
-        <a-input-number :min="1" style="width: 100%" v-decorator="['callNo', {rules: [{ required: true }]}]" />
+        <a-input-number v-decorator="['callNo', {rules: [{ required: true }]}]" :min="1" style="width: 100%" />
       </a-form-item>
 
       <a-form-item
@@ -50,7 +50,7 @@
         hasFeedback
         help="请填写一段描述"
       >
-        <a-textarea :rows="5" placeholder="..." v-decorator="['description', {rules: [{ required: true }]}]" />
+        <a-textarea v-decorator="['description', {rules: [{ required: true }]}]" :rows="5" placeholder="..." />
       </a-form-item>
 
       <a-form-item
@@ -61,11 +61,11 @@
         validateStatus="error"
       >
         <a-date-picker
+          v-decorator="['updatedAt']"
           style="width: 100%"
           showTime
           format="YYYY-MM-DD HH:mm:ss"
           placeholder="Select Time"
-          v-decorator="['updatedAt']"
         />
       </a-form-item>
 
@@ -87,74 +87,74 @@
 </template>
 
 <script>
-import moment from 'moment'
-import pick from 'lodash.pick'
+  import moment from 'moment'
+  import pick from 'lodash.pick'
 
-export default {
-  name: 'TableEdit',
-  props: {
-    record: {
-      type: [Object, String],
-      default: ''
-    }
-  },
-  data () {
-    return {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 5 }
+  export default {
+    name: 'TableEdit',
+    props: {
+      record: {
+        type: [Object, String],
+        default: '',
       },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 12 }
-      },
-      buttonCol: {
+    },
+    data() {
+      return {
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 5 },
+        },
         wrapperCol: {
           xs: { span: 24 },
-          sm: { span: 12, offset: 5 }
-        }
+          sm: { span: 12 },
+        },
+        buttonCol: {
+          wrapperCol: {
+            xs: { span: 24 },
+            sm: { span: 12, offset: 5 },
+          },
+        },
+        form: this.$form.createForm(this),
+        id: 0,
+      }
+    },
+    // beforeCreate () {
+    //   this.form = this.$form.createForm(this)
+    // },
+    mounted() {
+      this.$nextTick(() => {
+        this.loadEditInfo(this.record)
+      })
+    },
+    methods: {
+      handleGoBack() {
+        this.$emit('onGoBack')
       },
-      form: this.$form.createForm(this),
-      id: 0
-    }
-  },
-  // beforeCreate () {
-  //   this.form = this.$form.createForm(this)
-  // },
-  mounted () {
-    this.$nextTick(() => {
-      this.loadEditInfo(this.record)
-    })
-  },
-  methods: {
-    handleGoBack () {
-      this.$emit('onGoBack')
-    },
-    handleSubmit () {
-      const { form: { validateFields } } = this
-      validateFields((err, values) => {
-        if (!err) {
-          // eslint-disable-next-line no-console
-          console.log('Received values of form: ', values)
-        }
-      })
-    },
-    handleGetInfo () {
+      handleSubmit() {
+        const { form: { validateFields } } = this
+        validateFields((err, values) => {
+          if (!err) {
+            // eslint-disable-next-line no-console
+            console.log('Received values of form: ', values)
+          }
+        })
+      },
+      handleGetInfo() {
 
+      },
+      loadEditInfo(data) {
+        const { form } = this
+        // ajax
+        console.log(`将加载 ${this.id} 信息到表单`)
+        new Promise((resolve) => {
+          setTimeout(resolve, 1500)
+        }).then(() => {
+          const formData = pick(data, ['no', 'callNo', 'status', 'description', 'updatedAt'])
+          formData.updatedAt = moment(data.updatedAt)
+          console.log('formData', formData)
+          form.setFieldsValue(formData)
+        })
+      },
     },
-    loadEditInfo (data) {
-      const { form } = this
-      // ajax
-      console.log(`将加载 ${this.id} 信息到表单`)
-      new Promise((resolve) => {
-        setTimeout(resolve, 1500)
-      }).then(() => {
-        const formData = pick(data, ['no', 'callNo', 'status', 'description', 'updatedAt'])
-        formData.updatedAt = moment(data.updatedAt)
-        console.log('formData', formData)
-        form.setFieldsValue(formData)
-      })
-    }
   }
-}
 </script>

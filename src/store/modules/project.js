@@ -10,28 +10,27 @@ const project = {
   mutations: {
     ADD_PROJECT: (state, p) => {
       state.projects.concat(p)
-    }
+    },
   },
   actions: {
     // todo: list related project, not all
-    ListProjects({commit}){
+    ListProjects({ commit }) {
       return new Promise((resolve, reject) => {
         const token = Vue.ls.get(ACCESS_TOKEN)
 
-        apiLoadProjects(token).then(resp => {
+        apiLoadProjects(token).then((resp) => {
           console.log(resp)
 
           commit('ADD_PROJECT', resp.projects)
           resolve(resp)
-        }).catch(e => {
+        }).catch((e) => {
           reject(e)
         })
-
-      }).catch(e => {
+      }).catch((e) => {
         console.log('modules - project.js', e)
       })
-    }
-  }
+    },
+  },
 
 }
 

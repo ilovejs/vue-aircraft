@@ -4,7 +4,7 @@
     <page-header v-if="!$route.meta.hiddenHeaderContent" :title="pageTitle" :logo="logo" :avatar="avatar">
       <slot slot="action" name="action"></slot>
       <slot slot="content" name="headerContent"></slot>
-      <div slot="content" v-if="!this.$slots.headerContent && description">
+      <div v-if="!this.$slots.headerContent && description" slot="content">
         <p style="font-size: 14px;color: rgba(0,0,0,.65)">{{ description }}</p>
         <div class="link">
           <template v-for="(link, index) in linkList">
@@ -20,17 +20,17 @@
         </div>
       </slot>
       <div slot="pageMenu">
-        <div class="page-menu-search" v-if="search">
+        <div v-if="search" class="page-menu-search">
           <a-input-search
             style="width: 80%; max-width: 522px;"
             placeholder="Please type..."
             size="large"
             enterButton="Search"></a-input-search>
         </div>
-        <div class="page-menu-tabs" v-if="tabs && tabs.items">
+        <div v-if="tabs && tabs.items" class="page-menu-tabs">
           <!-- @change="callback" :activeKey="activeKey" -->
           <a-tabs :tabBarStyle="{margin: 0}" :activeKey="tabs.active()" @change="tabs.callback">
-            <a-tab-pane v-for="item in tabs.items" :tab="item.title" :key="item.key"></a-tab-pane>
+            <a-tab-pane v-for="item in tabs.items" :key="item.key" :tab="item.title"></a-tab-pane>
           </a-tabs>
         </div>
       </div>
@@ -39,11 +39,11 @@
       <div class="page-header-index-wide">
         <slot>
           <!-- keep-alive originally use v-if="multiTab" -->
-<!--          <keep-alive v-if="$route.meta.keepAlive" exclude="ProjectDetailView">-->
-<!--            <router-view ref="content" class="keepAlive"/>-->
-<!--          </keep-alive>-->
-<!--          <router-view v-if="!$route.meta.keepAlive" exclude="ProjectDetailView"-->
-<!--                       ref="content" class="noKeepALive" />-->
+          <!--          <keep-alive v-if="$route.meta.keepAlive" exclude="ProjectDetailView">-->
+          <!--            <router-view ref="content" class="keepAlive"/>-->
+          <!--          </keep-alive>-->
+          <!--          <router-view v-if="!$route.meta.keepAlive" exclude="ProjectDetailView"-->
+          <!--                       ref="content" class="noKeepALive" />-->
           <keep-alive :include="cachedViews">
             <router-view :key="key" ref="content"/>
           </keep-alive>
@@ -54,81 +54,81 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import PageHeader from '@/components/PageHeader'
+  import { mapState } from 'vuex'
+  import PageHeader from '@/components/PageHeader'
 
-export default {
-  name: 'PageView',
-  components: {
-    PageHeader
-  },
-  props: {
-    avatar: {
-      type: String,
-      default: null
+  export default {
+    name: 'PageView',
+    components: {
+      PageHeader,
     },
-    title: {
-      type: [String, Boolean],
-      default: true
+    props: {
+      avatar: {
+        type: String,
+        default: null,
+      },
+      title: {
+        type: [String, Boolean],
+        default: true,
+      },
+      logo: {
+        type: String,
+        default: null,
+      },
+      directTabs: {
+        type: Object,
+        default: null,
+      },
     },
-    logo: {
-      type: String,
-      default: null
+    data() {
+      return {
+        pageTitle: null,
+        description: null,
+        linkList: [],
+        extraImage: '',
+        search: false,
+        tabs: {},
+      }
     },
-    directTabs: {
-      type: Object,
-      default: null
-    }
-  },
-  data () {
-    return {
-      pageTitle: null,
-      description: null,
-      linkList: [],
-      extraImage: '',
-      search: false,
-      tabs: {}
-    }
-  },
-  computed: {
-    ...mapState({
-      multiTab: state => state.app.multiTab
-    }),
-    /* patch */
-    cachedViews () {
-      return this.$store.state.tagsView.cachedViews
+    computed: {
+      ...mapState({
+        multiTab: (state) => state.app.multiTab,
+      }),
+      /* patch */
+      cachedViews() {
+        return this.$store.state.tagsView.cachedViews
+      },
+      key() {
+        return this.$route.fullPath
+      },
     },
-    key () {
-      return this.$route.fullPath
-    }
-  },
-  mounted () {
-    this.tabs = this.directTabs
-    this.getPageMeta()
-  },
-  updated () {
-    this.getPageMeta()
-  },
-  methods: {
-    getPageMeta () {
-      // eslint-disable-next-line
+    mounted() {
+      this.tabs = this.directTabs
+      this.getPageMeta()
+    },
+    updated() {
+      this.getPageMeta()
+    },
+    methods: {
+      getPageMeta() {
+        // eslint-disable-next-line
       this.pageTitle = (typeof(this.title) === 'string' || !this.title) ? this.title : this.$route.meta.title
 
-      const content = this.$refs.content
-      if (content) {
-        if (content.pageMeta) {
-          Object.assign(this, content.pageMeta)
-        } else {
-          this.description = content.description
-          this.linkList = content.linkList
-          this.extraImage = content.extraImage
-          this.search = content.search === true
-          this.tabs = content.tabs
+        const { content } = this.$refs
+        if (content) {
+          if (content.pageMeta) {
+            Object.assign(this, content.pageMeta)
+          } else {
+            this.description = content.description
+            this.linkList = content.linkList
+            this.extraImage = content.extraImage
+            this.search = content.search === true
+            this.tabs = content.tabs
+          }
         }
-      }
-    }
+      },
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

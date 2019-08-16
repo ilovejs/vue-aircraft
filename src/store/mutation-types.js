@@ -12,6 +12,6 @@ export const DEFAULT_CONTENT_WIDTH_TYPE = 'DEFAULT_CONTENT_WIDTH_TYPE'
 export const DEFAULT_MULTI_TAB = 'DEFAULT_MULTI_TAB'
 export const CONTENT_WIDTH_TYPE = {
   Fluid: 'Fluid',
-  Fixed: 'Fixed'
+  Fixed: 'Fixed',
 }
 export const ADD_TRADE = 'ADD_TRADE'

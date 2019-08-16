@@ -1,24 +1,24 @@
 <script>
-export default {
-  name: 'RouteView',
-  props: {
-    keepAlive: {
-      type: Boolean,
-      default: true
-    }
-  },
-  data () {
-    return {}
-  },
-  render () {
-    const { $route: { meta }, $store: { getters } } = this
-    // patch cached view https://github.com/zhaozhenghao1993/zh-web-vue/blob/master/src/layouts/RouteView.vue
-    const inKeep = (
+  export default {
+    name: 'RouteView',
+    props: {
+      keepAlive: {
+        type: Boolean,
+        default: true,
+      },
+    },
+    data() {
+      return {}
+    },
+    render() {
+      const { $route: { meta }, $store: { getters } } = this
+      // patch cached view https://github.com/zhaozhenghao1993/zh-web-vue/blob/master/src/layouts/RouteView.vue
+      const inKeep = (
       <keep-alive {...{ include: this.cachedViews }}>
         <router-view />
       </keep-alive>
     )
-    /*
+      /*
     const notKeep = (
       <router-view />
     )
@@ -30,7 +30,7 @@ export default {
     }
     return this.keepAlive || getters.multiTab || meta.keepAlive ? inKeep : notKeep
     */
-    return inKeep
+      return inKeep
+    },
   }
-}
 </script>

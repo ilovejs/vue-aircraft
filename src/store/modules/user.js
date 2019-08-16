@@ -13,15 +13,15 @@ const user = {
     welcome: '',
     avatar: '',
     roles: [],
-    info: {}
+    info: {},
   },
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_NAME: (state, { name, welcome }) => {
+    SET_NAME: (state, { name, welcomeText }) => {
       state.name = name
-      state.welcome = welcome
+      state.welcome = welcomeText
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
@@ -33,14 +33,14 @@ const user = {
     SET_INFO: (state, info) => {
       state.info = info
       console.log('SET INFO: ', info)
-    }
+    },
   },
   actions: {
-    Login ({ commit }, userInfo) {
+    Login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         // api
-        login(userInfo).then(response => {
-          const token = response.result.token
+        login(userInfo).then((response) => {
+          const { token } = response.result
 
           Vue.ls.set(ACCESS_TOKEN, token, 7 * 24 * 60 * 60 * 1000)
           Vue.ls.set(USER_ID, response.result.id)
@@ -48,32 +48,33 @@ const user = {
           commit('SET_TOKEN', token)
           console.log('SET_TOKEN: ', token)
           resolve()
-        }).catch(error => {
+        }).catch((error) => {
           reject(error)
         })
       })
     },
-    GetInfo: function({ commit }) {
+    GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
         const token = Vue.ls.get(ACCESS_TOKEN)
         // api action
-        getInfo(token).then(response => {
+        getInfo(token).then((response) => {
           // Mock Backend json field
           const result = mockUserInfo()
-          console.log('mockUserInfo', result)
-            // response.result
+          console.log('GetInfo: mockUserInfo', result)
+          // response.result
           if (result.role && result.role.permissions.length > 0) {
-            const role = result.role
+            const { role } = result
 
             role.permissions = result.role.permissions
-            role.permissions.map(p => {
+            role.permissions.map((p) => {
               if (p.actionEntitySet != null && p.actionEntitySet.length > 0) {
                 // build new actionList from `actionEntitySet`
-                p.actionList = p.actionEntitySet.map(x => { return x.action })
+                p.actionList = p.actionEntitySet.map((x) => x.action)
               }
+              return p
             })
             // build permissionList from `permissionId`
-            role.permissionList = role.permissions.map(p => { return p.permissionId })
+            role.permissionList = role.permissions.map((p) => p.permissionId)
 
             // resolve() and return to caller permission beforeEach
             // dynamic routing parts
@@ -89,7 +90,7 @@ const user = {
 
           commit('SET_NAME', {
             name: result.name,
-            welcome: welcome()
+            welcome: welcome(),
           })
           commit('SET_AVATAR', result.avatar)
 
@@ -97,14 +98,13 @@ const user = {
 
           // this is literally a return
           resolve(response)
-
-        }).catch(error => {
+        }).catch((error) => {
           console.log('getInfo: ', error)
           reject(error)
         })
       })
     },
-    Logout ({ commit, state }) {
+    Logout({ commit, state }) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
@@ -116,8 +116,8 @@ const user = {
           resolve()
         })
       })
-    }
-  }
+    },
+  },
 }
 
 export default user

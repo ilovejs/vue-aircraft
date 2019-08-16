@@ -1,6 +1,6 @@
 // import Vue from 'vue'
-import { deviceEnquire, DEVICE_TYPE } from '@/utils/device'
 import { mapState } from 'vuex'
+import { deviceEnquire, DEVICE_TYPE } from '@/utils/device'
 
 // const mixinsComputed = Vue.config.optionMergeStrategies.computed
 // const mixinsMethods = Vue.config.optionMergeStrategies.methods
@@ -8,52 +8,52 @@ import { mapState } from 'vuex'
 const mixin = {
   computed: {
     ...mapState({
-      layoutMode: state => state.app.layout,
-      navTheme: state => state.app.theme,
-      primaryColor: state => state.app.color,
-      colorWeak: state => state.app.weak,
-      fixedHeader: state => state.app.fixedHeader,
-      fixSiderbar: state => state.app.fixSiderbar,
-      fixSidebar: state => state.app.fixSiderbar,
-      contentWidth: state => state.app.contentWidth,
-      autoHideHeader: state => state.app.autoHideHeader,
-      sidebarOpened: state => state.app.sidebar,
-      multiTab: state => state.app.multiTab
-    })
+      layoutMode: (state) => state.app.layout,
+      navTheme: (state) => state.app.theme,
+      primaryColor: (state) => state.app.color,
+      colorWeak: (state) => state.app.weak,
+      fixedHeader: (state) => state.app.fixedHeader,
+      fixSiderbar: (state) => state.app.fixSiderbar,
+      fixSidebar: (state) => state.app.fixSiderbar,
+      contentWidth: (state) => state.app.contentWidth,
+      autoHideHeader: (state) => state.app.autoHideHeader,
+      sidebarOpened: (state) => state.app.sidebar,
+      multiTab: (state) => state.app.multiTab,
+    }),
   },
   methods: {
-    isTopMenu () {
+    isTopMenu() {
       return this.layoutMode === 'topmenu'
     },
-    isSideMenu () {
+    isSideMenu() {
       return !this.isTopMenu()
-    }
-  }
+    },
+  },
 }
 
 const mixinDevice = {
   computed: {
     ...mapState({
-      device: state => state.app.device
-    })
+      device: (state) => state.app.device,
+    }),
   },
   methods: {
-    isMobile () {
+    isMobile() {
       return this.device === DEVICE_TYPE.MOBILE
     },
-    isDesktop () {
+    isDesktop() {
       return this.device === DEVICE_TYPE.DESKTOP
     },
-    isTablet () {
+    isTablet() {
       return this.device === DEVICE_TYPE.TABLET
-    }
-  }
+    },
+  },
 }
 
 const AppDeviceEnquire = {
-  mounted () {
+  mounted() {
     const { $store } = this
-    deviceEnquire(deviceType => {
+    deviceEnquire((deviceType) => {
       switch (deviceType) {
         case DEVICE_TYPE.DESKTOP:
           $store.commit('TOGGLE_DEVICE', 'desktop')
@@ -70,7 +70,7 @@ const AppDeviceEnquire = {
           break
       }
     })
-  }
+  },
 }
 
 export { mixin, AppDeviceEnquire, mixinDevice }

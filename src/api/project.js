@@ -1,15 +1,15 @@
 import { axios } from '@/utils/request'
 
-export function apiCreateProject (token, param) {
+export function apiCreateProject(token, param) {
   console.log('api:apiCreateProject:', param)
   return axios({
     url: '/projects',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      'Authorization': 'Token ' + token
+      Authorization: `Token ${token}`,
     },
     method: 'post',
-    data: param
+    data: param,
   })
 }
 
@@ -19,20 +19,20 @@ export function apiLoadProjects(token) {
     url: '/projects',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      'Authorization': 'Token ' + token
+      Authorization: `Token ${token}`,
     },
-    method: 'get'
+    method: 'get',
   })
 }
 
 export function apiLoadSingleProject(token, pid) {
   console.log('api: load a project: ', pid)
   return axios({
-    url: '/projects/' + pid ,
+    url: `/projects/${pid}`,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      'Authorization': 'Token ' + token
+      Authorization: `Token ${token}`,
     },
-    method: 'get'
+    method: 'get',
   })
 }

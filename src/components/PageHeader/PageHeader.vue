@@ -3,7 +3,7 @@
     <div class="page-header-index-wide">
       <s-breadcrumb />
       <div class="detail">
-        <div class="main" v-if="!$route.meta.hiddenHeaderContent">
+        <div v-if="!$route.meta.hiddenHeaderContent" class="main">
           <div class="row">
             <img v-if="logo" :src="logo" class="logo"/>
             <h1 v-if="title" class="title">{{ title }}</h1>
@@ -32,34 +32,34 @@
 </template>
 
 <script>
-import Breadcrumb from '@/components/tools/Breadcrumb'
+  import Breadcrumb from '@/components/tools/Breadcrumb'
 
-export default {
-  name: 'PageHeader',
-  components: {
-    's-breadcrumb': Breadcrumb
-  },
-  props: {
-    title: {
-      type: [String, Boolean],
-      default: true,
-      required: false
+  export default {
+    name: 'PageHeader',
+    components: {
+      's-breadcrumb': Breadcrumb,
     },
-    logo: {
-      type: String,
-      default: '',
-      required: false
+    props: {
+      title: {
+        type: [String, Boolean],
+        default: true,
+        required: false,
+      },
+      logo: {
+        type: String,
+        default: '',
+        required: false,
+      },
+      avatar: {
+        type: String,
+        default: '',
+        required: false,
+      },
     },
-    avatar: {
-      type: String,
-      default: '',
-      required: false
-    }
-  },
-  data () {
-    return {}
+    data() {
+      return {}
+    },
   }
-}
 </script>
 
 <style lang="less" scoped>

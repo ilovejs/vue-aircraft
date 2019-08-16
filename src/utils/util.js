@@ -1,10 +1,10 @@
-export function timeFix () {
+export function timeFix() {
   const time = new Date()
   const hour = time.getHours()
   return hour < 9 ? 'Good Morning' : hour <= 11 ? 'Have nice day' : hour <= 13 ? 'Good afternoon' : hour < 20 ? 'Near the end of day' : 'Good night'
 }
 
-export function welcome () {
+export function welcome() {
   const arr = ['Take a rest', 'What are you ready to eat?', 'Why not making a tea and walk around', 'I guess you are tired']
   const index = Math.floor(Math.random() * arr.length)
   return arr[index]
@@ -13,21 +13,21 @@ export function welcome () {
 /**
  * Trigger window.resize
  */
-export function triggerWindowResizeEvent () {
+export function triggerWindowResizeEvent() {
   const event = document.createEvent('HTMLEvents')
   event.initEvent('resize', true, true)
   event.eventType = 'message'
   window.dispatchEvent(event)
 }
 
-export function handleScrollHeader (callback) {
+export function handleScrollHeader(callback) {
   let timer = 0
 
   let beforeScrollTop = window.pageYOffset
   callback = callback || function () {}
   window.addEventListener(
     'scroll',
-    event => {
+    (event) => {
       clearTimeout(timer)
       timer = setTimeout(() => {
         let direction = 'up'
@@ -41,7 +41,7 @@ export function handleScrollHeader (callback) {
         beforeScrollTop = afterScrollTop
       }, 50)
     },
-    false
+    false,
   )
 }
 
@@ -50,7 +50,7 @@ export function handleScrollHeader (callback) {
  * @param id parent element id or class
  * @param timeout
  */
-export function removeLoadingAnimate (id = '', timeout = 1500) {
+export function removeLoadingAnimate(id = '', timeout = 1500) {
   if (id === '') {
     return
   }
