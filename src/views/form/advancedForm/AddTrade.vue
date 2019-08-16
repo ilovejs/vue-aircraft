@@ -4,33 +4,32 @@
       <a-form layout="inline"
               ref="AddTradeForm"
               :form="form"
-              @submit="submitRow"
+              @submit="submitTopForm"
       >
+        <!--row 1-->
         <a-row :gutter="48">
-
-          <a-col :md="6" :sm="24">
+          <a-col :md="8" :sm="24">
             <a-form-item label="Project" name="project">
               <a-select placeholder="Project"
-                        v-decorator="['project', { rules: [{ required: true, message: 'Please pick project'}] }]"
-                        >
-                <a-select-option value="15">Green Doom 21</a-select-option>
-                <a-select-option value="24">asdfsadf</a-select-option>
+                        v-decorator="['project_id', { rules: [{ required: true, message: 'Please pick project'}] }]">
+                <a-select-option value="15">Green Doom Center</a-select-option>
+                <a-select-option value="24">Monash Square</a-select-option>
                 <a-select-option value="26">Capochino</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
-
-          <a-col :md="4" :sm="24">
-            <a-form-item label="Creator">
-              <a-input placeholder="Qs who record this trade"
-                       v-decorator="['creator', { rules: [{ required: true, message: 'Please pick creator'}] }]"/>
+          <!--todo: should use type: 'number'-->
+          <a-col :md="8" :sm="24">
+            <a-form-item label="CreatorID">
+              <a-input-number placeholder="Qs" :min="0"
+                       v-decorator="['creator_id', { rules: [{ required: true, message: 'Please type creatorId as integer'}] }]"/>
             </a-form-item>
           </a-col>
 
-          <a-col :md="6" :sm="24">
+          <a-col :md="8" :sm="24">
             <a-form-item label="Category">
               <a-select placeholder="Trade Category"
-                        v-decorator="['category', { rules: [{ required: true, message: 'Please pick category'}] }]"
+                        v-decorator="['category_id', { rules: [{ required: true, message: 'Please pick category'}] }]"
                         name="category">
                 <a-select-option value="13">Concrete</a-select-option>
                 <a-select-option value="14">Formwork</a-select-option>
@@ -38,13 +37,31 @@
               </a-select>
             </a-form-item>
           </a-col>
-
-          <a-col :md="6" :sm="24">
-            <a-form-item label="Breakdown">
-              <a-input placeholder="Trade Breakdown"
-                       v-decorator="['breakdown', { rules: [{ required: true, message: 'Please pick breakdown'}] }]"/>
+        </a-row>
+        <!--row 2-->
+        <a-row :gutter="48">
+          <a-col :md="8" :sm="24">
+            <a-form-item label="Subtitle">
+              <a-input placeholder="Breakdown subtitle"
+                       v-decorator="['subtitle', { rules: [{ required: false, message: 'Please type subtitle'}] }]"/>
             </a-form-item>
           </a-col>
+          <a-col :md="8" :sm="24">
+            <a-form-item label="Level">
+              <a-input placeholder="Level"
+                       v-decorator="['level', { rules: [{ required: false, message: 'Please type level'}] }]"/>
+            </a-form-item>
+          </a-col>
+          <a-col :md="8" :sm="24">
+            <a-form-item label="Value">
+              <a-input-number placeholder="Breakdown item value" :min="0"
+                       v-decorator="['value', { rules: [{ required: false, message: 'Please type value'}] }]"/>
+            </a-form-item>
+          </a-col>
+        </a-row>
+
+        <!--row 3-->
+        <a-row :gutter="48">
           <!--advanced-->
           <template v-if="advanced">
             <a-col :md="8" :sm="24">
@@ -115,7 +132,6 @@
       :data="loadData"
       :alert="{ show: true, clear: true }"
       :loading="memberLoading"
-      :pageURI="true"
       :rowSelection="{ selectedRowKeys: this.selectedRowKeys, onChange: this.onSelectChange}"
     >
       <!--data part-->
@@ -162,6 +178,7 @@ import Vue from 'vue'
 import { STable } from '@/components'
 import { apiLoadTrades } from '@/api/trade'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { apiAddTradeToProject } from '@/api/project'
 
 /* Component Derived from TableInnerEditList */
 export default {
@@ -228,10 +245,14 @@ export default {
           scopedSlots: { customRender: 'action' }
         }
       ],
-      loadData: () => {
+      loadData: (parameter) => {
         const token =  Vue.ls.get(ACCESS_TOKEN)
+        // This is the only way for query parameter, also check List.vue
+        const param = Object.assign(parameter, this.queryParam)
+        console.log('loadData: ', param)
+
         // Must be a Promise not just return
-        return apiLoadTrades(token, this.queryParam).
+        return apiLoadTrades(token, param).
           then(res => {
             console.log('res', res)
             return res
@@ -248,28 +269,44 @@ export default {
       console.log('handleRowChange', value, key, column)
       record[column.dataIndex] = value
     },
-    submitRow(e) {
+    submitTopForm(e) {
       const that = this
-      console.log('submitRow', e)
+      console.log('submitTopForm', e)
       e.preventDefault()
 
+      // todo: not validating ....
       this.form.validateFields((err, values) => {
+
         if (err) {
           this.$notification['error']({
-            message: 'Received values of form:',
-            description: values
+            message: 'Ops',
+            description: 'Validation Error, Please give more info'
           })
+          return
         }
-        console.log(values)
 
-        this.$http.post('/project/trades').then(res => {
-          console.debug(res)
+        // casting
+        values.project_id = parseInt(values.project_id) || 0
+        values.category_id = parseInt(values.category_id) || 0
+        console.log('err and values after cast', err, values)
+
+        const token = Vue.ls.get(ACCESS_TOKEN)
+
+        apiAddTradeToProject(token, values).then(res => {
+          console.debug('add trades resp:', res)
+          // refresh on success
+          that.$refs.table.refresh()
           return res.data
         }).catch(e => {
-          console.debug(e)
+          console.warn(e)
+
+          this.$notification['error']({
+            message: 'Server Error: ',
+            description: JSON.stringify(e)
+          })
+
         }).finally(()=>{
           this.memberLoading = false
-          that.$refs.table.refresh()
         })
 
       })

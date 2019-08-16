@@ -6,10 +6,10 @@ export function apiCreateProject(token, param) {
     url: '/projects',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      Authorization: `Token ${token}`,
+      Authorization: `Token ${token}`
     },
     method: 'post',
-    data: param,
+    data: param
   })
 }
 
@@ -19,9 +19,9 @@ export function apiLoadProjects(token) {
     url: '/projects',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      Authorization: `Token ${token}`,
+      Authorization: `Token ${token}`
     },
-    method: 'get',
+    method: 'get'
   })
 }
 
@@ -31,8 +31,22 @@ export function apiLoadSingleProject(token, pid) {
     url: `/projects/${pid}`,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      Authorization: `Token ${token}`,
+      Authorization: `Token ${token}`
     },
-    method: 'get',
+    method: 'get'
   })
 }
+
+export function apiAddTradeToProject(token, data) {
+  console.log('api: add trade project data:', data)
+  return axios({
+    url: `/trades`,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Token ${token}`
+    },
+    method: 'post',
+    data: data
+  })
+}
+

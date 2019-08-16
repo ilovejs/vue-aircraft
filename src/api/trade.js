@@ -14,7 +14,7 @@ export function apiCreateTrade (token, param) {
 }
 
 export function apiLoadTrades(token, param) {
-  console.log('api: load trades')
+  console.log('api: load trades', param)
   return axios({
     url: '/trades',
     headers: {

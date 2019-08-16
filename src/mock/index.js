@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'tr
   require('./services/tagCloud')
   require('./services/article')
 
-  require('./services/trade')
+  // require('./services/trade')
 
   // TODO: more config ?
   Mock.setup({

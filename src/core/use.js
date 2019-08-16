@@ -3,6 +3,7 @@ import VueStorage from 'vue-ls'
 
 // lazy version is in components_use.js
 import Antd from 'ant-design-vue'
+import {notification} from 'ant-design-vue'
 
 import Viser from 'viser-vue'
 import VueCropper from 'vue-cropper'
@@ -17,13 +18,20 @@ import PermissionHelper from '@/utils/helper/permission'
 import './directives/action'
 
 
+// Config
 VueClipboard.config.autoSetContainer = true
+
+// https://vue.ant.design/components/notification/
+notification.config({
+  duration: 5,
+  placement: 'bottomLeft'
+})
 
 // ?
 Vue.use(Antd)
 
 Vue.use(Viser)
-Vue.use(VueStorage, config.storageOptions)
+Vue.use(VueStorage, config.storageOptions) // refer to config above
 Vue.use(VueClipboard)
 Vue.use(PermissionHelper)
 

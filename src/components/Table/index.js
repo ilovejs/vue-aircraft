@@ -146,9 +146,9 @@ export default {
       (sorter && sorter.order && { sortOrder: sorter.order }) || {},
       { ...filters }
       )
-      console.warn('parameter', parameter)
+      console.log('----------------------------------')
+      console.warn('Table component: paras', parameter)
 
-      console.log('--------------- () -------------------')
       // result is of type promise
       const result = this.data(parameter)
 
