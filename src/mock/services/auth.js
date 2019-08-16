@@ -7,9 +7,12 @@ const password = ['21232f297a57a5a743894a0e4a801fc3',
 
 const login = (options) => {
   const body = getBody(options)
+
+  // TODO: mock won't print anything, how we debug then ??
   console.log('mock: body has fields that need to be met:', body)
+
   if (!username.includes(body.username) || !password.includes(body.password)) {
-    return builder({ isLogin: true }, 'Account or password issue', 401)
+    return builder({ isLogin: true }, 'Mock: Account or password issue', 401)
   }
 
   return builder({
@@ -37,9 +40,9 @@ const smsCaptcha = () => builder({ captcha: Mock.mock('@integer(10000, 99999)') 
 
 const twofactor = () => builder({ stepCode: Mock.mock('@integer(0, 1)') })
 
-// expose as api
-// TODO: comment out if no need for specific api
-Mock.mock(/\/auth\/login/, 'post', login)
-Mock.mock(/\/auth\/logout/, 'post', logout)
-Mock.mock(/\/account\/sms/, 'post', smsCaptcha)
-Mock.mock(/\/auth\/2step-code/, 'post', twofactor)
+// TODO: comment out if no need for specific api, [2] test js error handling
+// Mock.mock(/\/auth\/login/, 'post', login)
+// Mock.mock(/\/auth\/logout/, 'post', logout)
+
+// Mock.mock(/\/account\/sms/, 'post', smsCaptcha)
+// Mock.mock(/\/auth\/2step-code/, 'post', twofactor)

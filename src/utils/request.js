@@ -6,16 +6,20 @@ import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // axios instance: https://github.com/axios/axios
-let url
-if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true') {
-  url = `http://localhost:8080/api`
-} else {
-  url = `${location.protocol}//${location.hostname}:${process.env.BE_PORT}/${process.env.BASE_URL}`
+
+let mockUrl = `http://localhost:8080/api`
+if (process.env.NODE_ENV === 'development' || process.env.VUE_APP_PREVIEW === 'true') {
+  console.log('Request use NODE_ENV', process.env.NODE_ENV)
+  // this file lives in the browser, so object like `location` is available
+  // eslint-disable-next-line no-restricted-globals
+  mockUrl = `${location.protocol}//${location.hostname}:${BACKEND_PORT}/${BASE_URL}`
 }
+
+console.log('mock url:', mockUrl)
 
 // axios instance for BE (backend)
 const service = axios.create({
-  baseURL: url,
+  baseURL: mockUrl,
   timeout: 6000,
 })
 
@@ -67,9 +71,7 @@ service.interceptors.request.use((config) => {
 }, interceptorErrorCallback)
 
 // response interceptor
-service.interceptors.response.use((response) => {
-  return response.data
-}, interceptorErrorCallback)
+service.interceptors.response.use((response) => response.data, interceptorErrorCallback)
 
 const installer = {
   vm: {},

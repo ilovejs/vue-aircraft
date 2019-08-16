@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve:dev": "vue-cli-service serve --port 8000 --mode development",
+    "serve": "vue-cli-service serve",
     "serve:prod": "serve --single dist",
     "build": "vue-cli-service build",
     "build:preview": "vue-cli-service build --mode preview",
@@ -62,7 +62,6 @@
     "less-loader": "^4.1.0",
     "vue-svg-icon-loader": "^2.1.1",
     "vue-template-compiler": "^2.5.22",
-    "webpack": "*",
     "webpack-theme-color-replacer": "^1.2.15"
   },
   "postcss": {

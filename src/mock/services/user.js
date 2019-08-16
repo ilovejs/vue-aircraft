@@ -409,4 +409,3 @@ if (process.env.MOCK_FLAG === true) {
 
 // Only turn off this api, but not other mocks
 Mock.mock(/\/api\/user\/info/, 'get', info)
-

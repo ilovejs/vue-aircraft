@@ -188,10 +188,11 @@
         }, 1000)
       },
       requestFailed(err) {
-        console.log('requestFailed: ', err)
+        console.dir('requestFailed: ', err)
+        //HACK: using ||
         this.$notification.error({
           message: 'error',
-          description: ((err.response || {}).data || {}).message || 'request error, retry again',
+          description: ((err.response || {}).data || {}).message || `request error, retry again ${err.Error}`,
           duration: 4,
         })
       },

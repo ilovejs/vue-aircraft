@@ -153,19 +153,37 @@ https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
 ## Eslint FAQ
 
+* Auto Fix
+
+    `eslint src --fix` would auto fix the problem, but left unfixed error in stdin.
+    
+    `
+       4:10  error  Do not nest ternary expressions                          no-nested-ternary
+       4:38  error  Do not nest ternary expressions                          no-nested-ternary
+       4:69  error  Do not nest ternary expressions                          no-nested-ternary
+      27:3   error  Assignment to function parameter 'callback'              no-param-reassign
+      30:6   error  'event' is defined but never used                        no-unused-vars
+      32:29  error  Expected to return a value at the end of arrow function  consistent-return
+
+    `
+    
+    Same way, webpack would echo errors when `vue-cli-service serve` (assume dev mode)
+    
 * Full scale extends is verbose
-"extends": [
+  
+  `
+  "extends": [
         "airbnb-base",
         // "plugin:vue/recommended"
         "plugin:vue/strongly-recommended"
         // "@vue/standard"
     ],
-* [Quick guide]https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8
+  `
+* [Quick guide](https://medium.com/@agm1984/how-to-set-up-es-lint-for-airbnb-vue-js-and-vs-code-a5ef5ac671e8)
 
 * for vscode, open console eslint error logs for .json file syntax..
 
-* Vscode plugin:
-https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint 
+* [Vscode plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 ## Custom Backend settings
 
@@ -175,4 +193,13 @@ util/request.js
   
 ## Axios issues
 
-https://github.com/axios/axios/issues/960#issuecomment-320659373 
+  [1](https://github.com/axios/axios/issues/960#issuecomment-320659373)
+
+## Mock port and Backend environment
+
+  In `vue.config.js` webpack DefinePlugin. 
+  
+  We don't trust .env.development since a bug before.
+  
+
+  

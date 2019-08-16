@@ -10,25 +10,25 @@ const trade = {
   mutations: {
     [ADD_TRADE]: (state, p) => {
       state.trades.concat(p)
-    }
+    },
   },
   actions: {
     // todo: list related trade, not all
-    ListTrades({commit}, params){
+    ListTrades({ commit }, params) {
       return new Promise((resolve, reject) => {
         const token = Vue.ls.get(ACCESS_TOKEN)
-        apiLoadTrades(token, params).then(resp => {
+        apiLoadTrades(token, params).then((resp) => {
           console.log('ListTrades:', resp)
           commit(ADD_TRADE, resp.trades)
           resolve(resp)
-        }).catch(e => {
+        }).catch((e) => {
           reject(e)
         })
-      }).catch(e => {
+      }).catch((e) => {
         console.log('modules - trade.js', e)
       })
-    }
-  }
+    },
+  },
 
 }
 

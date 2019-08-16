@@ -38,21 +38,21 @@ const newServerList = (options) => {
       key: tmpKey,
       id: tmpKey,
 
-      pid: 'Nox ' + tmpKey,
+      pid: `Nox ${tmpKey}`,
       cid: Mock.mock('@integer(0, 3)'),
       cat: Mock.mock('@integer(1, 999)'),
       subtitle: 'more description....',
-      editable: false
+      editable: false,
     })
   }
 
   // request.body = xx
   return builder({
-    pageSize: pageSize,
-    pageNo: pageNo,
+    pageSize,
+    pageNo,
     totalCount: TOTAL_COUNT,
-    totalPage: totalPage,
-    data: result
+    totalPage,
+    data: result,
   })
 }
 

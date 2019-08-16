@@ -11,7 +11,17 @@ const vueConfig = {
   configureWebpack: {
     plugins: [
       // Ignore all locale files of moment.js
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // https://webpack.js.org/plugins/ignore-plugin/
+      new webpack.IgnorePlugin({
+        resourceRegExp: /^\.\/locale$/,
+        contextRegExp: /moment$/
+      }),
+      new webpack.DefinePlugin({
+        NODE_ENV: JSON.stringify('development'),
+        VERSION: JSON.stringify('alpha'),
+        BASE_URL: JSON.stringify('api'),
+        BACKEND_PORT: JSON.stringify('8585')
+      })
     ],
   },
   chainWebpack: (config) => {
@@ -49,7 +59,7 @@ const vueConfig = {
     },
   },
   devServer: {
-    port: 8000,
+    port: 8080,
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     // proxy: {
     //   '/api': {

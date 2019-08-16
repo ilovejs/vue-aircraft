@@ -14,7 +14,13 @@ import { VueAxios } from './utils/request'
 import './mock'
 
 import bootstrap from './core/bootstrap'
+
+/* Check Readme.md
+*  https://github.com/sendya/ant-design-pro-vue/blob/master/docs/load-on-demand.md
+* */
 import './core/use'
+// import './core/lazy_use'
+
 import './permission' // permission control
 import './utils/filter' // global filter
 
