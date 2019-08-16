@@ -61,7 +61,7 @@ import debounce from 'lodash/debounce'
 import Vue from 'vue'
 import { mapActions } from 'vuex'
 import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
-import { apiCreateProject } from '@/api/project'
+import { createProject } from '@/api/project'
 import { getUserList } from '@/api/manage' // default import used, not named import
 
 export default {
@@ -180,7 +180,7 @@ export default {
         }
 
         // only pick the first one as manager, cuz db
-        apiCreateProject(token, params)
+        createProject(token, params)
           .then((res) => {
             console.log('project created !', res)
             // close dialog

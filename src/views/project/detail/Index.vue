@@ -25,7 +25,7 @@
   import Vue from 'vue'
   import { ACCESS_TOKEN } from '@/store/mutation-types'
   import DetailList from '@/components/tools/DetailList'
-  import { apiLoadSingleProject } from '@/api/project'
+  import { loadSingleProject } from '@/api/project'
 
   const DetailListItem = DetailList.Item
 
@@ -55,9 +55,9 @@
       loadProject(pid) {
         const token = Vue.ls.get(ACCESS_TOKEN)
 
-        apiLoadSingleProject(token, pid)
+        loadSingleProject(token, pid)
           .then((res) => {
-            console.log('apiLoadSingleProject !', res.project)
+            console.log('loadSingleProject !', res.project)
             // load into v-model immediately, rather than
             // either warp in Promise again OR resolve
             this.project = res.project

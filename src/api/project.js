@@ -1,7 +1,7 @@
 import { axios } from '@/utils/request'
 
-export function apiCreateProject(token, param) {
-  console.log('api:apiCreateProject:', param)
+export function createProject(token, param) {
+  console.log('api:createProject:', param)
   return axios({
     url: '/projects',
     headers: {
@@ -13,7 +13,7 @@ export function apiCreateProject(token, param) {
   })
 }
 
-export function apiLoadProjects(token) {
+export function loadProjects(token) {
   console.log('api: list projects')
   return axios({
     url: '/projects',
@@ -25,7 +25,7 @@ export function apiLoadProjects(token) {
   })
 }
 
-export function apiLoadSingleProject(token, pid) {
+export function loadSingleProject(token, pid) {
   console.log('api: load a project: ', pid)
   return axios({
     url: `/projects/${pid}`,
@@ -37,7 +37,7 @@ export function apiLoadSingleProject(token, pid) {
   })
 }
 
-export function apiAddTradeToProject(token, data) {
+export function addTrade(token, data) {
   console.log('api: add trade project data:', data)
   return axios({
     url: `/trades`,

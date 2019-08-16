@@ -178,7 +178,7 @@ import Vue from 'vue'
 import { STable } from '@/components'
 import { apiLoadTrades } from '@/api/trade'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
-import { apiAddTradeToProject } from '@/api/project'
+import { addTrade } from '@/api/project'
 
 /* Component Derived from TableInnerEditList */
 export default {
@@ -292,7 +292,7 @@ export default {
 
         const token = Vue.ls.get(ACCESS_TOKEN)
 
-        apiAddTradeToProject(token, values).then(res => {
+        addTrade(token, values).then(res => {
           console.debug('add trades resp:', res)
           // refresh on success
           that.$refs.table.refresh()
