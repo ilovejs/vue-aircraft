@@ -7,7 +7,7 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // axios instance: https://github.com/axios/axios
 
-let mockUrl = `http://localhost:8080/api`
+let mockUrl = `http://localhost:8585/api`
 if (process.env.NODE_ENV === 'development' || process.env.VUE_APP_PREVIEW === 'true') {
   console.log('Request use NODE_ENV', process.env.NODE_ENV)
   // this file lives in the browser, so object like `location` is available

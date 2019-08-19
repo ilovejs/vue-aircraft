@@ -9,8 +9,7 @@
         <a-input v-decorator="['name', {rules:[{required: true, message: 'Please type in project name'}]}]"/>
       </a-form-item>
 
-      <<<<<<< HEAD
-      <a-form-item label="SerialNo" :labelCol="labelCol" :wrapperCol="wrapperCol">
+      <a-form-item label="ProjectNo" :labelCol="labelCol" :wrapperCol="wrapperCol">
         <a-input v-decorator="['sn', {rules:[{required: true, message: 'Please type in serial number'}]}]"/>
       </a-form-item>
 
