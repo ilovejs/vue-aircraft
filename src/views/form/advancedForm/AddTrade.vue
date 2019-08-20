@@ -178,8 +178,8 @@
 import Vue from 'vue'
 import { STable } from '@/components'
 import { apiLoadTrades } from '@/api/trade'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
-import { addTrade } from '@/api/project'
+import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
+import { addTrade, removeTrade } from '@/api/project'
 
 /* Component Derived from TableInnerEditList */
 export default {
@@ -339,17 +339,19 @@ export default {
         okType: 'danger',
         cancelText: 'Cancel',
         onOk() {
-          console.log('OK del')
-          // calling deleting api
-          return new Promise((resolve, reject) => {
-            // setTimeout(Math.random() > 0.5 ? resolve : reject, 1000)
-            setTimeout(() => {
-              that.$refs.table.refresh()
-              resolve()
-            }, 1000)
-          }).catch((e) =>
-            console.log('Oops errors!', e)
-          )
+          const token = Vue.ls.get(ACCESS_TOKEN)
+          return removeTrade(token, row.id).then(res => {
+            console.debug('remove trades resp:', res)
+            // refresh on success
+            that.$refs.table.refresh()
+            return res.data
+          }).catch(e => {
+            console.warn(e)
+            this.$notification['error']({
+              message: 'Server Error: ',
+              description: JSON.stringify(e)
+            })
+          })
         },
         onCancel() {
           console.log('Cancel del')

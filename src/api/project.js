@@ -50,3 +50,14 @@ export function addTrade(token, data) {
   })
 }
 
+export function removeTrade(token, tid) {
+  console.log('api: remove trade project data:', tid)
+  return axios({
+    url: `/trades/` + tid,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Token ${token}`
+    },
+    method: 'delete'
+  })
+}
