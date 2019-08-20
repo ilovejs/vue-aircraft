@@ -145,12 +145,12 @@
       <template v-for="(col, index) in columns" v-if="col.scopedSlots"
                 :slot="col.dataIndex" slot-scope="text, record">
         <div :key="index">
-          <!--edit-->
+          <!--editable-->
           <a-input v-if="record.editable"
                    :value="text"
                    @change="e => handleRowChange(e.target.value, record.key, col, record)"
                    style="margin: -5px 0"/>
-          <!--show-->
+          <!--show text-->
           <template v-else>
             {{ text }}
           </template>
@@ -183,7 +183,7 @@
 import debounce from 'lodash/debounce'
 import Vue from 'vue'
 import { STable } from '@/components'
-import { apiLoadTrades } from '@/api/trade'
+import { apiLoadTrades, apiUpdateTrade } from '@/api/trade'
 import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
 import { addTrade, removeTrade, apiLoadCategory } from '@/api/project'
 
@@ -194,7 +194,7 @@ export default {
     STable
   },
   mounted() {
-    this.fetchCategory = debounce(this.fetchCategory, 800)
+    this.fetchCategory = debounce(this.fetchCategory, 1000)
   },
   data() {
     return {
@@ -252,6 +252,13 @@ export default {
           scopedSlots: { customRender: 'subtitle' }
         },
         {
+          title: 'Level',
+          dataIndex: 'level',
+          width: 100,
+          sorter: true,
+          scopedSlots: { customRender: 'level' }
+        },
+        {
           title: 'Contract Value',
           dataIndex: 'contract_value',
           width: 100,
@@ -290,15 +297,18 @@ export default {
       record[column.dataIndex] = value
     },
     handleCategoryChange(v) {
+      // after chosen the value, reset value
       console.log('handleCategoryChange by: ', v)
       Object.assign(this, {
         data: v,
         cats: [],
-        fetching: false // mouse over, don't show spinning
+        fetching: false
       })
     },
     fetchCategory(e){
       this.fetching = true
+
+      // setTimeout(() => {}, 3300)
 
       console.log('fetchCategory', e)
       const token = Vue.ls.get(ACCESS_TOKEN)
@@ -359,8 +369,14 @@ export default {
       })
     },
     edit(row) {
-      row.editable = true
+      // NOTE: check AdvancedForm. and Vue tool, try to get this.data
       console.log('edit row', row)
+      row.editable = !row.editable
+      const { form: { setFieldsValue } } = this
+      this.$nextTick(() => {
+        // k:v format
+        setFieldsValue({})
+      })
     },
     del(row) {
       const that = this
@@ -398,23 +414,38 @@ export default {
     },
     save(row) {
       const that = this
-      console.log('save', row)
       // This could talk to BackEnd or FrontEnd only !!
       this.memberLoading = true
-      // FORMAT
-      const { pid, cid, cat, subtitle } = row
-      if (!pid || !cid || !cat || !subtitle) {
+      // FORMAT: skip cat for text change
+      const { id, pid, cid, subtitle, contract_value } = row
+      console.log('SAVE row', row, that)
+      if (!id || !pid || !cid || !subtitle || !contract_value) {
         this.memberLoading = false
         this.$message.error('Please fill in data completely')
         return
       }
+      const token = Vue.ls.get(ACCESS_TOKEN)
+      /*
+      "category_id": 13,
+      "creator_id": 13,
+      "project_id": 15,
 
-      new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ loop: false })
-        }, 300)
-      }).then(() => {
+      "level": "3 lower",
+      "subtitle": "half-price material",
+      "value": 1234
+      */
+      let param = {
+        'category_id': row['cat_id'],
+        'creator_id': row['cid'],
+        'project_id': row['pid'],
+        'level': row['level'],
+        'value': row['contract_value'],
+        'subtitle': row['subtitle']
+      }
+      apiUpdateTrade(token, id, param).then(r => {
         this.memberLoading = false
+        console.log('update trade:', r)
+      }).finally(() => {
         that.$refs.table.refresh()
       })
     },

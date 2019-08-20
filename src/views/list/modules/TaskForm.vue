@@ -111,11 +111,10 @@ export default {
       this.data = [] // multiple user in select
       this.fetching = true // spinning
 
-      const token = Vue.ls.get(ACCESS_TOKEN)
-      getUserList(token)
+      getUserList(Vue.ls.get(ACCESS_TOKEN))
         .then((body) => {
           console.log(body)
-          // for fetch callback order
+          // todo: Check doc => for fetch callback order
           if (fetchId !== this.lastFetchId) {
             return
           }

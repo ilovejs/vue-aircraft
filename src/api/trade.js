@@ -13,6 +13,19 @@ export function apiCreateTrade (token, param) {
   })
 }
 
+export function apiUpdateTrade (token, tid, param) {
+  console.log('api: Update Trade:', tid, param)
+  return axios({
+    url: '/trades/' + tid,
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Authorization': 'Token ' + token
+    },
+    method: 'PUT',
+    data: param
+  })
+}
+
 export function apiLoadTrades(token, param) {
   console.log('api: load trades', param)
   return axios({
