@@ -37,3 +37,4 @@ export function apiLoadSingleTrade(token, pid) {
     method: 'get'
   })
 }
+

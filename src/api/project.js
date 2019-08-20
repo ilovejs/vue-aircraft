@@ -61,3 +61,15 @@ export function removeTrade(token, tid) {
     method: 'delete'
   })
 }
+
+export function apiLoadCategory(token) {
+  console.log('api: load category')
+  return axios({
+    url: '/bts',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Authorization': 'Token ' + token
+    },
+    method: 'get'
+  })
+}

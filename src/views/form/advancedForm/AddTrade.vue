@@ -26,15 +26,21 @@
 <!--                       v-decorator="['creator_id', { rules: [{ required: true, message: 'Please type creatorId as integer'}] }]"/>-->
 <!--            </a-form-item>-->
 <!--          </a-col>-->
-
+<!--          labelInValue-->
           <a-col :md="8" :sm="24">
-            <a-form-item label="Category">
-              <a-select placeholder="Trade Category"
-                        v-decorator="['category_id', { rules: [{ required: true, message: 'Please pick category'}] }]"
-                        name="category">
-                <a-select-option value="13">Concrete</a-select-option>
-                <a-select-option value="14">Formwork</a-select-option>
-                <a-select-option value="15">Reinforcement</a-select-option>
+            <a-form-item label="Category" v-model="cats">
+              <a-select
+                placeholder="Trade Category"
+                @focus="fetchCategory"
+                @Change="handleCategoryChange"
+                :loading="fetching"
+                :notFoundContent="fetching ? undefined : null"
+                v-decorator="['category_id', { rules: [{ required: true, message: 'Please pick category'}] }]"
+                name="category">
+                <a-spin v-if="fetching" slot="notFoundContent" size="small"/>
+                <a-select-option v-for="d in data" :key="d.value">
+                  {{d.text}}
+                </a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
@@ -143,8 +149,7 @@
           <a-input v-if="record.editable"
                    :value="text"
                    @change="e => handleRowChange(e.target.value, record.key, col, record)"
-                   style="margin: -5px 0"
-          />
+                   style="margin: -5px 0"/>
           <!--show-->
           <template v-else>
             {{ text }}
@@ -175,11 +180,12 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
 import Vue from 'vue'
 import { STable } from '@/components'
 import { apiLoadTrades } from '@/api/trade'
 import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
-import { addTrade, removeTrade } from '@/api/project'
+import { addTrade, removeTrade, apiLoadCategory } from '@/api/project'
 
 /* Component Derived from TableInnerEditList */
 export default {
@@ -187,9 +193,15 @@ export default {
   components: {
     STable
   },
+  mounted() {
+    this.fetchCategory = debounce(this.fetchCategory, 800)
+  },
   data() {
     return {
       form: this.$form.createForm(this),
+      data: [],
+      cats: [],
+      fetching: false,
       advanced: false,
       queryParam: {},
       loading: false, // for submit
@@ -276,6 +288,32 @@ export default {
     handleRowChange(value, key, column, record) {
       console.log('handleRowChange', value, key, column)
       record[column.dataIndex] = value
+    },
+    handleCategoryChange(v) {
+      console.log('handleCategoryChange by: ', v)
+      Object.assign(this, {
+        data: v,
+        cats: [],
+        fetching: false // mouse over, don't show spinning
+      })
+    },
+    fetchCategory(e){
+      this.fetching = true
+
+      console.log('fetchCategory', e)
+      const token = Vue.ls.get(ACCESS_TOKEN)
+
+      apiLoadCategory(token).then((body) => {
+        this.data = body['trade_categories'].map((t) => ({
+          text: t.name,
+          value: `${t['trade_category_id']}`
+        }))
+        console.debug('this.data:', this.data)
+      }).catch(e => {
+        console.warn(e)
+      }).finally(() => {
+        this.fetching = false
+      })
     },
     submitTopForm(e) {
       const that = this

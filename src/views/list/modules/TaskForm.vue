@@ -82,22 +82,20 @@ export default {
       visible: false,
       confirmLoading: false,
       form: this.$form.createForm(this),
+      submitError: '',
+      // form related
       data: [],
       managers: [],
-      fetching: false,
-      submitError: ''
+      fetching: false
     }
   },
   methods: {
     ...mapActions(['CreateProject']),
-    mounted() {
-      this.fetchUser = debounce(this.fetchUser, 800)
-      this.lastFetchId = 0
-    },
     add() {
       this.visible = true
     },
     edit(record) {
+      //todo: not used
       // destruct form.setFieldValue to local, I bet u can't do const { setFieldsValue } = this
       const { form: { setFieldsValue } } = this
       this.visible = true
