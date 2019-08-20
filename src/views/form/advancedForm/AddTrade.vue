@@ -223,19 +223,12 @@ export default {
           sorter: true,
           scopedSlots: { customRender: 'pid' }
         },
-        // {
-        //   title: 'CreatorId',
-        //   dataIndex: 'cid',
-        //   width: 100,
-        //   sorter: true,
-        //   scopedSlots: { customRender: 'cid' }
-        // },
         {
           title: 'Category',
           dataIndex: 'cat',
           width: 50,
           sorter: true,
-          scopedSlots: { customRender: 'cat' }
+          // scopedSlots: { customRender: 'cat' }  // Readonly field
         },
         {
           title: 'CategoryID',
@@ -263,7 +256,7 @@ export default {
           dataIndex: 'contract_value',
           width: 100,
           sorter: true,
-          scopedSlots: { customRender: 'contractValue' }
+          scopedSlots: { customRender: 'contract_value' }
         },
         {
           title: 'Action',
@@ -419,7 +412,7 @@ export default {
       // FORMAT: skip cat for text change
       const { id, pid, cid, subtitle, contract_value } = row
       console.log('SAVE row', row, that)
-      if (!id || !pid || !cid || !subtitle || !contract_value) {
+      if (!id || !pid || !cid || !contract_value) {
         this.memberLoading = false
         this.$message.error('Please fill in data completely')
         return
@@ -438,9 +431,9 @@ export default {
         'category_id': row['cat_id'],
         'creator_id': row['cid'],
         'project_id': row['pid'],
-        'level': row['level'],
-        'value': row['contract_value'],
-        'subtitle': row['subtitle']
+        'subtitle': row['subtitle'] || '',
+        'level': row['level'] || '0',
+        'value': row['contract_value'] || 0,
       }
       apiUpdateTrade(token, id, param).then(r => {
         this.memberLoading = false
