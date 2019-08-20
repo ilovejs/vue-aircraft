@@ -23,6 +23,22 @@
     <!--table,
     pagination https://blog.csdn.net/romeo12334/article/details/88710802
     -->
+    <a-alert type="success" showIcon style="margin-bottom: 5px">
+      <template slot="message">
+        <span>Subtotal Contract Value:
+          <a style="font-weight: 600; color: green">
+            {{ this.subtotal }}
+          </a>
+        </span>
+      </template>
+    </a-alert>
+      <!--check table/index.js-->
+<!--      <template v-for="item in this.selectedRowKeys">-->
+<!--        <span>-->
+<!--          {{ item }}-->
+<!--        </span>-->
+<!--      </template>-->
+
     <s-table ref="table" size="default"
              :pageSize.sync="pageSize"
              :columns="columns"
@@ -62,6 +78,8 @@
     data() {
       return {
         token: Vue.ls.get(ACCESS_TOKEN),
+        subtotal: 0,
+        needTotalList: [],
         memberLoading: false,
         pageSize: 40, // doc: https://vue.ant.design/components/pagination/
         pagination: {
@@ -72,25 +90,25 @@
           {
             title: 'Id',
             dataIndex: 'id',
-            width: 30,
+            width: '25%',
             sorter: true
           },
           {
             title: 'Category',
             dataIndex: 'cat',
-            width: 30,
+            width: '25%',
             sorter: true
           },
           {
             title: 'Level',
             dataIndex: 'level',
-            width: 30,
+            width: '25%',
             sorter: true
           },
           {
             title: 'Contract Value',
             dataIndex: 'contract_value',
-            width: 30,
+            width: '25%',
             sorter: true
           },
         ],
@@ -139,11 +157,29 @@
         console.log('onSelectChange', selectedRowKeys, selectedRows)
         this.selectedRowKeys = selectedRowKeys
         this.selectedRows = selectedRows
+        this.subtotal = selectedRows.reduce( (sum, val) => {
+          return sum + val['contract_value']
+        }, 0)
       },
       toggleAdvanced() {
         this.advanced = !this.advanced
       }
     },
+    // watch: {
+    //   'selectedRows': function (selectedRows) {
+    //     console.warn(this.needTotalList)
+    //     this.needTotalList = this.needTotalList.map(item => {
+    //       console.warn(item)
+    //       return {
+    //         ...item,
+    //         total: selectedRows.reduce( (sum, val) => {
+    //           // which row to do accounting
+    //           return sum + val[item.dataIndex]
+    //         }, 0)
+    //       }
+    //     })
+    //   }
+    // },
   }
 </script>
 
