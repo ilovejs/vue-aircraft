@@ -34,20 +34,21 @@ export function apiLoadTrades(token, param) {
       'Content-Type': 'application/json;charset=UTF-8',
       'Authorization': 'Token ' + token
     },
-    method: 'get',
+    method: 'GET',
     params: param
   })
 }
 
-export function apiLoadSingleTrade(token, pid) {
-  console.log('api: load a trade: ', pid)
+export function apiProjectTrades(token, param) {
+  console.log('api: load a trade for p: ', param)
   return axios({
-    url: '/trades/' + pid ,
+    url: '/trades/?pid=' + param ,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       'Authorization': 'Token ' + token
     },
-    method: 'get'
+    method: 'GET',
+    params: param
   })
 }
 

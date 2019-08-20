@@ -145,7 +145,7 @@
       <template v-for="(col, index) in columns" v-if="col.scopedSlots"
                 :slot="col.dataIndex" slot-scope="text, record">
         <div :key="index">
-          <!--editable-->
+          <!--editable todo: check where record comming from-->
           <a-input v-if="record.editable"
                    :value="text"
                    @change="e => handleRowChange(e.target.value, record.key, col, record)"
@@ -272,13 +272,13 @@ export default {
         console.log('loadData: ', param)
 
         // Must be a Promise not just return
-        return apiLoadTrades(token, param).
-          then(res => {
-            console.log('res', res)
-            return res
-          }).catch(e => {
-            console.error(e)
-          })
+        return apiLoadTrades(token, param).then(res => {
+          console.log('res', res)
+          // critical line
+          return res
+        }).catch(e => {
+          console.error(e)
+        })
       },
       selectedRowKeys: [],
       selectedRows: []
