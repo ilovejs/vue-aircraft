@@ -2,125 +2,125 @@ import Mock from 'mockjs2'
 import { builder } from '../util'
 
 const orgTree = () => builder([{
-    key: 'key-01',
-    title: '研发中心',
-    icon: 'mail',
+  key: 'key-01',
+  title: 'Research',
+  icon: 'mail',
+  children: [{
+    key: 'key-01-01',
+    title: 'Backend',
+    icon: null,
+    group: true,
     children: [{
-      key: 'key-01-01',
-      title: '后端组',
-      icon: null,
-      group: true,
-      children: [{
-        key: 'key-01-01-01',
-        title: 'JAVA',
-        icon: null,
-      },
+      key: 'key-01-01-01',
+      title: 'JAVA',
+      icon: null
+    },
       {
         key: 'key-01-01-02',
         title: 'PHP',
-        icon: null,
+        icon: null
       },
       {
         key: 'key-01-01-03',
         title: 'Golang',
-        icon: null,
-      },
-      ],
-    }, {
-      key: 'key-01-02',
-      title: '前端组',
-      icon: null,
-      group: true,
-      children: [{
-        key: 'key-01-02-01',
-        title: 'React',
-        icon: null,
-      },
+        icon: null
+      }
+    ]
+  }, {
+    key: 'key-01-02',
+    title: 'FrontEnd',
+    icon: null,
+    group: true,
+    children: [{
+      key: 'key-01-02-01',
+      title: 'React',
+      icon: null
+    },
       {
         key: 'key-01-02-02',
         title: 'Vue',
-        icon: null,
+        icon: null
       },
       {
         key: 'key-01-02-03',
         title: 'Angular',
-        icon: null,
-      },
-      ],
-    }],
+        icon: null
+      }
+    ]
+  }]
+}, {
+  key: 'key-02',
+  title: 'Finance',
+  icon: 'dollar',
+  children: [{
+    key: 'key-02-01',
+    title: 'Audit',
+    icon: null
   }, {
-    key: 'key-02',
-    title: '财务部',
-    icon: 'dollar',
+    key: 'key-02-02',
+    title: 'Cost Control',
+    icon: null
+  }, {
+    key: 'key-02-03',
+    title: 'Internal',
+    icon: null,
     children: [{
-      key: 'key-02-01',
-      title: '会计核算',
-      icon: null,
-    }, {
-      key: 'key-02-02',
-      title: '成本控制',
-      icon: null,
-    }, {
-      key: 'key-02-03',
-      title: '内部控制',
-      icon: null,
-      children: [{
-        key: 'key-02-03-01',
-        title: '财务制度建设',
-        icon: null,
-      },
+      key: 'key-02-03-01',
+      title: 'Financial policy making',
+      icon: null
+    },
       {
         key: 'key-02-03-02',
-        title: '会计核算',
-        icon: null,
-      },
-      ],
-    }],
-  }])
+        title: 'Account audit',
+        icon: null
+      }
+    ]
+  }]
+}])
 
 const role = () => builder({
-    data: [{
-      id: 'admin',
-      name: '管理员',
-      describe: '拥有所有权限',
-      status: 1,
-      creatorId: 'system',
-      createTime: 1497160610259,
-      deleted: 0,
-      permissions: [{
-        roleId: 'admin',
-        permissionId: 'comment',
-        permissionName: '评论管理',
-        actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
-        actionEntitySet: [{
-          action: 'add',
-          describe: '新增',
-          defaultCheck: false,
-        },
+  data: [{
+    id: 'admin',
+    name: '管理员',
+    describe: '拥有所有权限',
+    status: 1,
+    creatorId: 'system',
+    createTime: 1497160610259,
+    deleted: 0,
+    permissions: [{
+      roleId: 'admin',
+      permissionId: 'comment',
+      permissionName: '评论管理',
+      actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+      actionEntitySet: [{
+        action: 'add',
+        describe: '新增',
+        defaultCheck: false
+      },
         {
           action: 'query',
           describe: '查询',
-          defaultCheck: false,
+          defaultCheck: false
         },
         {
           action: 'get',
           describe: '详情',
-          defaultCheck: false,
+          defaultCheck: false
         },
         {
           action: 'update',
           describe: '修改',
-          defaultCheck: false,
+          defaultCheck: false
         },
         {
           action: 'delete',
           describe: '删除',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
+          defaultCheck: false
+        }
+      ],
+      actionList: null,
+      dataAccess: null
+    },
       {
         roleId: 'admin',
         permissionId: 'member',
@@ -129,31 +129,31 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'add',
           describe: '新增',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'query',
-          describe: '查询',
-          defaultCheck: false,
-        },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        {
-          action: 'delete',
-          describe: '删除',
-          defaultCheck: false,
-        },
+          {
+            action: 'query',
+            describe: '查询',
+            defaultCheck: false
+          },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          },
+          {
+            action: 'delete',
+            describe: '删除',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
       {
         roleId: 'admin',
@@ -163,26 +163,26 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'add',
           describe: '新增',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'import',
-          describe: '导入',
-          defaultCheck: false,
-        },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
+          {
+            action: 'import',
+            describe: '导入',
+            defaultCheck: false
+          },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
       {
         roleId: 'admin',
@@ -192,31 +192,31 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'add',
           describe: '新增',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'query',
-          describe: '查询',
-          defaultCheck: false,
-        },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        {
-          action: 'delete',
-          describe: '删除',
-          defaultCheck: false,
-        },
+          {
+            action: 'query',
+            describe: '查询',
+            defaultCheck: false
+          },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          },
+          {
+            action: 'delete',
+            describe: '删除',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
       {
         roleId: 'admin',
@@ -226,26 +226,26 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'add',
           describe: '新增',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        {
-          action: 'delete',
-          describe: '删除',
-          defaultCheck: false,
-        },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          },
+          {
+            action: 'delete',
+            describe: '删除',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
       {
         roleId: 'admin',
@@ -255,26 +255,26 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'add',
           describe: '新增',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        {
-          action: 'delete',
-          describe: '删除',
-          defaultCheck: false,
-        },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          },
+          {
+            action: 'delete',
+            describe: '删除',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
       {
         roleId: 'admin',
@@ -283,7 +283,7 @@ const role = () => builder({
         actions: '[]',
         actionEntitySet: [],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
       {
         roleId: 'admin',
@@ -293,39 +293,39 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'add',
           describe: '新增',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'import',
-          describe: '导入',
-          defaultCheck: false,
-        },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        {
-          action: 'delete',
-          describe: '删除',
-          defaultCheck: false,
-        },
-        {
-          action: 'export',
-          describe: '导出',
-          defaultCheck: false,
-        },
+          {
+            action: 'import',
+            describe: '导入',
+            defaultCheck: false
+          },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          },
+          {
+            action: 'delete',
+            describe: '删除',
+            defaultCheck: false
+          },
+          {
+            action: 'export',
+            describe: '导出',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
-      },
-      ],
-    },
+        dataAccess: null
+      }
+    ]
+  },
     {
       id: 'svip',
       name: 'SVIP',
@@ -342,196 +342,196 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'add',
           describe: '新增',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'query',
-          describe: '查询',
-          defaultCheck: false,
-        },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        {
-          action: 'delete',
-          describe: '删除',
-          defaultCheck: false,
-        },
+          {
+            action: 'query',
+            describe: '查询',
+            defaultCheck: false
+          },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          },
+          {
+            action: 'delete',
+            describe: '删除',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
-      {
-        roleId: 'admin',
-        permissionId: 'member',
-        permissionName: '会员管理',
-        actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
-        actionEntitySet: [{
-          action: 'add',
-          describe: '新增',
-          defaultCheck: false,
+        {
+          roleId: 'admin',
+          permissionId: 'member',
+          permissionName: '会员管理',
+          actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+          actionEntitySet: [{
+            action: 'add',
+            describe: '新增',
+            defaultCheck: false
+          },
+            {
+              action: 'query',
+              describe: '查询',
+              defaultCheck: false
+            },
+            {
+              action: 'get',
+              describe: '详情',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'query',
-          describe: '查询',
-          defaultCheck: false,
+          roleId: 'admin',
+          permissionId: 'menu',
+          permissionName: '菜单管理',
+          actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"import","defaultCheck":false,"describe":"导入"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"}]',
+          actionEntitySet: [{
+            action: 'add',
+            describe: '新增',
+            defaultCheck: false
+          },
+            {
+              action: 'import',
+              describe: '导入',
+              defaultCheck: false
+            },
+            {
+              action: 'get',
+              describe: '详情',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'admin',
-        permissionId: 'menu',
-        permissionName: '菜单管理',
-        actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"import","defaultCheck":false,"describe":"导入"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"}]',
-        actionEntitySet: [{
-          action: 'add',
-          describe: '新增',
-          defaultCheck: false,
-        },
-        {
-          action: 'import',
-          describe: '导入',
-          defaultCheck: false,
-        },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'admin',
-        permissionId: 'order',
-        permissionName: '订单管理',
-        actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
-        actionEntitySet: [{
-          action: 'add',
-          describe: '新增',
-          defaultCheck: false,
+          roleId: 'admin',
+          permissionId: 'order',
+          permissionName: '订单管理',
+          actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+          actionEntitySet: [{
+            action: 'add',
+            describe: '新增',
+            defaultCheck: false
+          },
+            {
+              action: 'query',
+              describe: '查询',
+              defaultCheck: false
+            },
+            {
+              action: 'get',
+              describe: '详情',
+              defaultCheck: false
+            },
+            {
+              action: 'update',
+              describe: '修改',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'query',
-          describe: '查询',
-          defaultCheck: false,
+          roleId: 'admin',
+          permissionId: 'permission',
+          permissionName: '权限管理',
+          actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+          actionEntitySet: [{
+            action: 'add',
+            describe: '新增',
+            defaultCheck: false
+          },
+            {
+              action: 'get',
+              describe: '详情',
+              defaultCheck: false
+            },
+            {
+              action: 'update',
+              describe: '修改',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
+          roleId: 'admin',
+          permissionId: 'role',
+          permissionName: '角色管理',
+          actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+          actionEntitySet: [{
+            action: 'add',
+            describe: '新增',
+            defaultCheck: false
+          },
+            {
+              action: 'update',
+              describe: '修改',
+              defaultCheck: false
+            },
+            {
+              action: 'delete',
+              describe: '删除',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'admin',
-        permissionId: 'permission',
-        permissionName: '权限管理',
-        actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
-        actionEntitySet: [{
-          action: 'add',
-          describe: '新增',
-          defaultCheck: false,
+          roleId: 'admin',
+          permissionId: 'test',
+          permissionName: '测试权限',
+          actions: '[]',
+          actionEntitySet: [],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'admin',
-        permissionId: 'role',
-        permissionName: '角色管理',
-        actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
-        actionEntitySet: [{
-          action: 'add',
-          describe: '新增',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        {
-          action: 'delete',
-          describe: '删除',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'admin',
-        permissionId: 'test',
-        permissionName: '测试权限',
-        actions: '[]',
-        actionEntitySet: [],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'admin',
-        permissionId: 'user',
-        permissionName: '用户管理',
-        actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"import","defaultCheck":false,"describe":"导入"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"},{"action":"export","defaultCheck":false,"describe":"导出"}]',
-        actionEntitySet: [{
-          action: 'add',
-          describe: '新增',
-          defaultCheck: false,
-        },
-        {
-          action: 'import',
-          describe: '导入',
-          defaultCheck: false,
-        },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        {
-          action: 'update',
-          describe: '修改',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      ],
+          roleId: 'admin',
+          permissionId: 'user',
+          permissionName: '用户管理',
+          actions: '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"import","defaultCheck":false,"describe":"导入"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"},{"action":"export","defaultCheck":false,"describe":"导出"}]',
+          actionEntitySet: [{
+            action: 'add',
+            describe: '新增',
+            defaultCheck: false
+          },
+            {
+              action: 'import',
+              describe: '导入',
+              defaultCheck: false
+            },
+            {
+              action: 'get',
+              describe: '详情',
+              defaultCheck: false
+            },
+            {
+              action: 'update',
+              describe: '修改',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
+        }
+      ]
     },
     {
       id: 'user',
@@ -549,140 +549,140 @@ const role = () => builder({
         actionEntitySet: [{
           action: 'query',
           describe: '查询',
-          defaultCheck: false,
+          defaultCheck: false
         },
-        {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          }
         ],
         actionList: null,
-        dataAccess: null,
+        dataAccess: null
       },
 
-      {
-        roleId: 'user',
-        permissionId: 'marketing',
-        permissionName: '营销管理',
-        actions: '[]',
-        actionEntitySet: [],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'user',
-        permissionId: 'member',
-        permissionName: '会员管理',
-        actions: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"}]',
-        actionEntitySet: [{
-          action: 'query',
-          describe: '查询',
-          defaultCheck: false,
+        {
+          roleId: 'user',
+          permissionId: 'marketing',
+          permissionName: '营销管理',
+          actions: '[]',
+          actionEntitySet: [],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
-        },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'user',
-        permissionId: 'menu',
-        permissionName: '菜单管理',
-        actions: '[]',
-        actionEntitySet: [],
-        actionList: null,
-        dataAccess: null,
-      },
-
-      {
-        roleId: 'user',
-        permissionId: 'order',
-        permissionName: '订单管理',
-        actions: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"}]',
-        actionEntitySet: [{
-          action: 'query',
-          describe: '查询',
-          defaultCheck: false,
+          roleId: 'user',
+          permissionId: 'member',
+          permissionName: '会员管理',
+          actions: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"}]',
+          actionEntitySet: [{
+            action: 'query',
+            describe: '查询',
+            defaultCheck: false
+          },
+            {
+              action: 'get',
+              describe: '详情',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
         },
         {
-          action: 'get',
-          describe: '详情',
-          defaultCheck: false,
+          roleId: 'user',
+          permissionId: 'menu',
+          permissionName: '菜单管理',
+          actions: '[]',
+          actionEntitySet: [],
+          actionList: null,
+          dataAccess: null
         },
-        ],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'user',
-        permissionId: 'permission',
-        permissionName: '权限管理',
-        actions: '[]',
-        actionEntitySet: [],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'user',
-        permissionId: 'role',
-        permissionName: '角色管理',
-        actions: '[]',
-        actionEntitySet: [],
-        actionList: null,
-        dataAccess: null,
-      },
 
-      {
-        roleId: 'user',
-        permissionId: 'test',
-        permissionName: '测试权限',
-        actions: '[]',
-        actionEntitySet: [],
-        actionList: null,
-        dataAccess: null,
-      },
-      {
-        roleId: 'user',
-        permissionId: 'user',
-        permissionName: '用户管理',
-        actions: '[]',
-        actionEntitySet: [],
-        actionList: null,
-        dataAccess: null,
-      },
-      ],
-    },
-    ],
-    pageSize: 10,
-    pageNo: 0,
-    totalPage: 1,
-    totalCount: 5,
-  })
+        {
+          roleId: 'user',
+          permissionId: 'order',
+          permissionName: '订单管理',
+          actions: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"}]',
+          actionEntitySet: [{
+            action: 'query',
+            describe: '查询',
+            defaultCheck: false
+          },
+            {
+              action: 'get',
+              describe: '详情',
+              defaultCheck: false
+            }
+          ],
+          actionList: null,
+          dataAccess: null
+        },
+        {
+          roleId: 'user',
+          permissionId: 'permission',
+          permissionName: '权限管理',
+          actions: '[]',
+          actionEntitySet: [],
+          actionList: null,
+          dataAccess: null
+        },
+        {
+          roleId: 'user',
+          permissionId: 'role',
+          permissionName: '角色管理',
+          actions: '[]',
+          actionEntitySet: [],
+          actionList: null,
+          dataAccess: null
+        },
+
+        {
+          roleId: 'user',
+          permissionId: 'test',
+          permissionName: '测试权限',
+          actions: '[]',
+          actionEntitySet: [],
+          actionList: null,
+          dataAccess: null
+        },
+        {
+          roleId: 'user',
+          permissionId: 'user',
+          permissionName: '用户管理',
+          actions: '[]',
+          actionEntitySet: [],
+          actionList: null,
+          dataAccess: null
+        }
+      ]
+    }
+  ],
+  pageSize: 10,
+  pageNo: 0,
+  totalPage: 1,
+  totalCount: 5
+})
 
 const permissionNoPager = () => builder([{
-    id: 'marketing',
-    name: '营销管理',
-    describe: null,
-    status: 1,
-    actionData: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
-    sptDaTypes: null,
-    optionalFields: null,
-    parents: null,
-    type: null,
-    deleted: 0,
-    actions: [
-      'add',
-      'query',
-      'get',
-      'update',
-      'delete',
-    ],
-  },
+  id: 'marketing',
+  name: '营销管理',
+  describe: null,
+  status: 1,
+  actionData: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+  sptDaTypes: null,
+  optionalFields: null,
+  parents: null,
+  type: null,
+  deleted: 0,
+  actions: [
+    'add',
+    'query',
+    'get',
+    'update',
+    'delete'
+  ]
+},
   {
     id: 'member',
     name: '会员管理',
@@ -699,8 +699,8 @@ const permissionNoPager = () => builder([{
       'query',
       'get',
       'update',
-      'delete',
-    ],
+      'delete'
+    ]
   },
   {
     id: 'menu',
@@ -717,8 +717,8 @@ const permissionNoPager = () => builder([{
       'add',
       'import',
       'get',
-      'update',
-    ],
+      'update'
+    ]
   },
   {
     id: 'order',
@@ -736,8 +736,8 @@ const permissionNoPager = () => builder([{
       'query',
       'get',
       'update',
-      'delete',
-    ],
+      'delete'
+    ]
   },
   {
     id: 'permission',
@@ -754,8 +754,8 @@ const permissionNoPager = () => builder([{
       'add',
       'get',
       'update',
-      'delete',
-    ],
+      'delete'
+    ]
   },
   {
     id: 'role',
@@ -772,8 +772,8 @@ const permissionNoPager = () => builder([{
       'add',
       'get',
       'update',
-      'delete',
-    ],
+      'delete'
+    ]
   },
   {
     id: 'test',
@@ -788,8 +788,8 @@ const permissionNoPager = () => builder([{
     deleted: 0,
     actions: [
       'add',
-      'get',
-    ],
+      'get'
+    ]
   },
   {
     id: 'user',
@@ -804,31 +804,31 @@ const permissionNoPager = () => builder([{
     deleted: 0,
     actions: [
       'add',
-      'get',
-    ],
-  },
-  ])
+      'get'
+    ]
+  }
+])
 
 const permissions = () => builder({
-    data: [{
-      id: 'marketing',
-      name: '营销管理',
-      describe: null,
-      status: 1,
-      actionData: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
-      sptDaTypes: null,
-      optionalFields: null,
-      parents: null,
-      type: null,
-      deleted: 0,
-      actions: [
-        'add',
-        'query',
-        'get',
-        'update',
-        'delete',
-      ],
-    },
+  data: [{
+    id: 'marketing',
+    name: '营销管理',
+    describe: null,
+    status: 1,
+    actionData: '[{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+    sptDaTypes: null,
+    optionalFields: null,
+    parents: null,
+    type: null,
+    deleted: 0,
+    actions: [
+      'add',
+      'query',
+      'get',
+      'update',
+      'delete'
+    ]
+  },
     {
       id: 'member',
       name: '会员管理',
@@ -845,8 +845,8 @@ const permissions = () => builder({
         'query',
         'get',
         'update',
-        'delete',
-      ],
+        'delete'
+      ]
     },
     {
       id: 'menu',
@@ -863,8 +863,8 @@ const permissions = () => builder({
         'add',
         'import',
         'get',
-        'update',
-      ],
+        'update'
+      ]
     },
     {
       id: 'order',
@@ -882,8 +882,8 @@ const permissions = () => builder({
         'query',
         'get',
         'update',
-        'delete',
-      ],
+        'delete'
+      ]
     },
     {
       id: 'permission',
@@ -900,8 +900,8 @@ const permissions = () => builder({
         'add',
         'get',
         'update',
-        'delete',
-      ],
+        'delete'
+      ]
     },
     {
       id: 'role',
@@ -918,8 +918,8 @@ const permissions = () => builder({
         'add',
         'get',
         'update',
-        'delete',
-      ],
+        'delete'
+      ]
     },
     {
       id: 'test',
@@ -934,8 +934,8 @@ const permissions = () => builder({
       deleted: 0,
       actions: [
         'add',
-        'get',
-      ],
+        'get'
+      ]
     },
     {
       id: 'user',
@@ -950,15 +950,15 @@ const permissions = () => builder({
       deleted: 0,
       actions: [
         'add',
-        'get',
-      ],
-    },
-    ],
-    pageSize: 10,
-    pageNo: 0,
-    totalPage: 1,
-    totalCount: 5,
-  })
+        'get'
+      ]
+    }
+  ],
+  pageSize: 10,
+  pageNo: 0,
+  totalPage: 1,
+  totalCount: 5
+})
 
 Mock.mock(/\/org\/tree/, 'get', orgTree)
 Mock.mock(/\/role/, 'get', role)

@@ -2,10 +2,10 @@
   <a-card v-model="project" :bordered="false">
     <detail-list title="Info">
       <detail-list-item term="id">{{ project.id }}</detail-list-item>
-      <detail-list-item term="serial no">{{ project.serial_no }}</detail-list-item>
+      <detail-list-item term="project number">{{ project.serial_no }}</detail-list-item>
       <detail-list-item term="name">{{ project.name }}</detail-list-item>
       <detail-list-item term="address">{{ project.address }}</detail-list-item>
-      <detail-list-item term="total_contract_value">
+      <detail-list-item term="total contract value">
         {{ project.total_contract_value }}
       </detail-list-item>
       <detail-list-item term="notes">{{ project.notes }}</detail-list-item>
