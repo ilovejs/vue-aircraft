@@ -18,13 +18,14 @@
               </a-select>
             </a-form-item>
           </a-col>
+
           <!--todo: should use type: 'number'-->
-          <a-col :md="8" :sm="24">
-            <a-form-item label="CreatorID">
-              <a-input-number placeholder="Qs" :min="0"
-                       v-decorator="['creator_id', { rules: [{ required: true, message: 'Please type creatorId as integer'}] }]"/>
-            </a-form-item>
-          </a-col>
+<!--          <a-col :md="8" :sm="24">-->
+<!--            <a-form-item label="CreatorID" class="ant-select">-->
+<!--              <a-input-number placeholder="Qs" :min="0" style="width: 100%"-->
+<!--                       v-decorator="['creator_id', { rules: [{ required: true, message: 'Please type creatorId as integer'}] }]"/>-->
+<!--            </a-form-item>-->
+<!--          </a-col>-->
 
           <a-col :md="8" :sm="24">
             <a-form-item label="Category">
@@ -54,7 +55,7 @@
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item label="Value">
-              <a-input-number placeholder="Breakdown item value" :min="0"
+              <a-input-number placeholder="Breakdown item value" :min="0" style="width: 100%"
                        v-decorator="['value', { rules: [{ required: false, message: 'Please type value'}] }]"/>
             </a-form-item>
           </a-col>
@@ -210,13 +211,13 @@ export default {
           sorter: true,
           scopedSlots: { customRender: 'pid' }
         },
-        {
-          title: 'CreatorId',
-          dataIndex: 'cid',
-          width: 100,
-          sorter: true,
-          scopedSlots: { customRender: 'cid' }
-        },
+        // {
+        //   title: 'CreatorId',
+        //   dataIndex: 'cid',
+        //   width: 100,
+        //   sorter: true,
+        //   scopedSlots: { customRender: 'cid' }
+        // },
         {
           title: 'Category',
           dataIndex: 'cat',
@@ -237,6 +238,13 @@ export default {
           width: 100,
           sorter: true,
           scopedSlots: { customRender: 'subtitle' }
+        },
+        {
+          title: 'Contract Value',
+          dataIndex: 'contract_value',
+          width: 100,
+          sorter: true,
+          scopedSlots: { customRender: 'contractValue' }
         },
         {
           title: 'Action',
@@ -288,6 +296,7 @@ export default {
         // casting
         values.project_id = parseInt(values.project_id) || 0
         values.category_id = parseInt(values.category_id) || 0
+        values.creator_id= parseInt(Vue.ls.get(USER_ID)) || 0
         console.log('err and values after cast', err, values)
 
         const token = Vue.ls.get(ACCESS_TOKEN)
