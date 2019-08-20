@@ -23,7 +23,9 @@ function plugin(Vue) {
         // take permissions as input
         return (permissions) => {
           const [permission, action] = permissions.split('.')
-          console.log('helper/permission.js plugin, permissionList copied')
+          // TODO: debug get $auth
+          //console.log('helper/permission.js plugin, permissionList copied')
+
           const permissionList = _this.$store.getters.roles.permissions
           // check permission and action
           // return boolean

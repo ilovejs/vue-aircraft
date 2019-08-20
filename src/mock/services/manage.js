@@ -61,7 +61,7 @@ const projects = () => builder({
       id: 1,
       cover: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
       title: 'Alipay',
-      description: '那是一种内在的东西， 他们到达不了，也无法触及的',
+      description: 'xxxxxxxxxxxxxxxxxxxxxxx',
       status: 1,
       updatedAt: '2018-07-26 00:00:00',
     },
@@ -69,7 +69,7 @@ const projects = () => builder({
       id: 2,
       cover: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
       title: 'Angular',
-      description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
+      description: 'yyyyyyyyyyyyyyyyyyyyyyyy',
       status: 1,
       updatedAt: '2018-07-26 00:00:00',
     },
@@ -77,7 +77,7 @@ const projects = () => builder({
       id: 3,
       cover: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
       title: 'Ant Design',
-      description: '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
+      description: 'xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
       status: 1,
       updatedAt: '2018-07-26 00:00:00',
     },
@@ -85,7 +85,7 @@ const projects = () => builder({
       id: 4,
       cover: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
       title: 'Ant Design Pro',
-      description: '那时候我只会想自己想要什么，从不想自己拥有什么',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkk',
       status: 1,
       updatedAt: '2018-07-26 00:00:00',
     },
@@ -93,7 +93,7 @@ const projects = () => builder({
       id: 5,
       cover: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
       title: 'Bootstrap',
-      description: '凛冬将至',
+      description: 'Winter is coming',
       status: 1,
       updatedAt: '2018-07-26 00:00:00',
     },
@@ -101,7 +101,7 @@ const projects = () => builder({
       id: 6,
       cover: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
       title: 'Vue',
-      description: '生命就像一盒巧克力，结果往往出人意料',
+      description: 'Life is a box of choc, result is always unexpected',
       status: 1,
       updatedAt: '2018-07-26 00:00:00',
     },
@@ -306,6 +306,7 @@ const oldServerList = (options) => {
   })
 }
 
+// Used by TreeList.vue
 Mock.mock(/\/service/, 'get', oldServerList)
 Mock.mock(/\/newservice/, 'get', newServerList)
 

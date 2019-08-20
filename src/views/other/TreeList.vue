@@ -1,15 +1,19 @@
 <template>
   <a-card :bordered="false">
     <a-row :gutter="8">
+      <!--left tree-->
       <a-col :span="5">
+        <!--event method is important-->
         <s-tree
           :dataSource="orgTree"
           :openKeys.sync="openKeys"
           :search="true"
           @click="handleClick"
           @add="handleAdd"
-          @titleClick="handleTitleClick"></s-tree>
+          @titleClick="handleTitleClick">
+        </s-tree>
       </a-col>
+      <!--right table-->
       <a-col :span="19">
         <s-table
           ref="table"
@@ -17,13 +21,15 @@
           :columns="columns"
           :data="loadData"
           :alert="false"
-          :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-        >
+          :rowSelection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }">
+
           <span slot="action" slot-scope="text, record">
+
             <template v-if="$auth('table.update')">
               <a @click="handleEdit(record)">Edit</a>
               <a-divider type="vertical" />
             </template>
+
             <a-dropdown>
               <a class="ant-dropdown-link">
                 More <a-icon type="down"/>
@@ -40,11 +46,12 @@
                 </a-menu-item>
               </a-menu>
             </a-dropdown>
+
           </span>
         </s-table>
       </a-col>
     </a-row>
-
+    <!--org modal-->
     <org-modal ref="modal" @ok="handleSaveOk" @close="handleSaveClose" />
   </a-card>
 </template>
@@ -99,8 +106,10 @@
             scopedSlots: { customRender: 'action' },
           },
         ],
-        loadData: (parameter) => getServiceList(Object.assign(parameter, this.queryParam))
-          .then((res) => res.result),
+        loadData: (parameter) =>
+          getServiceList(Object.assign(parameter, this.queryParam))
+            .then((res) => res.result),
+
         orgTree: [],
         selectedRowKeys: [],
         selectedRows: [],
@@ -113,10 +122,13 @@
     },
     methods: {
       handleClick(e) {
-        console.log('handleClick', e)
+        // click tree title
+        console.log('handleClick on Tree Title', e)
+        // load data with different query
         this.queryParam = {
           key: e.key,
         }
+        // reload all
         this.$refs.table.refresh(true)
       },
       handleAdd(item) {
