@@ -3,7 +3,7 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
-          <!--Serial Number-->
+          <!--serial number-->
           <a-col :md="6" :sm="24">
             <a-form-item label="Serial">
               <a-input v-model="queryParam.id" placeholder="Serial Number"></a-input>

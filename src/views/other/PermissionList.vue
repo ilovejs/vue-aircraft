@@ -101,7 +101,8 @@
           :wrapperCol="wrapperCol"
           label="Description"
           hasFeedback>
-          <a-textarea id="describe" v-model="mdl.describe" :rows="5" placeholder="..."></a-textarea>
+          <a-textarea id="describe" v-model="mdl.describe"
+                      :rows="5" placeholder="..."></a-textarea>
         </a-form-item>
 
         <a-divider />
@@ -116,7 +117,9 @@
             style="width: 100%"
             mode="multiple"
             :allowClear="true">
-            <a-select-option v-for="(action, index) in permissionList" :key="index" :value="action.value">{{ action.label }}</a-select-option>
+            <a-select-option v-for="(action, index) in permissionList"
+                             :key="index"
+                             :value="action.value">{{ action.label }}</a-select-option>
           </a-select>
         </a-form-item>
 

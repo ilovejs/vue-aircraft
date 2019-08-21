@@ -45,9 +45,9 @@
 
 <script>
 
+import Vue from 'vue'
 import { mapActions } from 'vuex'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
-import Vue from 'vue'
 import store from '../../store'
 import TaskForm from './modules/TaskForm'
 

@@ -168,7 +168,8 @@ export default {
           console.debug(JSON.stringify(this.localPagination))
 
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
-          // TODO: 30 items, click page 3, redirect to page 2. It's not a bug
+          // TODO: test: 30 items, click page 3, redirect to page 2. It's not a bug
+          // FORMAT: data need to be part of backend
           if (resp.data.length === 0 && this.showPagination && this.localPagination.current > 1) {
             console.warn('r.data.length==0')
             this.localPagination.current -= 1

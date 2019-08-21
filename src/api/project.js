@@ -28,7 +28,7 @@ export function loadProjects(token) {
 export function loadSingleProject(token, pid) {
   console.log('api: load a project: ', pid)
   return axios({
-    url: `/projects/${pid}`,
+    url: '/projects/' + pid,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       Authorization: `Token ${token}`

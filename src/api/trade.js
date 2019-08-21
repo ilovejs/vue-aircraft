@@ -27,7 +27,7 @@ export function apiUpdateTrade (token, tid, param) {
 }
 
 export function apiLoadTrades(token, param) {
-  console.log('api: load trades', param)
+  console.warn('api: load trades', param)
   return axios({
     url: '/trades',
     headers: {
@@ -39,10 +39,10 @@ export function apiLoadTrades(token, param) {
   })
 }
 
-export function apiProjectTrades(token, param) {
-  console.log('api: load a trade for p: ', param)
+export function apiProjectTrades(token, pid, param) {
+  console.warn('api: load a trade for p: ', pid)
   return axios({
-    url: '/trades/?pid=' + param ,
+    url: '/trades/?pid=' + pid,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
       'Authorization': 'Token ' + token

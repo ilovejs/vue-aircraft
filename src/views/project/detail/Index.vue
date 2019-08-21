@@ -1,7 +1,24 @@
 <template>
   <a-card v-model="project" :bordered="false">
+    <!--select project-->
+    <detail-list title="" v-model="projects">
+      <detail-list-item term="Project">
+        <a-select placeholder="Pick a Project" style="width: 100%;"
+          @focus="fetchProject"
+          @change="handleProjectChange"
+          :loading="fetching"
+          :notFoundContent="fetching ? undefined : null"
+          v-decorator="['project_id', { rules: [{ required: true, message: 'Please pick project'}] }]"
+          name="project">
+          <a-spin v-if="fetching" slot="notFoundContent" size="small"/>
+          <a-select-option v-for="p in projectList" :key="p.value">
+            {{p.text}}
+          </a-select-option>
+        </a-select>
+      </detail-list-item>
+    </detail-list>
     <!--detail page-->
-    <detail-list title="Info">
+    <detail-list title="">
       <detail-list-item term="Id">{{ project.id }}</detail-list-item>
       <detail-list-item term="Project Number">{{ project.serial_no }}</detail-list-item>
       <detail-list-item term="Name">{{ project.name }}</detail-list-item>
@@ -11,18 +28,16 @@
       </detail-list-item>
       <detail-list-item term="Notes">{{ project.notes }}</detail-list-item>
     </detail-list>
-    <a-divider style="margin-bottom: 32px"/>
+<!--    <a-divider style="margin-bottom: 32px"/>-->
 
-    <detail-list title="Related Person">
+    <detail-list title="">
       <detail-list-item term="Manager">{{ project.manager_id }}</detail-list-item>
       <detail-list-item term="Creator">{{ project.creator_id }}</detail-list-item>
       <detail-list-item term="Qs">{{ project.quantity_surveyor }}</detail-list-item>
     </detail-list>
-    <a-divider style="margin-bottom: 32px"/>
+<!--    <a-divider style="margin-bottom: 32px"/>-->
 
-    <!--table,
-    pagination https://blog.csdn.net/romeo12334/article/details/88710802
-    -->
+    <!--table pagination https://blog.csdn.net/romeo12334/article/details/88710802-->
     <a-alert type="success" showIcon style="margin-bottom: 5px">
       <template slot="message">
         <span>Subtotal Contract Value:
@@ -32,7 +47,8 @@
         </span>
       </template>
     </a-alert>
-      <!--check table/index.js-->
+
+    <!--check table/index.js-->
 <!--      <template v-for="item in this.selectedRowKeys">-->
 <!--        <span>-->
 <!--          {{ item }}-->
@@ -42,7 +58,7 @@
     <s-table ref="table" size="default"
              :pageSize.sync="pageSize"
              :columns="columns"
-             :data="loadTrades"
+             :data="loadData"
              :alert="{ show: true, clear: true }"
              :loading="memberLoading"
              :rowSelection="{ selectedRowKeys: this.selectedRowKeys,
@@ -61,10 +77,12 @@
 
 <script>
   import Vue from 'vue'
+  import { mapActions } from 'vuex'
   import { ACCESS_TOKEN } from '@/store/mutation-types'
+  import store from '../../../store'
   import { STable } from '@/components'
   import DetailList from '@/components/tools/DetailList'
-  import { loadSingleProject } from '@/api/project'
+  import { loadProjects, loadSingleProject } from '@/api/project'
   import { apiProjectTrades } from '@/api/trade'
   const DetailListItem = DetailList.Item
 
@@ -78,6 +96,11 @@
     data() {
       return {
         token: Vue.ls.get(ACCESS_TOKEN),
+        // select component
+        fetching: false,
+        projectList: [],
+        projects: [],
+        // table component
         subtotal: 0,
         needTotalList: [],
         memberLoading: false,
@@ -122,33 +145,55 @@
         },
         selectedRowKeys: [],
         selectedRows: [],
-        loadTrades: (parameter) => {
-          const param = Object.assign(parameter, this.queryParam)
-          param.pageSize = 20
-          console.log('loadData: ', param)
-          return apiProjectTrades(this.token, param).then(r => {
+        queryParam: {},
+        loadData: query_params => {
+          console.warn('query_params', query_params)
+          let pid = this.$route.params.projectId
+          // for table pagination params
+          return apiProjectTrades(this.token, pid,
+            Object.assign(query_params, this.queryParam)
+          ).then(r => {
             // this.trades = r['data']
-            // console.log('api projectTrades:', r['data'])
+            console.log('api projectTrades:', r.data)
             // NOTE: purely return r yield Promise type, access data to
             // convert as a function for loadData ?
             return r
           }).catch(e => {
             console.warn(e)
+            return e
           })
         },
       }
     },
     created () {
+      // Load project detail page
       this.loadProject(this.$route.params.projectId)
       // this.loadTrade(this.$route.params.projectId)
     },
+    beforeMount() {
+      // List projects for select dropdown
+      const that = this
+      store.dispatch('ListProjects', { token: Vue.ls.get(ACCESS_TOKEN) }).then(res => {
+        const result = res.projects
+        let projects = result.map((p) => {
+          return {
+            text: p.project.name,
+            value: p.project.id
+          }
+        })
+        console.debug('DISPATCH list project:', projects)
+        that.projectList = projects
+      })
+    },
     methods: {
+      ...mapActions(['ListProjects']),
       loadProject(pid) {
+        console.log('pid: ', pid)
         loadSingleProject(this.token, pid).then((res) => {
-          console.log('loadSingleProject !', res.project)
+          console.log('loadSingleProject !', res['project'])
           // load into v-model immediately, rather than
           // either warp in Promise again OR resolve
-          this.project = res.project
+          this.project = res['project']
         }).catch((e) => {
           console.log(e)
         })
@@ -163,7 +208,31 @@
       },
       toggleAdvanced() {
         this.advanced = !this.advanced
-      }
+      },
+      handleProjectChange(v) {
+        console.log('handleProjectChange by: ', v)
+        Object.assign(this, {
+          projectList: v,
+          projects: [],
+          fetching: false
+        })
+        // this.loadProject(this.$route.params.projectId)
+      },
+      fetchProject(){
+        this.fetching = true
+        console.log('fetchProject')
+        loadProjects(this.token).then((res) => {
+          this.projectList = res['projects'].map((item) => ({
+            text: item.project.name,
+            value: `${item.project.id}`
+          }))
+          console.debug('load project ASSIGN this.data:', this.data)
+        }).catch(e => {
+          console.warn(e)
+        }).finally(() => {
+          this.fetching = false
+        })
+      },
     },
     // watch: {
     //   'selectedRows': function (selectedRows) {
