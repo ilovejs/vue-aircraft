@@ -439,14 +439,14 @@ export default {
         okType: 'danger',
         cancelText: 'Cancel',
         onOk() {
-          return removeTrade(this.token, row.id).then(res => {
+          return removeTrade(that.token, row.id).then(res => {
             console.debug('remove trades resp:', res)
             // refresh on success
             that.$refs.table.refresh()
             return res.data
           }).catch(e => {
             console.warn(e)
-            this.$notification['error']({
+            that.$notification['error']({
               message: 'Server Error: ',
               description: JSON.stringify(e)
             })

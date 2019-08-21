@@ -28,11 +28,11 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
-      console.log('SET ROLES: ', roles)
+      // console.log('SET ROLES: ', roles)
     },
     SET_INFO: (state, info) => {
       state.info = info
-      console.log('SET INFO: ', info)
+      // console.log('SET INFO: ', info)
     },
   },
   actions: {
@@ -46,7 +46,7 @@ const user = {
           Vue.ls.set(USER_ID, response.result.id)
 
           commit('SET_TOKEN', token)
-          console.log('SET_TOKEN: ', token)
+          // console.log('SET_TOKEN: ', token)
           resolve()
         }).catch((error) => {
           reject(error)

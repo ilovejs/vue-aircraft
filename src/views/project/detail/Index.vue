@@ -1,15 +1,17 @@
 <template>
   <a-card v-model="project" :bordered="false">
-    <!--select project todo: review projects, unused ?-->
-    <detail-list title="" v-model="projects">
+    <!--select project todo: review projects, unused ?
+    -->
+    <detail-list title="" >
       <detail-list-item term="Project">
-        <a-select placeholder="Pick a Project" style="width: 100%;"
-          @focus="fetchProject"
-          @change="handleProjectChange"
+        <a-select placeholder="Pick a Project" style="width: 100%;" name="project"
+          :value="chosenProject"
+          v-decorator="['project_id', { rules: [{ required: true, message: 'Please pick project'}] }]"
           :loading="fetching"
           :notFoundContent="fetching ? undefined : null"
-          v-decorator="['project_id', { rules: [{ required: true, message: 'Please pick project'}] }]"
-          name="project">
+          @focus="fetchProject"
+          @change="handleProjectChange"
+        >
           <a-spin v-if="fetching" slot="notFoundContent" size="small"/>
           <a-select-option v-for="p in projectList" :key="p.value">
             {{p.text}}
@@ -78,7 +80,6 @@
 <script>
   import Vue from 'vue'
   import { mapActions } from 'vuex'
-  import store from '../../../store'
   import { ACCESS_TOKEN } from '@/store/mutation-types'
   import { STable } from '@/components'
   import DetailList from '@/components/tools/DetailList'
@@ -99,7 +100,7 @@
         // select component
         fetching: false,
         projectList: [],
-        projects: [],
+        chosenProject: [],
         // table component
         subtotal: 0,
         needTotalList: [],
@@ -136,13 +137,7 @@
           },
         ],
         trades: [],
-        project: {
-        // id: 0,
-        // name: '',
-        // manager_id: 0,
-        // creator_id: 0,
-        // serial_no: ''
-        },
+        project: {},
         selectedRowKeys: [],
         selectedRows: [],
         queryParam: {},
@@ -168,39 +163,24 @@
         },
       }
     },
-    created () {
+    beforeMount () {
       // Load project detail page
       let pid = this.$route.params.projectId
       if (pid) {
-        this.loadProject(pid)
+        this.initProjectDetail(pid)
       }
-    },
-    beforeMount() {
-      // List projects for select dropdown
-      const that = this
-      store.dispatch('ListProjects', {
-        token: Vue.ls.get(ACCESS_TOKEN)
-      }).then(res => {
-        const result = res.projects
-        let projects = result.map((p) => {
-          return {
-            text: p.project.name,
-            value: p.project.id
-          }
-        })
-        console.debug('DISPATCH list project:', projects)
-        that.projectList = projects
-      })
     },
     methods: {
       ...mapActions(['ListProjects']),
-      loadProject(pid) {
+      initProjectDetail(pid) {
         console.warn('pid: ', pid)
         loadSingleProject(this.token, pid).then((res) => {
           console.log('loadSingleProject !', res['project'])
           // load into v-model immediately, rather than
           // either warp in Promise again OR resolve
           this.project = res['project']
+          // Load the dropdown bar
+          this.chosenProject = res['project'].name
         }).catch((e) => {
           console.log(e)
         })
@@ -217,31 +197,41 @@
         this.advanced = !this.advanced
       },
       fetchProject(){
-        this.fetching = true
+        // Lazy
         console.log('fetchProject')
+        this.fetching = true
         loadProjects(this.token).then((res) => {
+          // Fill dropdown options
           this.projectList = res['projects'].map((item) => ({
             text: item.project.name,
             value: `${item.project.id}`
           }))
-          console.debug('load project ASSIGN this.data:', this.data)
+          console.debug('fetched projectList:', this.projectList)
         }).catch(e => {
-          console.warn(e)
+          console.debug(e)
         }).finally(() => {
           this.fetching = false
         })
       },
       handleProjectChange(v) {
-        console.warn('handleProjectChange by pid ', v)
+        let projectName = this.projectList.filter(p => p.value === v)[0].text
+        console.warn(
+          'handleProjectChange by pid ', v
+          ,'projectName', projectName
+        )
 
         Object.assign(this, {
-          projectList: v,
-          projects: [],
+          chosenProject: projectName,
           fetching: false
         })
 
         // new tab for chosen project
-        this.$router.push('/project/detail/' + v)
+        this.$router.push({
+          path: '/project/detail/' + v,
+          query: {
+            projectName: projectName
+          }
+        })
       },
     },
     // watch: {

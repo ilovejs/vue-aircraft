@@ -100,7 +100,7 @@ export const ASYNC_ROUTERS = [
             path: '/project/detail/:projectId([1-9]\\d*)?',
             name: 'ProjectDetail',
             component: () => import('@/views/project/detail/Index'),
-            meta: { title: 'Detail', permission: [ 'table' ] } //todo: change permission
+            meta: { title: 'Detail', permission: [ 'table' ] }, //todo: change permission
           },
           {
             path: '/project/add-trade',
