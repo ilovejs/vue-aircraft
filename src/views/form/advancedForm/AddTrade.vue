@@ -4,17 +4,29 @@
       <a-form layout="inline"
               ref="AddTradeForm"
               :form="form"
-              @submit="submitTopForm"
+              @submit="submitAddTradeForm"
       >
         <!--row 1-->
         <a-row :gutter="48">
           <a-col :md="8" :sm="24">
-            <a-form-item label="Project" name="project">
+<!--            -->
+            <a-form-item label="Project" name="project" v-model="chosenProject">
+<!--              <a-select placeholder="Project"-->
+<!--                        v-decorator="['project_id', { rules: [{ required: true, message: 'Please pick project'}] }]">-->
+<!--                <a-select-option value="15">Green Doom Center</a-select-option>-->
+<!--                <a-select-option value="24">Monash Square</a-select-option>-->
+<!--                <a-select-option value="26">Capochino</a-select-option>-->
+<!--              </a-select>-->
               <a-select placeholder="Project"
-                        v-decorator="['project_id', { rules: [{ required: true, message: 'Please pick project'}] }]">
-                <a-select-option value="15">Green Doom Center</a-select-option>
-                <a-select-option value="24">Monash Square</a-select-option>
-                <a-select-option value="26">Capochino</a-select-option>
+                        @focus="fetchProject"
+                        @change="handleProjectChange"
+                        :loading="fetching"
+                        v-decorator="['project_id', { rules: [{ required: true, message: 'Please pick project'}] }]"
+                        name="project">
+                <a-spin v-if="fetching" slot="notFoundContent" size="small"/>
+                <a-select-option v-for="p in projectList" :key="p.value">
+                  {{p.text}}
+                </a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
@@ -180,12 +192,14 @@
 </template>
 
 <script>
-import debounce from 'lodash/debounce'
 import Vue from 'vue'
+import debounce from 'lodash/debounce'
 import { STable } from '@/components'
-import { apiLoadTrades, apiUpdateTrade } from '@/api/trade'
+import { mapActions } from 'vuex'
+import store from '../../../store'
 import { ACCESS_TOKEN, USER_ID } from '@/store/mutation-types'
-import { addTrade, removeTrade, apiLoadCategory } from '@/api/project'
+import { apiLoadTrades, apiUpdateTrade } from '@/api/trade'
+import { addTrade, removeTrade, apiLoadCategory, loadProjects } from '@/api/project'
 
 /* Component Derived from TableInnerEditList */
 export default {
@@ -194,11 +208,32 @@ export default {
     STable
   },
   mounted() {
+    // Modify category
     this.fetchCategory = debounce(this.fetchCategory, 1000)
+
+    // List projects for select dropdown
+    const that = this
+    store.dispatch('ListProjects', { token: this.token }).then(res => {
+      const result = res.projects
+      let projects = result.map((p) => {
+        return {
+          text: p.project.name,
+          value: p.project.id
+        }
+      })
+      console.debug('DISPATCH list project:', projects)
+      // change v-model
+      that.projectList = projects
+    })
   },
   data() {
     return {
+      token: Vue.ls.get(ACCESS_TOKEN),
       form: this.$form.createForm(this),
+      // project dropdown
+      projectList: [],
+      chosenProject: [],
+      // trades ?
       data: [],
       cats: [],
       fetching: false,
@@ -285,6 +320,31 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['ListProjects']),
+    fetchProject(){
+      this.fetching = true
+      console.log('fetchProject')
+      loadProjects(this.token).then((res) => {
+        this.projectList = res['projects'].map((item) => ({
+          text: item.project.name,
+          value: `${item.project.id}`
+        }))
+        console.debug('load project ASSIGN this.data:', this.data)
+      }).catch(e => {
+        console.warn(e)
+      }).finally(() => {
+        this.fetching = false
+      })
+    },
+    handleProjectChange(v) {
+      console.log('handleProjectChange by: ', v)
+      Object.assign(this, {
+        // projectList: v,
+        chosenProject: v,
+        fetching: false
+      })
+      // this.loadProject(this.$route.params.projectId)
+    },
     handleRowChange(value, key, column, record) {
       console.log('handleRowChange', value, key, column)
       record[column.dataIndex] = value
@@ -300,12 +360,9 @@ export default {
     },
     fetchCategory(e){
       this.fetching = true
-
       // setTimeout(() => {}, 3300)
-
       console.log('fetchCategory', e)
       const token = Vue.ls.get(ACCESS_TOKEN)
-
       apiLoadCategory(token).then((body) => {
         this.data = body['trade_categories'].map((t) => ({
           text: t.name,
@@ -318,14 +375,13 @@ export default {
         this.fetching = false
       })
     },
-    submitTopForm(e) {
-      const that = this
-      console.log('submitTopForm', e)
+    submitAddTradeForm(e) {
       e.preventDefault()
+      console.log('submitAddTradeForm', e)
 
-      // todo: not validating ....
+      const that = this
+
       this.form.validateFields((err, values) => {
-
         if (err) {
           this.$notification['error']({
             message: 'Ops',
@@ -340,25 +396,22 @@ export default {
         values.creator_id= parseInt(Vue.ls.get(USER_ID)) || 0
         console.log('err and values after cast', err, values)
 
-        const token = Vue.ls.get(ACCESS_TOKEN)
-
-        addTrade(token, values).then(res => {
+        addTrade(this.token, values).then(res => {
           console.debug('add trades resp:', res)
           // refresh on success
           that.$refs.table.refresh()
           return res.data
-        }).catch(e => {
-          console.warn(e)
-
+        }).catch((error) => {
+          let rsp = error.response
+          console.warn(rsp)
+          // HACK: this is proper error message
           this.$notification['error']({
             message: 'Server Error: ',
-            description: JSON.stringify(e)
+            description: rsp.data.errors.body
           })
-
         }).finally(()=>{
           this.memberLoading = false
         })
-
       })
     },
     edit(row) {
@@ -386,8 +439,7 @@ export default {
         okType: 'danger',
         cancelText: 'Cancel',
         onOk() {
-          const token = Vue.ls.get(ACCESS_TOKEN)
-          return removeTrade(token, row.id).then(res => {
+          return removeTrade(this.token, row.id).then(res => {
             console.debug('remove trades resp:', res)
             // refresh on success
             that.$refs.table.refresh()
@@ -417,7 +469,6 @@ export default {
         this.$message.error('Please fill in data completely')
         return
       }
-      const token = Vue.ls.get(ACCESS_TOKEN)
       /*
       "category_id": 13,
       "creator_id": 13,
@@ -435,7 +486,7 @@ export default {
         'level': row['level'] || '0',
         'value': row['contract_value'] || 0,
       }
-      apiUpdateTrade(token, id, param).then(r => {
+      apiUpdateTrade(this.token, id, param).then(r => {
         this.memberLoading = false
         console.log('update trade:', r)
       }).finally(() => {

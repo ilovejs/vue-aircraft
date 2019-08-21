@@ -1,6 +1,6 @@
 <template>
   <a-card v-model="project" :bordered="false">
-    <!--select project-->
+    <!--select project todo: review projects, unused ?-->
     <detail-list title="" v-model="projects">
       <detail-list-item term="Project">
         <a-select placeholder="Pick a Project" style="width: 100%;"
@@ -78,8 +78,8 @@
 <script>
   import Vue from 'vue'
   import { mapActions } from 'vuex'
-  import { ACCESS_TOKEN } from '@/store/mutation-types'
   import store from '../../../store'
+  import { ACCESS_TOKEN } from '@/store/mutation-types'
   import { STable } from '@/components'
   import DetailList from '@/components/tools/DetailList'
   import { loadProjects, loadSingleProject } from '@/api/project'
@@ -168,7 +168,6 @@
     created () {
       // Load project detail page
       this.loadProject(this.$route.params.projectId)
-      // this.loadTrade(this.$route.params.projectId)
     },
     beforeMount() {
       // List projects for select dropdown
@@ -209,15 +208,6 @@
       toggleAdvanced() {
         this.advanced = !this.advanced
       },
-      handleProjectChange(v) {
-        console.log('handleProjectChange by: ', v)
-        Object.assign(this, {
-          projectList: v,
-          projects: [],
-          fetching: false
-        })
-        // this.loadProject(this.$route.params.projectId)
-      },
       fetchProject(){
         this.fetching = true
         console.log('fetchProject')
@@ -232,6 +222,15 @@
         }).finally(() => {
           this.fetching = false
         })
+      },
+      handleProjectChange(v) {
+        console.log('handleProjectChange by: ', v)
+        Object.assign(this, {
+          projectList: v,
+          projects: [],
+          fetching: false
+        })
+        // this.loadProject(this.$route.params.projectId)
       },
     },
     // watch: {

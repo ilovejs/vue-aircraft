@@ -63,7 +63,7 @@ service.interceptors.request.use((config) => {
   if (token) {
     // each request has access-token
     // config.headers['Access-Token'] = token
-    console.log('Interceptor token: ', token)
+    // console.log('Interceptor token: ', token)
   } else {
     console.log('no token via Interceptor')
   }
