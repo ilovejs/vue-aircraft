@@ -57,7 +57,7 @@ const interceptorErrorCallback = (error) => {
 
 // request interceptor
 service.interceptors.request.use((config) => {
-  console.log('config', config)
+  console.log('request', config)
 
   const token = Vue.ls.get(ACCESS_TOKEN)
   if (token) {

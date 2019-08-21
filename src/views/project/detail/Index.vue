@@ -149,6 +149,9 @@
         loadData: query_params => {
           console.warn('query_params', query_params)
           let pid = this.$route.params.projectId
+          if (!pid) {
+            return { data: []}
+          }
           // for table pagination params
           return apiProjectTrades(this.token, pid,
             Object.assign(query_params, this.queryParam)
@@ -167,12 +170,17 @@
     },
     created () {
       // Load project detail page
-      this.loadProject(this.$route.params.projectId)
+      let pid = this.$route.params.projectId
+      if (pid) {
+        this.loadProject(pid)
+      }
     },
     beforeMount() {
       // List projects for select dropdown
       const that = this
-      store.dispatch('ListProjects', { token: Vue.ls.get(ACCESS_TOKEN) }).then(res => {
+      store.dispatch('ListProjects', {
+        token: Vue.ls.get(ACCESS_TOKEN)
+      }).then(res => {
         const result = res.projects
         let projects = result.map((p) => {
           return {
@@ -187,7 +195,7 @@
     methods: {
       ...mapActions(['ListProjects']),
       loadProject(pid) {
-        console.log('pid: ', pid)
+        console.warn('pid: ', pid)
         loadSingleProject(this.token, pid).then((res) => {
           console.log('loadSingleProject !', res['project'])
           // load into v-model immediately, rather than
@@ -224,13 +232,16 @@
         })
       },
       handleProjectChange(v) {
-        console.log('handleProjectChange by: ', v)
+        console.warn('handleProjectChange by pid ', v)
+
         Object.assign(this, {
           projectList: v,
           projects: [],
           fetching: false
         })
-        // this.loadProject(this.$route.params.projectId)
+
+        // new tab for chosen project
+        this.$router.push('/project/detail/' + v)
       },
     },
     // watch: {

@@ -193,7 +193,8 @@ util/request.js
   
 ## Axios issues
 
-  [1](https://github.com/axios/axios/issues/960#issuecomment-320659373)
+  [tips](https://github.com/axios/axios/issues/960#issuecomment-320659373)
+  [some solution for issue](https://github.com/axios/axios/issues/960)
 
 ## Mock port and Backend environment
 
