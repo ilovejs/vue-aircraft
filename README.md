@@ -1,8 +1,22 @@
-English | [简体中文](./README.zh-CN.md)
-
-<h1 align="center">Ant Design Pro Vue</h1>
+<h1 align="center">Vue Aircraft</h1>
+<h5>An out-of-box UI solution for Enterprise data intensive app </h5>
 <div align="center">
-An out-of-box UI solution for enterprise applications as a Vue boilerplate. based on  <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/" target="_blank">Ant Design of Vue</a>
+  
+  Built on top of Ant Design UI admin template with:
+  
+    * improved multi-tab
+    * logins
+    * pagination async table
+    * simplified axois binding (skipped vuex for some cases)
+  
+  20x built-in customized dashboard components:
+  
+     List, Charts, CountDown, Editor, Menu, Step Form, Tree, Table, Setting Drawer, Auto complete, Card etc.
+     
+  
+  
+  
+  UI from:  <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/" target="_blank">Ant Design of Vue</a>
 </div>
 
 <div align="center">
