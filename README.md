@@ -19,6 +19,8 @@
   UI from:  <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/" target="_blank">Ant Design of Vue</a>
 </div>
 
+  Basic template docs:
+  
 - Preview: https://preview.pro.loacg.com
 - Home Page: https://pro.loacg.com
 - Online Documentation: https://pro.loacg.com/docs/getting-started
